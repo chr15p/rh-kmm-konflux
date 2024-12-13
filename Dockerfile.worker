@@ -1,8 +1,5 @@
 FROM registry.redhat.io/rhel9-4-els/rhel:9.4 AS builder
 
-RUN ["ls", "-l", "/etc/yum.repos.d" ]
-RUN ["ls", "-l", "/etc/rhsm-host" ]
-RUN ["ls", "-l", "/run/secrets/rhsm" ]
 RUN ["dnf", "install", "-y", "golang"]
 RUN ["mkdir", "/opt/kmm"]
 WORKDIR /opt/kmm
