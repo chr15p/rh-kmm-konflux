@@ -23,7 +23,7 @@ COPY kernel-module-management/* .
 #COPY kernel-module-management/Makefile Makefile
 #
 ## Copy the .git directory which is needed to store the build info
-#COPY kernel-module-management/.git .git
+COPY kernel-module-management/.git .git
 
 ARG TARGET
 
