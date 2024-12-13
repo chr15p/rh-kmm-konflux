@@ -4,7 +4,8 @@ FROM registry.redhat.io/rhel9-4-els/rhel:9.4 AS builder
 RUN ["dnf", "install", "-y", "golang"]
 RUN ["mkdir", "/opt/kmm"]
 WORKDIR /opt/kmm
-COPY --chown=1001:0 $REMOTE_SOURCE/app .
+#COPY --chown=1001:0 $REMOTE_SOURCE/app .
+COPY kernel-module-management .
 RUN go build -ldflags="-w -s -X main.Version=${CI_VERSION} -X main.GitCommit=${CI_UPSTREAM_SHORT_COMMIT}" -o webhook-server ./cmd/webhook-server
 
 #@follow_tag(registry.redhat.io/rhel9-4-els/rhel-minimal:9.4)
