@@ -3,26 +3,27 @@ FROM registry.redhat.io/rhel9-4-els/rhel:9.4 AS builder
 
 RUN ["dnf", "install", "-y", "git", "make", "golang"]
 RUN ["mkdir", "/opt/kmm"]
+COPY kernel-module-management/* .
 
-# Copy the Go Modules manifests
-COPY kernel-module-management/go.mod go.mod
-COPY kernel-module-management/go.sum go.sum
-
-# Add the vendored dependencies
-COPY kernel-module-management/vendor vendor
-
-# Copy the go source
-COPY kernel-module-management/api api
-COPY kernel-module-management/api-hub api-hub
-COPY kernel-module-management/cmd cmd
-COPY kernel-module-management/docs.mk docs.mk
-COPY kernel-module-management/internal internal
-
-# Copy Makefile
-COPY kernel-module-management/Makefile Makefile
-
-# Copy the .git directory which is needed to store the build info
-COPY kernel-module-management/.git .git
+## Copy the Go Modules manifests
+#COPY kernel-module-management/go.mod go.mod
+#COPY kernel-module-management/go.sum go.sum
+#
+## Add the vendored dependencies
+#COPY kernel-module-management/vendor vendor
+#
+## Copy the go source
+#COPY kernel-module-management/api api
+#COPY kernel-module-management/api-hub api-hub
+#COPY kernel-module-management/cmd cmd
+#COPY kernel-module-management/docs.mk docs.mk
+#COPY kernel-module-management/internal internal
+#
+## Copy Makefile
+#COPY kernel-module-management/Makefile Makefile
+#
+## Copy the .git directory which is needed to store the build info
+#COPY kernel-module-management/.git .git
 
 ARG TARGET
 
