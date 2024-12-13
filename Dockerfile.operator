@@ -1,0 +1,26 @@
+#@follow_tag(registry.redhat.io/rhel9-4-els/rhel:9.4)
+FROM registry.redhat.io/rhel9-4-els/rhel:9.4 AS builder
+
+RUN ["dnf", "install", "-y", "golang"]
+RUN ["mkdir", "/opt/kmm"]
+WORKDIR /opt/kmm
+COPY --chown=1001:0 $REMOTE_SOURCE/app .
+RUN go build -ldflags="-w -s -X main.Version=${CI_VERSION} -X main.GitCommit=${CI_UPSTREAM_SHORT_COMMIT}" -o manager cmd/manager/main.go
+
+#@follow_tag(registry.redhat.io/rhel9-4-els/rhel-minimal:9.4)
+FROM registry.redhat.io/rhel9-4-els/rhel-minimal:9.4
+
+COPY --from=builder /opt/kmm/manager /usr/local/bin/manager
+ENTRYPOINT ["/usr/local/bin/manager"]
+
+LABEL \
+    com.redhat.component="kernel-module-management-operator-container" \
+    version="$CI_VERSION" \
+    git.commit="$CI_UPSTREAM_SHORT_COMMIT" \
+    name="kernel-module-management/kernel-module-management-rhel9-operator" \
+    License="Apache License 2.0" \
+    io.k8s.display-name="Kernel Module Management" \
+    io.openshift.tags="Operating System" \
+    io.k8s.description="Kernel Module Management - Operator" \
+    summary="Kernel Module Management - Operator" \
+    maintainer="Red Hat Ecosystem - Partner Accelerators Team <edge-kmm@redhat.com>"
