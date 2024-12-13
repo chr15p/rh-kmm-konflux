@@ -1,14 +1,37 @@
 #@follow_tag(registry.redhat.io/rhel9-4-els/rhel:9.4)
 FROM registry.redhat.io/rhel9-4-els/rhel:9.4 AS builder
 
-RUN ["dnf", "install", "-y", "golang"]
-RUN ["mkdir", "/opt/kmm"]
-WORKDIR /opt/kmm
-COPY --chown=1001:0 $REMOTE_SOURCE/app .
-RUN go build -ldflags="-w -s -X main.Version=${CI_VERSION} -X main.GitCommit=${CI_UPSTREAM_SHORT_COMMIT}" -o manager cmd/manager/main.go
+# Copy the Go Modules manifests
+COPY go.mod go.mod
+COPY go.sum go.sum
+
+# Add the vendored dependencies
+COPY vendor vendor
+
+# Copy the go source
+COPY api api
+COPY api-hub api-hub
+COPY cmd cmd
+COPY docs.mk docs.mk
+COPY internal internal
+
+# Copy Makefile
+COPY Makefile Makefile
+
+# Copy the .git directory which is needed to store the build info
+COPY .git .git
+
+ARG TARGET
+
+# Build
+RUN git config --global --add safe.directory ${PWD}
+RUN make ${TARGET}
+
 
 #@follow_tag(registry.redhat.io/rhel9-4-els/rhel-minimal:9.4)
 FROM registry.redhat.io/rhel9-4-els/rhel-minimal:9.4
+
+ARG TARGET
 
 COPY --from=builder /opt/kmm/manager /usr/local/bin/manager
 ENTRYPOINT ["/usr/local/bin/manager"]
