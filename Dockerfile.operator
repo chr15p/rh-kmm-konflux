@@ -1,6 +1,9 @@
 #@follow_tag(registry.redhat.io/rhel9-4-els/rhel:9.4)
 FROM registry.redhat.io/rhel9-4-els/rhel:9.4 AS builder
 
+RUN ["dnf", "install", "-y", "git", "make", "golang"]
+RUN ["mkdir", "/opt/kmm"]
+
 # Copy the Go Modules manifests
 COPY kernel-module-management/go.mod go.mod
 COPY kernel-module-management/go.sum go.sum
