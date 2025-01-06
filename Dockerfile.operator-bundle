@@ -64,7 +64,7 @@ LABEL \
         maintainer="Red Hat Ecosystem - Partner Accelerators Team <edge-kmm@redhat.com>"
 
 # Copy files to locations specified by labels.
-COPY --from-builder /manifests /manifests/
-COPY --from-builder /metadata /metadata/
-COPY --from-builder /tests/scorecard /tests/scorecard/
+COPY --from=builder /manifests /manifests/
+COPY --from=builder /metadata /metadata/
+COPY --from=builder /tests/scorecard /tests/scorecard/
 
