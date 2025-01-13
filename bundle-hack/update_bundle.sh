@@ -10,7 +10,7 @@ export WEBHOOK_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/webho
 
 export WORKER_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/worker-image@sha256:de0caf44205937de482699b919d235bbcbd7e2b79500b3d4e3acc7a691e0324f"
 
-export CSV_FILE=/kernel-module-management/bundle/manifests/kernel-module-management.clusterserviceversion.yaml
+export CSV_FILE=kernel-module-management/bundle/manifests/kernel-module-management.clusterserviceversion.yaml
 
 sed -i \
     -e "s|quay.io/gatekeeper/must-gather-image:v.*|\"${MUSTGATHER_IMAGE_PULLSPEC}\"|g" \
