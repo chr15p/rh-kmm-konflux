@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-export MUSTGATHER_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/must-gather-image@sha256:f0c75465f30d6a9a49d847749330fd04ddeba0177e9349ab0fd91678ca315d26"
+export MUSTGATHER_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/must-gather-image@sha256:885da8ab05609b6774b7bff49e39622481e4fec8489739f903267002402299ae"
 
 export OPERATOR_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/operator-image@sha256:6ced89979ee713c10d23baddd7863cb7c3ef7e465b9d2a5ec59a51ff1a70caea"
 
