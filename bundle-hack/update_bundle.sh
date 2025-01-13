@@ -2,7 +2,7 @@
 
 export MUSTGATHER_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/must-gather-image@sha256:f0c75465f30d6a9a49d847749330fd04ddeba0177e9349ab0fd91678ca315d26"
 
-export OPERATOR_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/operator-image@sha256:86d1034ee4c699345f587553ed75f0aac5e338e478e4d89f3889171bb35b945b"
+export OPERATOR_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/operator-image@sha256:6ced89979ee713c10d23baddd7863cb7c3ef7e465b9d2a5ec59a51ff1a70caea"
 
 export SIGNING_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/signing-image@sha256:6405f37d90acbe54a5e1821fea29d1c30ce7935aae0104a166cd72db934e768b"
 
