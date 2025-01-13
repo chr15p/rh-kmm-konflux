@@ -26,3 +26,4 @@ LABEL \
     io.k8s.description="Kernel Module Management - Operator" \
     summary="Kernel Module Management - Operator" \
     maintainer="Red Hat Ecosystem - Partner Accelerators Team <edge-kmm@redhat.com>"
+

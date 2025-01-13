@@ -24,3 +24,4 @@ LABEL \
     io.k8s.description="Kernel Module Management - Module Signing" \
     summary="Kernel Module Management - Module Signing" \
     maintainer="Red Hat Ecosystem - Partner Accelerators Team <edge-kmm@redhat.com>"
+

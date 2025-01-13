@@ -26,3 +26,4 @@ LABEL \
     io.k8s.description="Kernel Module Management - Webhook Server" \
     summary="Kernel Module Management - Webhook Server" \
     maintainer="Red Hat Ecosystem - Partner Accelerators Team <edge-kmm@redhat.com>"
+
