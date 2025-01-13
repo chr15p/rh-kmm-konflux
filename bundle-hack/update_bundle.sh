@@ -4,7 +4,7 @@ export MUSTGATHER_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/mu
 
 export OPERATOR_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/operator-image@sha256:86d1034ee4c699345f587553ed75f0aac5e338e478e4d89f3889171bb35b945b"
 
-export SIGNING_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/signing-image@sha256:6405f37d90acbe54a5e1821fea29d1c30ce7935aae0104a166cd72db934e768b"
+export SIGNING_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/signing-image@sha256:cd23ef427680d19549d413db2b01c181c5c82b04b26260e0a317d3cb8bd1171f"
 
 export WEBHOOK_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/webhook-image@sha256:28d9acd6444ef3a34f8599e46e5f2fd59f30d36cc86edde7abfdd336ec53b693"
 
