@@ -9,6 +9,7 @@ FROM builder-runner as builder
 COPY bundle-hack .
 COPY kernel-module-management/bundle/manifests /manifests/
 COPY kernel-module-management/bundle/metadata /metadata/
+COPY kernel-module-management/bundle/tests /tests/
 
 RUN ./update_bundle.sh
 

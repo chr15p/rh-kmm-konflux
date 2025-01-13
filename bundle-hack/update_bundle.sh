@@ -14,17 +14,18 @@ export WORKER_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/worker
 export CSV_FILE=/manifests/kernel-module-management.clusterserviceversion.yaml
 
 sed -i \
-    -e "s|quay.io/gatekeeper/must-gather-image:v.*|\"${MUSTGATHER_IMAGE_PULLSPEC}\"|g" \
-    -e "s|quay.io/gatekeeper/operator-image:v.*|\"${OPERATOR_IMAGE_PULLSPEC}\"|g" \
-    -e "s|quay.io/gatekeeper/signing-image:v.*|\"${SIGNING_IMAGE_PULLSPEC}\"|g" \
-    -e "s|quay.io/gatekeeper/webhook-image:v.*|\"${WEBHOOK_IMAGE_PULLSPEC}\"|g" \
-    -e "s|quay.io/gatekeeper/worker-image:v.*|\"${WORKER_IMAGE_PULLSPEC}\"|g" \
+    -e "s|quay.io/gatekeeper/must-gather-image:latest|\"${MUSTGATHER_IMAGE_PULLSPEC}\"|g" \
+    -e "s|quay.io/gatekeeper/operator-image:latest|\"${OPERATOR_IMAGE_PULLSPEC}\"|g" \
+    -e "s|quay.io/gatekeeper/signing-image:latest|\"${SIGNING_IMAGE_PULLSPEC}\"|g" \
+    -e "s|quay.io/gatekeeper/webhook-image:latest|\"${WEBHOOK_IMAGE_PULLSPEC}\"|g" \
+    -e "s|quay.io/gatekeeper/worker-image:latest|\"${WORKER_IMAGE_PULLSPEC}\"|g" \
 	"${CSV_FILE}"
 
-export AMD64_BUILT=$(skopeo inspect --raw docker://${GATEKEEPER_OPERATOR_IMAGE_PULLSPEC} | jq -e '.manifests[] | select(.platform.architecture=="amd64")')
-export ARM64_BUILT=$(skopeo inspect --raw docker://${GATEKEEPER_OPERATOR_IMAGE_PULLSPEC} | jq -e '.manifests[] | select(.platform.architecture=="arm64")')
-export PPC64LE_BUILT=$(skopeo inspect --raw docker://${GATEKEEPER_OPERATOR_IMAGE_PULLSPEC} | jq -e '.manifests[] | select(.platform.architecture=="ppc64le")')
-export S390X_BUILT=$(skopeo inspect --raw docker://${GATEKEEPER_OPERATOR_IMAGE_PULLSPEC} | jq -e '.manifests[] | select(.platform.architecture=="s390x")')
+#export AMD64_BUILT=$(skopeo inspect --raw docker://${GATEKEEPER_OPERATOR_IMAGE_PULLSPEC} | jq -e '.manifests[] | select(.platform.architecture=="amd64")')
+#export ARM64_BUILT=$(skopeo inspect --raw docker://${GATEKEEPER_OPERATOR_IMAGE_PULLSPEC} | jq -e '.manifests[] | select(.platform.architecture=="arm64")')
+#export PPC64LE_BUILT=$(skopeo inspect --raw docker://${GATEKEEPER_OPERATOR_IMAGE_PULLSPEC} | jq -e '.manifests[] | select(.platform.architecture=="ppc64le")')
+#export S390X_BUILT=$(skopeo inspect --raw docker://${GATEKEEPER_OPERATOR_IMAGE_PULLSPEC} | jq -e '.manifests[] | select(.platform.architecture=="s390x")')
+
 
 export EPOC_TIMESTAMP=$(date +%s)
 # time for some direct modifications to the csv
