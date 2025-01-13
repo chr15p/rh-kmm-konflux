@@ -8,7 +8,7 @@ metadata:
     build.appstudio.redhat.com/target_branch: '{{target_branch}}'
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request" && target_branch == "main" &&
-      ".tekton/worker-image-pull-request.yaml".pathChanged() ||
+      (".tekton/worker-image-pull-request.yaml".pathChanged() ||
       ".tekton/worker-image-push.yaml".pathChanged() ||
       "Dockerfile.worker".pathChanged() ||
       "kernel-module-management".pathChanged())
