@@ -8,7 +8,7 @@ export SIGNING_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/signi
 
 export WEBHOOK_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/webhook-image@sha256:28d9acd6444ef3a34f8599e46e5f2fd59f30d36cc86edde7abfdd336ec53b693"
 
-export WORKER_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/worker-image@sha256:b8b1b5942eac715f6871c8a1ad120ead084a72e988e67a49a7a9a35f3b3228d1"
+export WORKER_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/worker-image@sha256:7d56e36cc331c537f688da41e1abbf05711be54a93d7827623c998b6dce8fef0"
 
 #export CSV_FILE=kernel-module-management/bundle/manifests/kernel-module-management.clusterserviceversion.yaml
 export CSV_FILE=/manifests/kernel-module-management.clusterserviceversion.yaml
