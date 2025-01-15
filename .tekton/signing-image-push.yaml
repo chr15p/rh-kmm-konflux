@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1
 kind: PipelineRun
 metadata:
   annotations:
-    build.appstudio.openshift.io/build-nudge-files: "bundle-hack/update_bundle.sh"
+    build.appstudio.openshift.io/build-nudge-files: "bundle-hack/signing.pullspec"
     build.appstudio.openshift.io/repo: https://github.com/chr15p/rh-kmm-konflux?rev={{revision}}
     build.appstudio.redhat.com/commit_sha: '{{revision}}'
     build.appstudio.redhat.com/target_branch: '{{target_branch}}'
@@ -10,6 +10,7 @@ metadata:
     pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch == "main" &&
       (".tekton/signing-image-pull-request.yaml".pathChanged() ||
       ".tekton/signing-image-push.yaml".pathChanged() ||
+      "bundle-hack/signing.pullspec".pathChanged() ||
       "Dockerfile.signing".pathChanged() ||
       "kernel-module-management".pathChanged())
   creationTimestamp: null

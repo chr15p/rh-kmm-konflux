@@ -1,16 +1,15 @@
 #!/usr/bin/env bash
 
-export MUSTGATHER_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/must-gather-image@sha256:885da8ab05609b6774b7bff49e39622481e4fec8489739f903267002402299ae"
+export MUSTGATHER_IMAGE_PULLSPEC=$(cat bundle-hack/must-gather.pullspec)
 
-export OPERATOR_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/operator-image@sha256:6ced89979ee713c10d23baddd7863cb7c3ef7e465b9d2a5ec59a51ff1a70caea"
+export OPERATOR_IMAGE_PULLSPEC=$(cat bundle-hack/operator.pullspec)
 
-export SIGNING_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/signing-image@sha256:cd23ef427680d19549d413db2b01c181c5c82b04b26260e0a317d3cb8bd1171f"
+export SIGNING_IMAGE_PULLSPEC=$(cat bundle-hack/signing.pullspec)
 
-export WEBHOOK_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/webhook-image@sha256:3869e8106d36997852d97b07d501c3ad1543410763cb65b95a179cdeebc2e5fb"
+export WEBHOOK_IMAGE_PULLSPEC=$(cat bundle-hack/webhook.pullspec)
 
-export WORKER_IMAGE_PULLSPEC="quay.io/redhat-user-workloads/rh-kmm-tenant/worker-image@sha256:7d56e36cc331c537f688da41e1abbf05711be54a93d7827623c998b6dce8fef0"
+export WORKER_IMAGE_PULLSPEC=$(cat bundle-hack/worker.pullspec)
 
-#export CSV_FILE=kernel-module-management/bundle/manifests/kernel-module-management.clusterserviceversion.yaml
 export CSV_FILE=/manifests/kernel-module-management.clusterserviceversion.yaml
 
 sed -i \
