@@ -10,7 +10,7 @@ metadata:
     pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch == "main" &&
       (".tekton/signing-image-pull-request.yaml".pathChanged() ||
       ".tekton/signing-image-push.yaml".pathChanged() ||
-      "bundle-hack/signing.pullspec".pathChanged() ||
+      "bundle-hack/must-gather.pullspec".pathChanged() ||
       "Dockerfile.signing".pathChanged() ||
       "kernel-module-management".pathChanged())
   creationTimestamp: null

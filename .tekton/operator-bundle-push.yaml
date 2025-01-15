@@ -9,6 +9,7 @@ metadata:
     pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch == "main" &&
       (".tekton/operator-bundle-pull-request.yaml".pathChanged() || 
       ".tekton/operator-bundle-push.yaml".pathChanged() || 
+      "bundle-hack/operator.pullspec".pathChanged() ||
       "Dockerfile.operator-bundle".pathChanged() ||
       "kernel-module-management".pathChanged() ||
       "bundle-hack/***".pathChanged())
