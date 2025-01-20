@@ -23,3 +23,4 @@ LABEL \
     io.k8s.description="Kernel Module Management - Must-Gather" \
     summary="Kernel Module Management - Must-Gather" \
     maintainer="Red Hat Ecosystem - Partner Accelerators Team <edge-kmm@redhat.com>"
+
