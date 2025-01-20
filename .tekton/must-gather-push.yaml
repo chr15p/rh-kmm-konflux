@@ -2,12 +2,16 @@ apiVersion: tekton.dev/v1
 kind: PipelineRun
 metadata:
   annotations:
+    build.appstudio.openshift.io/build-nudge-files: "bundle-hack/must-gather.pullspec"
     build.appstudio.openshift.io/repo: https://github.com/chr15p/rh-kmm-konflux?rev={{revision}}
     build.appstudio.redhat.com/commit_sha: '{{revision}}'
     build.appstudio.redhat.com/target_branch: '{{target_branch}}'
     pipelinesascode.tekton.dev/max-keep-runs: "3"
-    pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch
-      == "main"
+    pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch == "main" &&
+      (".tekton/must-gather-pull-request.yaml".pathChanged() ||
+      ".tekton/must-gather-push.yaml".pathChanged() ||
+      "Dockerfile.must-gather".pathChanged() ||
+      "kernel-module-management".pathChanged())
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: kernel-module-management
