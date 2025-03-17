@@ -1,4 +1,5 @@
-FROM quay.io/openshift/origin-cli:4.20 as builder
+#FROM quay.io/openshift/origin-cli:4.20 as builder
+FROM registry-proxy.engineering.redhat.com/rh-osbs/openshift-ose-cli:v4.16.0-202405020546.p0.g51e5705.assembly.stream.el8 AS builder
 
 #@follow_tag(registry.redhat.io/rhel9-4-els/rhel-minimal:9.4)
 FROM registry.redhat.io/rhel9-4-els/rhel-minimal:9.4
