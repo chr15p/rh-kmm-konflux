@@ -1,6 +1,6 @@
 #FROM registry.redhat.io/rhel9-4-els/rhel:9.4 AS builder
-#FROM registry-proxy.engineering.redhat.com/rh-osbs/openshift-ose-cli:v4.16.0-202405020546.p0.g51e5705.assembly.stream.el8 AS builder
-FROM registry-proxy.engineering.redhat.com/rh-osbs/openshift-golang-builder:v1.23.4-202502100816.g6c23478.el9 AS builder
+#FROM registry-proxy.engineering.redhat.com/rh-osbs/openshift-golang-builder:v1.23.4-202502100816.g6c23478.el9 AS builder
+FROM golang:1.23 as builder
 
 RUN ["dnf", "install", "-y", "golang"]
 RUN ["mkdir", "/opt/kmm"]
