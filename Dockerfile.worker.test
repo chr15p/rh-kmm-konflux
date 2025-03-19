@@ -2,7 +2,7 @@
 #FROM registry-proxy.engineering.redhat.com/rh-osbs/openshift-golang-builder:v1.23.4-202502100816.g6c23478.el9 AS builder
 #FROM golang:1.23 as builder
 
-FROM quay.io/centos/centos:9
+FROM quay.io/centos/centos:10
 
 RUN ["dnf", "install", "-y", "golang"]
 RUN ["mkdir", "/opt/kmm"]
