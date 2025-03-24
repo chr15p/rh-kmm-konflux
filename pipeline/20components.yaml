@@ -4,6 +4,8 @@ metadata:
   annotations:
     build.appstudio.openshift.io/pipeline: '{"name":"docker-build","bundle":"latest"}'
     build.appstudio.openshift.io/request: configure-pac
+    git-provider: github
+    git-provider-url: https://github.com
   name: hub-operator-24
   namespace: rh-kmm-tenant
 spec:
@@ -22,6 +24,8 @@ metadata:
   annotations:
     build.appstudio.openshift.io/pipeline: '{"name":"docker-build","bundle":"latest"}'
     build.appstudio.openshift.io/request: configure-pac
+    git-provider: github
+    git-provider-url: https://github.com
   name: must-gather-24
   namespace: rh-kmm-tenant
 spec:
@@ -40,6 +44,8 @@ metadata:
   annotations:
     build.appstudio.openshift.io/pipeline: '{"name":"docker-build","bundle":"latest"}'
     build.appstudio.openshift.io/request: configure-pac
+    git-provider: github
+    git-provider-url: https://github.com
   name: operator-24
   namespace: rh-kmm-tenant
 spec:
@@ -58,6 +64,8 @@ metadata:
   annotations:
     build.appstudio.openshift.io/pipeline: '{"name":"docker-build","bundle":"latest"}'
     build.appstudio.openshift.io/request: configure-pac
+    git-provider: github
+    git-provider-url: https://github.com
   name: signing-24
   namespace: rh-kmm-tenant
 spec:
@@ -76,6 +84,8 @@ metadata:
   annotations:
     build.appstudio.openshift.io/pipeline: '{"name":"docker-build","bundle":"latest"}'
     build.appstudio.openshift.io/request: configure-pac
+    git-provider: github
+    git-provider-url: https://github.com
   name: webhook-24
   namespace: rh-kmm-tenant
 spec:
@@ -94,6 +104,8 @@ metadata:
   annotations:
     build.appstudio.openshift.io/pipeline: '{"name":"docker-build","bundle":"latest"}'
     build.appstudio.openshift.io/request: configure-pac
+    git-provider: github
+    git-provider-url: https://github.com
   name: worker-24
   namespace: rh-kmm-tenant
 spec:
