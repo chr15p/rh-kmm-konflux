@@ -1,0 +1,169 @@
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: ImageRepository
+metadata:
+  annotations:
+    image-controller.appstudio.redhat.com/update-component-image: "true"
+  labels:
+    appstudio.redhat.com/application: kmm-24
+    appstudio.redhat.com/component: hub-operator-24
+  name: hub-operator-24-image-repository
+  namespace: rh-kmm-tenant
+spec:
+  image:
+    name: rh-kmm-tenant/kmm-24/hub-operator-24
+    visibility: public
+  notifications:
+  - config:
+      url: https://bombino.api.redhat.com/v1/sbom/quay/push
+    event: repo_push
+    method: webhook
+    title: SBOM-event-to-Bombino
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: ImageRepository
+metadata:
+  annotations:
+    image-controller.appstudio.redhat.com/update-component-image: "true"
+  labels:
+    appstudio.redhat.com/application: kmm-24
+    appstudio.redhat.com/component: must-gather-24
+  name: must-gather-24-image-repository
+  namespace: rh-kmm-tenant
+spec:
+  image:
+    name: rh-kmm-tenant/kmm-24/must-gather-24
+    visibility: public
+  notifications:
+  - config:
+      url: https://bombino.api.redhat.com/v1/sbom/quay/push
+    event: repo_push
+    method: webhook
+    title: SBOM-event-to-Bombino
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: ImageRepository
+metadata:
+  annotations:
+    image-controller.appstudio.redhat.com/update-component-image: "true"
+  labels:
+    appstudio.redhat.com/application: kmm-24
+    appstudio.redhat.com/component: operator-24
+  name: operator-24-image-repository
+  namespace: rh-kmm-tenant
+spec:
+  image:
+    name: rh-kmm-tenant/kmm-24/operator-24
+    visibility: public
+  notifications:
+  - config:
+      url: https://bombino.api.redhat.com/v1/sbom/quay/push
+    event: repo_push
+    method: webhook
+    title: SBOM-event-to-Bombino
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: ImageRepository
+metadata:
+  annotations:
+    image-controller.appstudio.redhat.com/update-component-image: "true"
+  labels:
+    appstudio.redhat.com/application: kmm-24
+    appstudio.redhat.com/component: signing-24
+  name: signing-24-image-repository
+  namespace: rh-kmm-tenant
+spec:
+  image:
+    name: rh-kmm-tenant/kmm-24/signing-24
+    visibility: public
+  notifications:
+  - config:
+      url: https://bombino.api.redhat.com/v1/sbom/quay/push
+    event: repo_push
+    method: webhook
+    title: SBOM-event-to-Bombino
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: ImageRepository
+metadata:
+  annotations:
+    image-controller.appstudio.redhat.com/update-component-image: "true"
+  labels:
+    appstudio.redhat.com/application: kmm-24
+    appstudio.redhat.com/component: webhook-24
+  name: webhook-24
+  namespace: rh-kmm-tenant
+spec:
+  image:
+    name: rh-kmm-tenant/kmm-24/webhook-24
+    visibility: public
+  notifications:
+  - config:
+      url: https://bombino.api.redhat.com/v1/sbom/quay/push
+    event: repo_push
+    method: webhook
+    title: SBOM-event-to-Bombino
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: ImageRepository
+metadata:
+  annotations:
+    image-controller.appstudio.redhat.com/update-component-image: "true"
+  labels:
+    appstudio.redhat.com/application: kmm-24
+    appstudio.redhat.com/component: worker-24
+  name: worker-24-image-repository
+  namespace: rh-kmm-tenant
+spec:
+  image:
+    name: rh-kmm-tenant/kmm-24/worker-24
+    visibility: public
+  notifications:
+  - config:
+      url: https://bombino.api.redhat.com/v1/sbom/quay/push
+    event: repo_push
+    method: webhook
+    title: SBOM-event-to-Bombino
+---
+
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: ImageRepository
+metadata:
+  annotations:
+    image-controller.appstudio.redhat.com/update-component-image: "true"
+  labels:
+    appstudio.redhat.com/application: kmm-24
+    appstudio.redhat.com/component: operator-bundle-24
+  name: operator-bundle-24-image-repository
+  namespace: rh-kmm-tenant
+spec:
+  image:
+    name: rh-kmm-tenant/kmm-24/operator-bundle-24
+    visibility: public
+  notifications:
+  - config:
+      url: https://bombino.api.redhat.com/v1/sbom/quay/push
+    event: repo_push
+    method: webhook
+    title: SBOM-event-to-Bombino
+---
+
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: ImageRepository
+metadata:
+  annotations:
+    image-controller.appstudio.redhat.com/update-component-image: "true"
+  labels:
+    appstudio.redhat.com/application: kmm-24
+    appstudio.redhat.com/component: hub-operator-bundle-24
+  name: hub-operator-bundle-24-image-repository
+  namespace: rh-kmm-tenant
+spec:
+  image:
+    name: rh-kmm-tenant/kmm-24/hub-operator-bundle-24
+    visibility: public
+  notifications:
+  - config:
+      url: https://bombino.api.redhat.com/v1/sbom/quay/push
+    event: repo_push
+    method: webhook
+    title: SBOM-event-to-Bombino

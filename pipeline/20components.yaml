@@ -1,0 +1,148 @@
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Component
+metadata:
+  annotations:
+    build.appstudio.openshift.io/pipeline: '{"name":"docker-build","bundle":"latest"}'
+    build.appstudio.openshift.io/request: configure-pac
+  name: hub-operator-24
+  namespace: rh-kmm-tenant
+spec:
+  application: kmm-24
+  componentName: hub-operator
+  source:
+    git:
+      context: ./
+      dockerfileUrl: Dockerfile.hub-operator
+      revision: release-2.4
+      url: https://github.com/chr15p/rh-kmm-konflux
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Component
+metadata:
+  annotations:
+    build.appstudio.openshift.io/pipeline: '{"name":"docker-build","bundle":"latest"}'
+    build.appstudio.openshift.io/request: configure-pac
+  name: must-gather-24
+  namespace: rh-kmm-tenant
+spec:
+  application: kmm-24
+  componentName: must-gather
+  source:
+    git:
+      context: ./
+      dockerfileUrl: Dockerfile.must-gather
+      revision: release-2.4
+      url: https://github.com/chr15p/rh-kmm-konflux
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Component
+metadata:
+  annotations:
+    build.appstudio.openshift.io/pipeline: '{"name":"docker-build","bundle":"latest"}'
+    build.appstudio.openshift.io/request: configure-pac
+  name: operator-24
+  namespace: rh-kmm-tenant
+spec:
+  application: kmm-24
+  componentName: operator
+  source:
+    git:
+      context: ./
+      dockerfileUrl: Dockerfile.operator
+      revision: release-2.4
+      url: https://github.com/chr15p/rh-kmm-konflux
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Component
+metadata:
+  annotations:
+    build.appstudio.openshift.io/pipeline: '{"name":"docker-build","bundle":"latest"}'
+    build.appstudio.openshift.io/request: configure-pac
+  name: signing-24
+  namespace: rh-kmm-tenant
+spec:
+  application: kmm-24
+  componentName: signing
+  source:
+    git:
+      context: ./
+      dockerfileUrl: Dockerfile.signing
+      revision: release-2.4
+      url: https://github.com/chr15p/rh-kmm-konflux
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Component
+metadata:
+  annotations:
+    build.appstudio.openshift.io/pipeline: '{"name":"docker-build","bundle":"latest"}'
+    build.appstudio.openshift.io/request: configure-pac
+  name: webhook-24
+  namespace: rh-kmm-tenant
+spec:
+  application: kmm-24
+  componentName: webhook-24
+  source:
+    git:
+      context: ./
+      dockerfileUrl: Dockerfile.webhook
+      revision: release-2.4
+      url: https://github.com/chr15p/rh-kmm-konflux
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Component
+metadata:
+  annotations:
+    build.appstudio.openshift.io/pipeline: '{"name":"docker-build","bundle":"latest"}'
+    build.appstudio.openshift.io/request: configure-pac
+  name: worker-24
+  namespace: rh-kmm-tenant
+spec:
+  application: kmm-24
+  componentName: worker
+  source:
+    git:
+      context: ./
+      dockerfileUrl: Dockerfile.worker
+      revision: release-2.4
+      url: https://github.com/chr15p/rh-kmm-konflux
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Component
+metadata:
+  annotations:
+    build.appstudio.openshift.io/pipeline: '{"name":"docker-build-multi-platform-oci-ta","bundle":"latest"}'
+    git-provider: github
+    git-provider-url: https://github.com
+  name: operator-24-bundle
+  namespace: rh-kmm-tenant
+spec:
+  application: kmm-24
+  componentName: operator-24-bundle
+  source:
+    git:
+      context: ./
+      dockerfileUrl: Dockerfile.operator-bundle
+      revision: release-2.4
+      url: https://github.com/chr15p/rh-kmm-konflux
+
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Component
+metadata:
+  annotations:
+    build.appstudio.openshift.io/pipeline: '{"name":"docker-build-multi-platform-oci-ta","bundle":"latest"}'
+    git-provider: github
+    git-provider-url: https://github.com
+  name: hub-operator-24-bundle
+  namespace: rh-kmm-tenant
+spec:
+  application: kmm-24
+  componentName: hub-operator-24-bundle
+  source:
+    git:
+      context: ./
+      dockerfileUrl: Dockerfile.hub-operator-bundle
+      revision: release-2.4
+      url: https://github.com/chr15p/rh-kmm-konflux
+
+
