@@ -8,8 +8,12 @@ metadata:
     pipelinesascode.tekton.dev/cancel-in-progress: "false"
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch
-      == "release-2.4"
-  creationTimestamp: null
+      == "release-2.4" &&
+      (".tekton/hub-operator-24-pull-request.yaml".pathChanged() ||
+      ".tekton/hub-operator-24-push.yaml".pathChanged() ||
+      "bundle-hack/worker.pullspec".pathChanged() ||
+      "Dockerfile.hub-operator".pathChanged() ||
+      "kernel-module-management".pathChanged())
   labels:
     appstudio.openshift.io/application: kmm-24
     appstudio.openshift.io/component: hub-operator-24
