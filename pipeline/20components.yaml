@@ -11,6 +11,8 @@ metadata:
 spec:
   application: kmm-24
   componentName: hub-operator
+  build-nudges-ref:
+  - hub-operator-bundle
   source:
     git:
       context: ./
@@ -31,6 +33,8 @@ metadata:
 spec:
   application: kmm-24
   componentName: must-gather
+  build-nudges-ref:
+  - signing-24
   source:
     git:
       context: ./
@@ -51,6 +55,8 @@ metadata:
 spec:
   application: kmm-24
   componentName: operator
+  build-nudges-ref:
+  - operator-bundle-24
   source:
     git:
       context: ./
@@ -71,6 +77,8 @@ metadata:
 spec:
   application: kmm-24
   componentName: signing
+  build-nudges-ref:
+  - webhook-24
   source:
     git:
       context: ./
@@ -91,6 +99,8 @@ metadata:
 spec:
   application: kmm-24
   componentName: webhook-24
+  build-nudges-ref:
+  - worker-24
   source:
     git:
       context: ./
@@ -111,6 +121,8 @@ metadata:
 spec:
   application: kmm-24
   componentName: worker
+  build-nudges-ref:
+  - operator-24
   source:
     git:
       context: ./
