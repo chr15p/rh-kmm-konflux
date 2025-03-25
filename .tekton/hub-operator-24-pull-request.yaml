@@ -10,16 +10,16 @@ metadata:
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request" && target_branch
       == "release-2.4" &&
-      (".tekton/must-gather-24-pull-request.yaml".pathChanged() ||
-      ".tekton/must-gather-24-push.yaml".pathChanged() ||
-      "Dockerfile.must-gather".pathChanged() ||
+      (".tekton/hub-operator-24-pull-request.yaml".pathChanged() ||
+      ".tekton/hub-operator-24-push.yaml".pathChanged() ||
+      "Dockerfile.hub-operator".pathChanged() ||
       "kernel-module-management".pathChanged())
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: kmm-24
-    appstudio.openshift.io/component: must-gather-24
+    appstudio.openshift.io/component: hub-operator-24
     pipelines.appstudio.openshift.io/type: build
-  name: must-gather-24-on-pull-request
+  name: hub-operator-24-on-pull-request
   namespace: rh-kmm-tenant
 spec:
   params:
@@ -28,14 +28,14 @@ spec:
   - name: revision
     value: '{{revision}}'
   - name: output-image
-    value: quay.io/redhat-user-workloads/rh-kmm-tenant/kmm-24/must-gather-24:on-pr-{{revision}}
+    value: quay.io/redhat-user-workloads/rh-kmm-tenant/kmm-24/hub-operator-24:on-pr-{{revision}}
   - name: image-expires-after
     value: 5d
   - name: build-platforms
     value:
     - linux/x86_64
   - name: dockerfile
-    value: Dockerfile.must-gather
+    value: Dockerfile.hub-operator
   - name: path-context
     value: .
   pipelineSpec:
