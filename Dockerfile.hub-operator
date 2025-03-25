@@ -1,7 +1,7 @@
 ##@follow_tag(registry.redhat.io/ubi9/ubi-minimal:9.5)
 #FROM registry.redhat.io/ubi9/ubi-minimal:9.5-1739420147 AS builder
 #@follow_tag(registry-proxy.engineering.redhat.com/rh-osbs/openshift-golang-builder:v1.23)
-FROM quay.io/centos/centos:9 as builder
+FROM quay.io/centos/centos:10 as builder
 
 RUN ["dnf", "install", "-y", "golang"]
 RUN ["mkdir", "/opt/kmm"]
