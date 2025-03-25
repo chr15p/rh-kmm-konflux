@@ -14,7 +14,6 @@ metadata:
       "bundle-hack/worker.pullspec".pathChanged() ||
       "Dockerfile.hub-operator".pathChanged() ||
       "kernel-module-management".pathChanged())
-  creationTimestamp: null
   labels:
     appstudio.openshift.io/application: kmm-24
     appstudio.openshift.io/component: hub-operator-24

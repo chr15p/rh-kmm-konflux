@@ -15,7 +15,6 @@ metadata:
       "Dockerfile.worker".pathChanged() ||
       "kernel-module-management".pathChanged())
   creationTimestamp: null
-  creationTimestamp: null
   labels:
     appstudio.openshift.io/application: kmm-24
     appstudio.openshift.io/component: worker-24
