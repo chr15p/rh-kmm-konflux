@@ -8,7 +8,12 @@ metadata:
     pipelinesascode.tekton.dev/cancel-in-progress: "false"
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch
-      == "release-2.4"
+      == "release-2.4" &&
+      (".tekton/webhook-24-pull-request.yaml".pathChanged() ||
+      ".tekton/webhook-24-push.yaml".pathChanged() ||
+      "bundle-hack/signing.pullspec".pathChanged() ||
+      "Dockerfile.webhook".pathChanged() ||
+      "kernel-module-management".pathChanged())
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: kmm-24
