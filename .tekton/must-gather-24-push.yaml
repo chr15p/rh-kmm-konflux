@@ -30,7 +30,10 @@ spec:
     value: quay.io/redhat-user-workloads/rh-kmm-tenant/kmm-24/must-gather-24:{{revision}}
   - name: build-platforms
     value:
-    - linux/x86_64
+      - localhost
+      - linux/arm64
+      - linux/ppc64le
+      - linux/s390x
   - name: dockerfile
     value: Dockerfile.must-gather
   - name: path-context

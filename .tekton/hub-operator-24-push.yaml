@@ -30,7 +30,10 @@ spec:
     value: quay.io/redhat-user-workloads/rh-kmm-tenant/kmm-24/hub-operator-24:{{revision}}
   - name: build-platforms
     value:
-    - linux/x86_64
+      - localhost
+      - linux/arm64
+      - linux/ppc64le
+      - linux/s390x
   - name: dockerfile
     value: Dockerfile.hub-operator
   - name: path-context

@@ -33,7 +33,10 @@ spec:
     value: 5d
   - name: build-platforms
     value:
-    - linux/x86_64
+      - localhost
+      - linux/arm64
+      - linux/ppc64le
+      - linux/s390x
   - name: dockerfile
     value: Dockerfile.operator
   - name: path-context
