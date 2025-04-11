@@ -9,7 +9,7 @@ metadata:
     pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch == "release-2.4" &&
       (".tekton/operator-bundle-24-pull-request.yaml".pathChanged() || 
       ".tekton/operator-bundle-24-push.yaml".pathChanged() || 
-      "bundle-hack/operator.pullspec".pathChanged() ||
+      "bundle-hack/operator.yaml".pathChanged() ||
       "Dockerfile.operator-bundle".pathChanged() ||
       "kernel-module-management".pathChanged())
   creationTimestamp: null

@@ -11,7 +11,7 @@ metadata:
       == "release-2.4" &&
       (".tekton/webhook-24-pull-request.yaml".pathChanged() ||
       ".tekton/webhook-24-push.yaml".pathChanged() ||
-      "bundle-hack/signing.pullspec".pathChanged() ||
+      "bundle-hack/signing.yaml".pathChanged() ||
       "Dockerfile.webhook".pathChanged() ||
       "kernel-module-management".pathChanged())
   creationTimestamp: null

@@ -11,7 +11,7 @@ metadata:
       == "release-2.4" &&
       (".tekton/hub-operator-24-pull-request.yaml".pathChanged() ||
       ".tekton/hub-operator-24-push.yaml".pathChanged() ||
-      "bundle-hack/worker.pullspec".pathChanged() ||
+      "bundle-hack/worker.yaml".pathChanged() ||
       "Dockerfile.hub-operator".pathChanged() ||
       "kernel-module-management".pathChanged())
   labels:

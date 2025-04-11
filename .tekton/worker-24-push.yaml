@@ -11,7 +11,7 @@ metadata:
       == "release-2.4" &&
       (".tekton/worker-24-pull-request.yaml".pathChanged() ||
       ".tekton/worker-24-push.yaml".pathChanged() ||
-      "bundle-hack/webhook.pullspec".pathChanged() ||
+      "bundle-hack/webhook.yaml".pathChanged() ||
       "Dockerfile.worker".pathChanged() ||
       "kernel-module-management".pathChanged())
   creationTimestamp: null

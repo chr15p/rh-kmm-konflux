@@ -11,7 +11,7 @@ metadata:
       == "release-2.4" &&
       (".tekton/signing-24-pull-request.yaml".pathChanged() ||
       ".tekton/signing-24-push.yaml".pathChanged() ||
-      "bundle-hack/must-gather.pullspec".pathChanged() ||
+      "bundle-hack/must-gather.yaml".pathChanged() ||
       "Dockerfile.signing".pathChanged() ||
       "kernel-module-management".pathChanged())
   creationTimestamp: null
