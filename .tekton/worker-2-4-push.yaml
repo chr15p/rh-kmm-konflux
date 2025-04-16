@@ -8,13 +8,13 @@ metadata:
     pipelinesascode.tekton.dev/cancel-in-progress: "false"
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch
-      == "release-2.4"
+      == "release-2.4" && "webhook.yaml".pathChanged()
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: kmm-2-4
-    appstudio.openshift.io/component: must-gather-2-4
+    appstudio.openshift.io/component: worker-2-4
     pipelines.appstudio.openshift.io/type: build
-  name: must-gather-2-4-on-push
+  name: worker-2-4-on-push
   namespace: rh-kmm-tenant
 spec:
   params:
@@ -23,12 +23,12 @@ spec:
   - name: revision
     value: '{{revision}}'
   - name: output-image
-    value: quay.io/redhat-user-workloads/rh-kmm-tenant/kmm-2-4/must-gather-2-4:{{revision}}
+    value: quay.io/redhat-user-workloads/rh-kmm-tenant/kmm-2-4/worker-2-4:{{revision}}
   - name: build-platforms
     value:
     - linux/x86_64
   - name: dockerfile
-    value: Dockerfile.must-gather
+    value: Dockerfile.worker
   - name: path-context
     value: .
   pipelineSpec:
