@@ -9,13 +9,13 @@ metadata:
     pipelinesascode.tekton.dev/cancel-in-progress: "true"
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request" && target_branch
-      == "release-2.4" && "worker.yaml".pathChanged() && False
+      == "release-2.4" && "must-gather.yaml".pathChanged() && False
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: kmm-2-4
-    appstudio.openshift.io/component: operator-2-4
+    appstudio.openshift.io/component: signing-2-4
     pipelines.appstudio.openshift.io/type: build
-  name: operator-2-4-on-pull-request
+  name: signing-2-4-on-pull-request
   namespace: rh-kmm-tenant
 spec:
   params:
@@ -24,14 +24,14 @@ spec:
   - name: revision
     value: '{{revision}}'
   - name: output-image
-    value: quay.io/redhat-user-workloads/rh-kmm-tenant/kmm-2-4/operator-2-4:on-pr-{{revision}}
+    value: quay.io/redhat-user-workloads/rh-kmm-tenant/kmm-2-4/signing-2-4:on-pr-{{revision}}
   - name: image-expires-after
     value: 5d
   - name: build-platforms
     value:
     - linux/x86_64
   - name: dockerfile
-    value: Dockerfile.operator
+    value: Dockerfile.signing
   - name: path-context
     value: .
   pipelineSpec:
