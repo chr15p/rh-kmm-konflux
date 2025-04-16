@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-export MUSTGATHER_IMAGE_PULLSPEC=$(cat bundle-hack/must-gather.pullspec)
+export MUSTGATHER_IMAGE_PULLSPEC=$(cat bundle-hack/must-gather.yaml)
 
-export OPERATOR_IMAGE_PULLSPEC=$(cat bundle-hack/operator.pullspec)
+export OPERATOR_IMAGE_PULLSPEC=$(cat bundle-hack/operator.yaml)
 
-export SIGNING_IMAGE_PULLSPEC=$(cat bundle-hack/signing.pullspec)
+export SIGNING_IMAGE_PULLSPEC=$(cat bundle-hack/signing.yaml)
 
-export WEBHOOK_IMAGE_PULLSPEC=$(cat bundle-hack/webhook.pullspec)
+export WEBHOOK_IMAGE_PULLSPEC=$(cat bundle-hack/webhook.yaml)
 
-export WORKER_IMAGE_PULLSPEC=$(cat bundle-hack/worker.pullspec)
+export WORKER_IMAGE_PULLSPEC=$(cat bundle-hack/worker.yaml)
 
 export CSV_FILE=/manifests/kernel-module-management.clusterserviceversion.yaml
 
