@@ -16,7 +16,6 @@ CMD "/usr/bin/gather"
 
 LABEL \
     com.redhat.component="kernel-module-management-must-gather-container" \
-    version="$CI_VERSION" \
     name="kernel-module-management/kernel-module-management-must-gather-rhel9" \
     License="Apache License 2.0" \
     io.k8s.display-name="Kernel Module Management - Must-Gather" \
