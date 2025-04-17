@@ -5,10 +5,9 @@ metadata:
     build.appstudio.openshift.io/repo: https://github.com/chr15p/rh-kmm-konflux?rev={{revision}}
     build.appstudio.redhat.com/commit_sha: '{{revision}}'
     build.appstudio.redhat.com/target_branch: '{{target_branch}}'
-    pipelinesascode.tekton.dev/cancel-in-progress: "true"
+    pipelinesascode.tekton.dev/cancel-in-progress: "false"
     pipelinesascode.tekton.dev/max-keep-runs: "3"
-    pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch
-      == "release-2.4"
+    pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch == "release-2.4" && "Dockerfile.must-gather".pathChanged()
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: kmm-2-4
@@ -27,6 +26,9 @@ spec:
   - name: build-platforms
     value:
     - linux/x86_64
+    - linux/arm64
+    - linux/ppc64le
+    - linux/s390x
   - name: dockerfile
     value: Dockerfile.must-gather
   - name: path-context
