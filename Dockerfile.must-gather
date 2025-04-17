@@ -2,7 +2,7 @@ FROM registry.redhat.io/openshift4/ose-cli-rhel9 as builder
 #FROM registry-proxy.engineering.redhat.com/rh-osbs/openshift-ose-cli:v4.16.0-202405020546.p0.g51e5705.assembly.stream.el8 AS builder
 
 #RUN microdnf install -y yq
-RUN sh -c "oc get -o yaml component must-gather-2-4 | awk '/lastPromotedImage/{print $2}'
+RUN sh -c "oc get -o yaml component must-gather-2-4 | awk '/lastPromotedImage/{print $2}'"
 #@follow_tag(registry.redhat.io/rhel9-4-els/rhel-minimal:9.4)
 FROM registry.redhat.io/ubi9/ubi-minimal:9.5
 
