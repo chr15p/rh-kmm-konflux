@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-export MUSTGATHER_IMAGE_PULLSPEC=$(kubectl get -o yaml component must-gather-2-4 -o json | jq '.status.lastPromotedImage')
+export MUSTGATHER_IMAGE_PULLSPEC=$(oc get -o json component must-gather-2-4 -o json | jq '.status.lastPromotedImage')
 
-export OPERATOR_IMAGE_PULLSPEC=$(kubectl get -o yaml component operator-2-4 -o json | jq '.status.lastPromotedImage')
+export OPERATOR_IMAGE_PULLSPEC=$(oc get -o json component operator-2-4 -o json | jq '.status.lastPromotedImage')
 
-export SIGNING_IMAGE_PULLSPEC=$(kubectl get -o yaml component signing-2-4 -o json | jq '.status.lastPromotedImage')
+export SIGNING_IMAGE_PULLSPEC=$(oc get -o json component signing-2-4 -o json | jq '.status.lastPromotedImage')
 
-export WEBHOOK_IMAGE_PULLSPEC=$(kubectl get -o yaml component webhook-2-4 -o json | jq '.status.lastPromotedImage')
+export WEBHOOK_IMAGE_PULLSPEC=$(oc get -o json component webhook-2-4 -o json | jq '.status.lastPromotedImage')
 
-export WORKER_IMAGE_PULLSPEC=$(kubectl get -o yaml component worker-2-4 -o json | jq '.status.lastPromotedImage')
+export WORKER_IMAGE_PULLSPEC=$(oc get -o json component worker-2-4 -o json | jq '.status.lastPromotedImage')
 
 export CSV_FILE=/manifests/kernel-module-management.clusterserviceversion.yaml
 
