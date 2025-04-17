@@ -9,7 +9,7 @@ permissions:
 jobs:
   dependabot:
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'red-hat-konflux[bot]' }}
+    if: ${{ github.actor == 'XXXXXXXred-hat-konflux[bot]' }}
     steps:
       - name: Approve a PR
         run: gh pr review --approve "$PR_URL"
