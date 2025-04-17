@@ -8,6 +8,8 @@ RUN microdnf update -y \
     && microdnf install -y tar rsync findutils gzip iproute util-linux \
     && microdnf clean all
 
+RUN sh -c "kubectl get -o yaml component must-gather-2-4 | yq '.status.lastPromotedImage'"
+
 COPY --from=builder /usr/bin/oc /usr/bin/oc
 
 COPY kernel-module-management/must-gather/* /usr/bin/
