@@ -8,13 +8,13 @@ metadata:
     build.appstudio.redhat.com/target_branch: '{{target_branch}}'
     pipelinesascode.tekton.dev/cancel-in-progress: "true"
     pipelinesascode.tekton.dev/max-keep-runs: "3"
-    pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request" && target_branch == "release-2.4" && "worker.yaml".pathChanged()
+    pipelinesascode.tekton.dev/on-cel-expression: event == "pull_request" && target_branch == "release-2.4" && "bundle-hack/webhook.yaml".pathChanged()
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: kmm-2-4
-    appstudio.openshift.io/component: hub-operator-2-4
+    appstudio.openshift.io/component: worker-2-4
     pipelines.appstudio.openshift.io/type: build
-  name: hub-operator-2-4-on-pull-request
+  name: worker-2-4-on-pull-request
   namespace: rh-kmm-tenant
 spec:
   params:
@@ -23,7 +23,7 @@ spec:
   - name: revision
     value: '{{revision}}'
   - name: output-image
-    value: quay.io/redhat-user-workloads/rh-kmm-tenant/kmm-2-4/hub-operator-2-4:on-pr-{{revision}}
+    value: quay.io/redhat-user-workloads/rh-kmm-tenant/kmm-2-4/worker-2-4:on-pr-{{revision}}
   - name: image-expires-after
     value: 5d
   - name: build-platforms
@@ -33,7 +33,7 @@ spec:
     - linux/ppc64le
     - linux/s390x
   - name: dockerfile
-    value: Dockerfile.hub-operator
+    value: Dockerfile.worker
   - name: path-context
     value: .
   pipelineSpec:
@@ -431,10 +431,10 @@ spec:
         - "false"
     - name: sast-coverity-check
       params:
-      - name: image-digest
-        value: $(tasks.build-image-index.results.IMAGE_DIGEST)
       - name: image-url
         value: $(tasks.build-image-index.results.IMAGE_URL)
+      - name: image-digest
+        value: $(tasks.build-image-index.results.IMAGE_DIGEST)
       - name: IMAGE
         value: $(params.output-image)
       - name: DOCKERFILE
