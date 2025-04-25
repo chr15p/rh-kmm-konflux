@@ -5,6 +5,8 @@ packages:
   - gzip
   - iproute
   - util-linux
+  - golang
+  - kmod
 contentOrigin:
   repofiles: ["./ubi.repo"] 
 arches: 
