@@ -15,7 +15,7 @@ RUN microdnf update -y \
     && microdnf install -y kmod \
     && microdnf clean all
 
-RUN ["mkdir", "-p", "/mnt/img", "/var/run/kmm/pull-secrets"]
+RUN mkdir -p /mnt/img /var/run/kmm/pull-secrets
 
 ENTRYPOINT ["/usr/local/bin/worker"]
 
