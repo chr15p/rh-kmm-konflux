@@ -3,8 +3,8 @@
 #@follow_tag(registry-proxy.engineering.redhat.com/rh-osbs/openshift-golang-builder:v1.23)
 FROM quay.io/centos/centos:10 as builder
 
-RUN ["dnf", "install", "-y", "golang"]
-RUN ["mkdir", "/opt/kmm"]
+RUN dnf install -y golang
+RUN mkdir /opt/kmm
 WORKDIR /opt/kmm
 COPY kernel-module-management .
 

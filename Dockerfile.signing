@@ -4,7 +4,7 @@
 FROM quay.io/centos/centos:10 as builder
 
 # install the package that will contain the sign utilities
-RUN ["dnf", "install", "-y", "kernel-devel"]
+RUN dnf install -y kernel-devel
 
 #@follow_tag(registry.redhat.io/rhel9-4-els/rhel-minimal:9.4)
 FROM registry.redhat.io/rhel9-4-els/rhel-minimal:9.4
