@@ -1,0 +1,16 @@
+packages: 
+  - tar
+  - rsync
+  - findutils
+  - gzip
+  - iproute
+  - util-linux
+  - golang
+  - kmod
+contentOrigin:
+  repofiles: ["./ubi.repo"] 
+arches: 
+  - x86_64 
+  - aarch64
+  - ppc64le
+  - s390x
