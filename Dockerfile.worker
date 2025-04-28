@@ -1,23 +1,21 @@
 #FROM registry.redhat.io/rhel9-4-els/rhel:9.4 AS builder
 #FROM registry-proxy.engineering.redhat.com/rh-osbs/openshift-golang-builder:v1.23.4-202502100816.g6c23478.el9 AS builder
-FROM quay.io/centos/centos:10 as builder
+FROM registry.access.redhat.com/ubi9/go-toolset:1.23 as builder
 
-RUN ["dnf", "install", "-y", "golang"]
-RUN ["mkdir", "/opt/kmm"]
-WORKDIR /opt/kmm
+WORKDIR /opt/app-root/src
 
 COPY kernel-module-management .
 RUN go build -ldflags="-w -s -X main.Version=${CI_VERSION} -X main.GitCommit=${CI_UPSTREAM_SHORT_COMMIT}" -o worker ./cmd/worker
 
 FROM registry.redhat.io/rhel9-4-els/rhel-minimal:9.4
 
-COPY --from=builder /opt/kmm/worker /usr/local/bin/worker
+COPY --from=builder /opt/app-root/src/worker /usr/local/bin/worker
 
 RUN microdnf update -y \
     && microdnf install -y kmod \
     && microdnf clean all
 
-RUN ["mkdir", "-p", "/mnt/img", "/var/run/kmm/pull-secrets"]
+RUN mkdir -p /mnt/img /var/run/kmm/pull-secrets
 
 ENTRYPOINT ["/usr/local/bin/worker"]
 
