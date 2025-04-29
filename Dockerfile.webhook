@@ -25,5 +25,6 @@ LABEL \
     io.openshift.tags="Operating System" \
     io.k8s.description="Kernel Module Management - Webhook Server" \
     summary="Kernel Module Management - Webhook Server" \
-    maintainer="Red Hat Ecosystem - Partner Accelerators Team <edge-kmm@redhat.com>"
+    maintainer="Red Hat Ecosystem - Partner Accelerators Team <edge-kmm@redhat.com>" \
+    description="webhook component for KMMO"
 
