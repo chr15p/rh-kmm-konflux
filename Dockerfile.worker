@@ -29,4 +29,5 @@ LABEL \
     io.openshift.tags="Operating System" \
     io.k8s.description="Kernel Module Management - Worker" \
     summary="Kernel Module Management - Worker" \
-    maintainer="Red Hat Ecosystem - Partner Accelerators Team <edge-kmm@redhat.com>"
+    maintainer="Red Hat Ecosystem - Partner Accelerators Team <edge-kmm@redhat.com>" \
+    description="the worker component for KMMO"

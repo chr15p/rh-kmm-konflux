@@ -61,7 +61,8 @@ LABEL \
         io.openshift.tags="Operating System" \
         io.k8s.description="Kernel Module Management - Hub Operator Bundle" \
         summary="Kernel Module Management - Hub Operator Bundle" \
-        maintainer="Red Hat Ecosystem - Partner Accelerators Team <edge-kmm@redhat.com>"
+        maintainer="Red Hat Ecosystem - Partner Accelerators Team <edge-kmm@redhat.com>" \
+        description="the bundle for the KMM hub operator"
 
 # Copy files to locations specified by labels.
 COPY bundle/manifests /manifests/
