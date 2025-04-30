@@ -1,17 +1,15 @@
 # Based on ./gatekeeper-operator/bundle.Dockerfile
-FROM registry.access.redhat.com/ubi9/ubi-minimal:latest as builder-runner
-RUN microdnf install -y skopeo jq python3 python3-pip
-RUN pip3 install --upgrade pip && pip3 install ruamel.yaml==0.17.9
+FROM registry.access.redhat.com/ubi9/ubi-minimal:latest as builder
 
-# Use a new stage to enable caching of the package installations for local development
-FROM builder-runner as builder
+COPY bundle-hack /bundle-hack
+COPY kernel-module-management/bundle-hub/manifests /manifests/
+COPY kernel-module-management/bundle-hub/metadata /metadata/
+COPY kernel-module-management/bundle-hub/tests /tests/
 
-COPY bundle-hack .
-COPY kernel-module-management/bundle/manifests /manifests/
-COPY kernel-module-management/bundle/metadata /metadata/
-COPY kernel-module-management/bundle/tests /tests/
-
-RUN ./update_bundle.sh
+RUN /bundle-hack/update_bundle.sh \
+    /manifests/kernel-module-management-hub.clusterserviceversion.yaml \
+    /metadata/annotations.yaml \
+    /manifests/kernel-module-management-hub.RELEASE_VERSION.clusterserviceversion.yaml 
 
 FROM scratch
 
@@ -65,6 +63,6 @@ LABEL \
         description="the bundle for the KMM hub operator"
 
 # Copy files to locations specified by labels.
-COPY bundle/manifests /manifests/
-COPY bundle/metadata /metadata/
-COPY bundle/tests/scorecard /tests/scorecard/
+COPY --from=builder /manifests /manifests/
+COPY --from=builder /metadata /metadata/
+COPY --from=builder /tests/scorecard /tests/scorecard/
