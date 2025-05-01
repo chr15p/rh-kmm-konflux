@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 VERSION=2.4
 ZVERSION=0
-XYZ_VERSION=${VERSION}.${ZVERSION}
-REPLACES=2.3.0
+REPLACE_VERSION=2.3.0
+
+RELEASE_VERSION=${VERSION}.${ZVERSION}
 
 CSV_FILE=${1:-"kernel-module-management/bundle/manifests/kernel-module-management.clusterserviceversion.yaml"}
 ANNOTATION_FILE=${2:-"kernel-module-management/bundle/metadata/annotations.yaml"}
@@ -21,15 +22,17 @@ HUB_OPERATOR_PULLSPEC=$(cat bundle-hack/hub-operator.yaml)
 mv $CSV_FILE $OUTPUT_FILE_REL 
 
 sed -i "
-    /RELATED_IMAGE_WORKER/{ n; s|value: .*|value: $WORKER_PULLSPEC|}
-    /RELATED_IMAGE_MUST_GATHER/{ n; s|value: .*|value: $MUSTGATHER_PULLSPEC|}
-    /RELATED_IMAGE_SIGN/{ n; s|value: .*|value: $SIGNING_PULLSPEC|}
+    /RELEASE_VERSION/s|{{RELEASE_VERSION}}|${RELEASE_VERSION}|
+    /REPLACE_VERSION/s|{{REPLACE_VERSION}}|${REPLACE_VERSION}|
 
-    /image: .*kernel-module-management-webhook-server:latest/s|image:.*|image: $WEBHOOK_PULLSPEC|
-    /image: .*kernel-module-management-operator:latest/s|image:.*|image: $OPERATOR_PULLSPEC|
-    /image: .*kernel-module-management-operator-hub:latest/s|image:.*|image: $HUB_OPERATOR_PULLSPEC|
-    /^spec:$/a\  replaces: kernel-module-management.v$REPLACES
-    /^  name: kernel-module-management.v/s|v.*$|v$XYZ_VERSION|
+    /WORKER_IMAGE/s|{{WORKER_IMAGE}}|${WORKER_PULLSPEC}|
+    /MUST_GATHER_IMAGE/s|{{MUST_GATHER_IMAGE}}|${MUST_GATHER_PULLSPEC}|
+    /SIGNING_IMAGE/s|{{SIGNING_IMAGE}}|${SIGNING_PULLSPEC}|
+    
+    /OPERATOR_IMAGE/s|{{OPERATOR_IMAGE}}|${OPERATOR_PULLSPEC}|
+    /HUB_OPERATOR_IMAGE/s|{{HUB_OPERATOR_IMAGE}}|${HUB_OPERATOR_PULLSPEC}|
+    /WEBHOOK_IMAGE/s|{{WEBHOOK_IMAGE}}|${WEBHOOK_PULLSPEC}|
+
     " $OUTPUT_FILE_REL
 
 sed -i "
