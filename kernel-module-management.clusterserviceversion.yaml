@@ -577,16 +577,20 @@ spec:
   maintainers:
   - email: edge-kmm@redhat.com
     name: Red Hat Ecosystem - Partner Accelerators Team
-  maturity: alpha
+  provider:
+    name: Red Hat
+    url: https://www.redhat.com
   provider:
     name: Red Hat
     url: https://www.redhat.com
   relatedImages:
-  - name: gatekeeper
-    image:
-  - name: gatekeeper-operator
-    image:
-  version: 0.0.1
+  - image: {{MUST_GATHER_IMAGE}}
+    name: must-gather
+  - image: {{SIGNING_IMAGE}}
+    name: sign
+  - image: {{WORKER_IMAGE}}
+    name: worker
+  version: {{RELEASE_VERSION}}
   webhookdefinitions:
   - admissionReviewVersions:
     - v1beta2

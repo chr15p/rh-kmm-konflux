@@ -5,6 +5,7 @@ COPY bundle-hack /bundle-hack
 COPY kernel-module-management/bundle-hub/manifests /manifests/
 COPY kernel-module-management/bundle-hub/metadata /metadata/
 COPY kernel-module-management/bundle-hub/tests /tests/
+COPY kernel-module-management-hub.clusterserviceversion.yaml /manifests/
 
 RUN /bundle-hack/update_bundle.sh \
     /manifests/kernel-module-management-hub.clusterserviceversion.yaml \
@@ -52,7 +53,9 @@ LABEL operators.operatorframework.io.test.mediatype.v1=scorecard+v1
 # Main labels
 LABEL \
         com.redhat.component="kernel-module-management-hub-operator-bundle-container" \
-        version="v2.3.0" \
+        version="v2.4.0" \
+        release="v2.4.0" \
+        URL="https://github.com/rh-ecosystem-edge/kernel-module-management" \
         name="kmm/kernel-module-management-hub-operator-bundle-rhel9" \
         License="Apache License 2.0" \
         io.k8s.display-name="Kernel Module Management - Hub" \

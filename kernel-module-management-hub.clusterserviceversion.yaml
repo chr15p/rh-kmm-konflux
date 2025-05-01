@@ -345,7 +345,7 @@ spec:
               - args:
                 - --config=controller_config.yaml
                 - --enable-managedclustermodule
-                image: quay.io/edge-infrastructure/kernel-module-management-webhook-server:latest
+                image: {{WEBHOOK_IMAGE}}
                 livenessProbe:
                   httpGet:
                     path: /healthz
@@ -440,19 +440,23 @@ spec:
   - modules
   - oot
   - out-of-tree
+  links:
+  - name: Kernel Module Management Hub
+    url: https://github.com/rh-ecosystem-edge/kernel-module-management
   maintainers:
   - email: edge-kmm@redhat.com
     name: Red Hat Ecosystem - Partner Accelerators Team
-  maturity: alpha
   provider:
     name: Red Hat
     url: https://www.redhat.com
   relatedImages:
-  - image: quay.io/edge-infrastructure/kernel-module-management-must-gather:latest
+  - image: {{MUST_GATHER_IMAGE}}
     name: must-gather
-  - image: quay.io/edge-infrastructure/kernel-module-management-signimage:latest
+  - image: {{SIGNING_IMAGE}}
     name: sign
-  version: 0.0.1
+  - image: {{WORKER_IMAGE}}
+    name: worker
+  version: {{RELEASE_VERSION}}
   webhookdefinitions:
   - admissionReviewVersions:
     - v1
