@@ -49,7 +49,7 @@ LABEL operators.operatorframework.io.bundle.mediatype.v1=registry+v1
 LABEL operators.operatorframework.io.bundle.manifests.v1=manifests/
 LABEL operators.operatorframework.io.bundle.metadata.v1=metadata/
 LABEL operators.operatorframework.io.bundle.package.v1=kernel-module-management
-LABEL operators.operatorframework.io.bundle.channels.v1=stable,release-2.2
+LABEL operators.operatorframework.io.bundle.channels.v1=stable,release-2.4
 LABEL operators.operatorframework.io.bundle.channel.default.v1=stable
 
 # Labels for metrics
@@ -66,7 +66,9 @@ LABEL \
         com.redhat.component="kernel-module-management-operator-bundle-container" \
         version="v2.4.0" \
         release="v2.4.0" \
-        URL="https://github.com/rh-ecosystem-edge/kernel-module-management" \
+        url="https://github.com/rh-ecosystem-edge/kernel-module-management" \
+        vendor="Red Hat (https://www.redhat.com)" \
+        distribution-scope="" \
         name="kmm/kernel-module-management-operator-bundle-rhel9" \
         License="Apache License 2.0" \
         io.k8s.display-name="Kernel Module Management" \

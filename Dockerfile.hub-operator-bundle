@@ -55,7 +55,10 @@ LABEL \
         com.redhat.component="kernel-module-management-hub-operator-bundle-container" \
         version="v2.4.0" \
         release="v2.4.0" \
-        URL="https://github.com/rh-ecosystem-edge/kernel-module-management" \
+        url="https://github.com/rh-ecosystem-edge/kernel-module-management" \
+        vendor="Red Hat (https://www.redhat.com)" \
+        url="https://github.com/rh-ecosystem-edge/kernel-module-management" \
+        distribution-scope="" \
         name="kmm/kernel-module-management-hub-operator-bundle-rhel9" \
         License="Apache License 2.0" \
         io.k8s.display-name="Kernel Module Management - Hub" \
