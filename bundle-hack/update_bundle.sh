@@ -11,13 +11,20 @@ OUTPUT_FILE=${3:-"kernel-module-management/bundle/manifests/kernel-module-manage
 
 OUTPUT_FILE_REL=$(echo $OUTPUT_FILE |sed "s/RELEASE_VERSION/$VERSION/")
 
-WORKER_PULLSPEC=$(cat bundle-hack/worker.yaml)
-MUSTGATHER_PULLSPEC=$(cat bundle-hack/must-gather.yaml)
-SIGNING_PULLSPEC=$(cat bundle-hack/signing.yaml)
+OPERATOR_REPO="registry.stage.redhat.io/kmm/kernel-module-management-rhel9-operator"
+HUB_OPERATOR_REPO="registry.stage.redhat.io/kmm/kernel-module-management-hub-rhel9-operator"
+MUST_GATHER_REPO="registry.stage.redhat.io/kmm/kernel-module-management-must-gather-rhel9"
+SIGNING_REPO="registry.stage.redhat.io/kmm/kernel-module-management-signing-rhel9"
+WEBHOOK_REPO="registry.stage.redhat.io/kmm/kernel-module-management-webhook-server-rhel9"
+WORKER_REPO="registry.stage.redhat.io/kmm/kernel-module-management-worker-rhel9"
 
-WEBHOOK_PULLSPEC=$(cat bundle-hack/webhook.yaml)
-OPERATOR_PULLSPEC=$(cat bundle-hack/operator.yaml)
-HUB_OPERATOR_PULLSPEC=$(cat bundle-hack/hub-operator.yaml)
+WORKER_PULLSPEC=$(awk -F: -v REPO=$WORKER_REPO '{print REPO"@sha256:"$2}'  bundle-hack/worker.yaml)
+MUSTGATHER_PULLSPEC=$(awk -F: -v REPO=$WORKER_REPO '{print REPO"@sha256:"$2}'  bundle-hack/must-gather.yaml)
+SIGNING_PULLSPEC=$(awk -F: -v REPO=$WORKER_REPO '{print REPO"@sha256:"$2}'  bundle-hack/signing.yaml)
+
+WEBHOOK_PULLSPEC=$(awk -F: -v REPO=$WORKER_REPO '{print REPO"@sha256:"$2}'  bundle-hack/webhook.yaml)
+OPERATOR_PULLSPEC=$(awk -F: -v REPO=$WORKER_REPO '{print REPO"@sha256:"$2}'  bundle-hack/operator.yaml)
+HUB_OPERATOR_PULLSPEC=$(awk -F: -v REPO=$WORKER_REPO '{print REPO"@sha256:"$2}'  bundle-hack/hub-operator.yaml)
 
 mv $CSV_FILE $OUTPUT_FILE_REL 
 
