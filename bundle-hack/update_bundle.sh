@@ -2,6 +2,7 @@
 VERSION=2.4
 ZVERSION=0
 REPLACE_VERSION=2.3.0
+REPOSITORY="registry.redhat.io/kmm"
 
 RELEASE_VERSION=${VERSION}.${ZVERSION}
 
@@ -11,12 +12,12 @@ OUTPUT_FILE=${3:-"kernel-module-management/bundle/manifests/kernel-module-manage
 
 OUTPUT_FILE_REL=$(echo $OUTPUT_FILE |sed "s/RELEASE_VERSION/$VERSION/")
 
-OPERATOR_REPO="registry.stage.redhat.io/kmm/kernel-module-management-rhel9-operator"
-HUB_OPERATOR_REPO="registry.stage.redhat.io/kmm/kernel-module-management-hub-rhel9-operator"
-MUST_GATHER_REPO="registry.stage.redhat.io/kmm/kernel-module-management-must-gather-rhel9"
-SIGNING_REPO="registry.stage.redhat.io/kmm/kernel-module-management-signing-rhel9"
-WEBHOOK_REPO="registry.stage.redhat.io/kmm/kernel-module-management-webhook-server-rhel9"
-WORKER_REPO="registry.stage.redhat.io/kmm/kernel-module-management-worker-rhel9"
+OPERATOR_REPO="$REPOSITORY/kernel-module-management-rhel9-operator"
+HUB_OPERATOR_REPO="$REPOSITORY/kernel-module-management-hub-rhel9-operator"
+MUST_GATHER_REPO="$REPOSITORY/kernel-module-management-must-gather-rhel9"
+SIGNING_REPO="$REPOSITORY/kernel-module-management-signing-rhel9"
+WEBHOOK_REPO="$REPOSITORY/kernel-module-management-webhook-server-rhel9"
+WORKER_REPO="$REPOSITORY/kernel-module-management-worker-rhel9"
 
 WORKER_PULLSPEC=$(awk -F: -v REPO=$WORKER_REPO '{print REPO"@sha256:"$2}'  bundle-hack/worker.yaml)
 MUSTGATHER_PULLSPEC=$(awk -F: -v REPO=$WORKER_REPO '{print REPO"@sha256:"$2}'  bundle-hack/must-gather.yaml)
