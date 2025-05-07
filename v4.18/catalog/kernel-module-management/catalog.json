@@ -138,6 +138,11 @@
             "name": "kernel-module-management.v2.2.1",
             "replaces": "kernel-module-management.v2.2.0",
             "skipRange": ">=0.0.0 <2.2.1"
+        },
+        {
+            "name": "kernel-module-management.v2.3.0",
+            "replaces": "kernel-module-management.v2.2.1",
+            "skipRange": ">=0.0.0 <2.3.0"
         }
     ]
 }
