@@ -37,8 +37,6 @@ spec:
     value: .
   - name: hermetic
     value: "true"
-  - name: prefetch-input
-    value: '{"type": "rpm", "path": "."}' 
   - name: build-source-image
     value: "true"
   - name: build-index-image
