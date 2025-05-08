@@ -148,6 +148,57 @@
 }
 {
     "schema": "olm.channel",
+    "name": "release-2.4",
+    "package": "kernel-module-management",
+    "entries": [
+        {
+            "name": "kernel-module-management.v2.0.0",
+            "skipRange": ">=0.0.0 <2.0.0"
+        },
+        {
+            "name": "kernel-module-management.v2.0.1",
+            "replaces": "kernel-module-management.v2.0.0",
+            "skipRange": ">=0.0.0 <2.0.1"
+        },
+        {
+            "name": "kernel-module-management.v2.0.2",
+            "replaces": "kernel-module-management.v2.0.1",
+            "skipRange": ">=0.0.0 <2.0.2"
+        },
+        {
+            "name": "kernel-module-management.v2.1.0",
+            "replaces": "kernel-module-management.v2.0.2",
+            "skipRange": ">=0.0.0 <2.1.0"
+        },
+        {
+            "name": "kernel-module-management.v2.1.1",
+            "replaces": "kernel-module-management.v2.1.0",
+            "skipRange": ">=0.0.0 <2.1.1"
+        },
+        {
+            "name": "kernel-module-management.v2.2.0",
+            "replaces": "kernel-module-management.v2.1.1",
+            "skipRange": ">=0.0.0 <2.2.0"
+        },
+        {
+            "name": "kernel-module-management.v2.2.1",
+            "replaces": "kernel-module-management.v2.2.0",
+            "skipRange": ">=0.0.0 <2.2.1"
+        },
+        {
+            "name": "kernel-module-management.v2.3.0",
+            "replaces": "kernel-module-management.v2.2.1",
+            "skipRange": ">=0.0.0 <2.3.0"
+        },
+        {
+            "name": "kernel-module-management.v2.4.0",
+            "replaces": "kernel-module-management.v2.3.0",
+            "skipRange": ">=0.0.0 <2.3.0"
+        }
+    ]
+}
+{
+    "schema": "olm.channel",
     "name": "stable",
     "package": "kernel-module-management",
     "entries": [
@@ -188,6 +239,11 @@
         {
             "name": "kernel-module-management.v2.3.0",
             "replaces": "kernel-module-management.v2.2.1",
+            "skipRange": ">=0.0.0 <2.3.0"
+        },
+        {
+            "name": "kernel-module-management.v2.4.0",
+            "replaces": "kernel-module-management.v2.3.0",
             "skipRange": ">=0.0.0 <2.3.0"
         }
     ]
