@@ -19,13 +19,13 @@ SIGNING_REPO="$REPOSITORY/kernel-module-management-signing-rhel9"
 WEBHOOK_REPO="$REPOSITORY/kernel-module-management-webhook-server-rhel9"
 WORKER_REPO="$REPOSITORY/kernel-module-management-worker-rhel9"
 
-WORKER_PULLSPEC=$(awk -F: -v REPO=$WORKER_REPO '{print REPO"@sha256:"$2}'  bundle-hack/worker.yaml)
-MUSTGATHER_PULLSPEC=$(awk -F: -v REPO=$WORKER_REPO '{print REPO"@sha256:"$2}'  bundle-hack/must-gather.yaml)
-SIGNING_PULLSPEC=$(awk -F: -v REPO=$WORKER_REPO '{print REPO"@sha256:"$2}'  bundle-hack/signing.yaml)
+WORKER_PULLSPEC=$(awk -F: -v REPO=$WORKER_REPO '{print REPO"@sha256:"$2;exit}'  bundle-hack/worker.yaml)
+MUSTGATHER_PULLSPEC=$(awk -F: -v REPO=$MUST_GATHER_REPO '{print REPO"@sha256:"$2;exit}'  bundle-hack/must-gather.yaml)
+SIGNING_PULLSPEC=$(awk -F: -v REPO=$SIGNING_REPO '{print REPO"@sha256:"$2;exit}'  bundle-hack/signing.yaml)
 
-WEBHOOK_PULLSPEC=$(awk -F: -v REPO=$WORKER_REPO '{print REPO"@sha256:"$2}'  bundle-hack/webhook.yaml)
-OPERATOR_PULLSPEC=$(awk -F: -v REPO=$WORKER_REPO '{print REPO"@sha256:"$2}'  bundle-hack/operator.yaml)
-HUB_OPERATOR_PULLSPEC=$(awk -F: -v REPO=$WORKER_REPO '{print REPO"@sha256:"$2}'  bundle-hack/hub-operator.yaml)
+WEBHOOK_PULLSPEC=$(awk -F: -v REPO=$WEBHOOK_REPO '{print REPO"@sha256:"$2;exit}'  bundle-hack/webhook.yaml)
+OPERATOR_PULLSPEC=$(awk -F: -v REPO=$OPERATOR_REPO '{print REPO"@sha256:"$2;exit}'  bundle-hack/operator.yaml)
+HUB_OPERATOR_PULLSPEC=$(awk -F: -v REPO=$HUB_OPERATOR_REP '{print REPO"@sha256:"$2;exit}'  bundle-hack/hub-operator.yaml)
 
 mv $CSV_FILE $OUTPUT_FILE_REL 
 
