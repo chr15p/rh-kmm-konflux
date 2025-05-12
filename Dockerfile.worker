@@ -30,3 +30,4 @@ LABEL \
     maintainer="Red Hat Ecosystem - Partner Accelerators Team <edge-kmm@redhat.com>" \
     description="the worker component for KMMO"
 
+
