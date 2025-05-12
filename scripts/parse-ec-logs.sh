@@ -57,8 +57,10 @@ if [ "$METHOD" == "s" ]; then
             name=$3
         }
         flag==1 &&/ImageRef:/{
-            l=split($2,a,/\//)
-            image=a[l]
+            if(name !~/sha256/){
+                l=split($2,a,/\//)
+                name=a[l]
+            }
         }
         flag==1 && /Violation/{printf("%-100s  %s\n",name, $0)}
         /Results:/{flag=0}
