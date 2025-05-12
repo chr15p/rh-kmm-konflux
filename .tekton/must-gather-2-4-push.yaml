@@ -7,7 +7,8 @@ metadata:
     build.appstudio.redhat.com/target_branch: '{{target_branch}}'
     pipelinesascode.tekton.dev/cancel-in-progress: "false"
     pipelinesascode.tekton.dev/max-keep-runs: "3"
-    pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch == "release-2.4" && !"bundle-hack/**".pathChanged()
+    pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch
+      == "release-2.4" && !"bundle-hack/**".pathChanged()
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: kmm-2-4
@@ -36,7 +37,7 @@ spec:
   - name: hermetic
     value: "true"
   - name: prefetch-input
-    value: '{"type": "rpm", "path": "."}' 
+    value: '{"type": "rpm", "path": "."}'
   - name: build-source-image
     value: "true"
   pipelineSpec:
@@ -617,7 +618,8 @@ spec:
       optional: true
     - name: netrc
       optional: true
-  taskRunTemplate: {}
+  taskRunTemplate:
+    serviceAccountName: build-pipeline-must-gather-2-4
   workspaces:
   - name: git-auth
     secret:
