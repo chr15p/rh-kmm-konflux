@@ -1,6 +1,5 @@
 FROM registry.redhat.io/openshift4/ose-cli-rhel9 as builder
 
-#@follow_tag(registry.redhat.io/rhel9-4-els/rhel-minimal:9.4)
 FROM registry.redhat.io/ubi9/ubi-minimal:9.5
 
 RUN microdnf update -y \
