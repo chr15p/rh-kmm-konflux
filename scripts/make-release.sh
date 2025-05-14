@@ -18,8 +18,8 @@ else
     SNAPSHOT=$(oc get pipelinerun -o yaml $1 | yq '.metadata.ownerReferences[].name')
 fi
 
+## increment the release number
 RELNUM=$(kubectl get release --sort-by='{.metadata.creationTimestamp}' | tail -n 1 | awk -vx=$RELVER '/^kmm/{gsub(x, "",$1); print $1+1}')
-
 
 cat << EOF | kubectl apply -f - -o yaml
 apiVersion: appstudio.redhat.com/v1alpha1
