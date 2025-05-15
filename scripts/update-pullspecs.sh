@@ -10,9 +10,8 @@ for f in $(ls bundle-hack/*.yaml); do
         echo "$NAME failed"
         exit
     fi
+    echo $PULLSPEC
     if [ -z "$TEST" ]; then
         echo $PULLSPEC > $f
-    else
-        echo $PULLSPEC
     fi
 done 
