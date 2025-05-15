@@ -20,7 +20,7 @@ WEBHOOK_REPO="$REPOSITORY/kernel-module-management-webhook-server-rhel9"
 WORKER_REPO="$REPOSITORY/kernel-module-management-worker-rhel9"
 
 WORKER_PULLSPEC=$(awk -F: -v REPO=$WORKER_REPO '{print REPO"@sha256:"$2;exit}'  bundle-hack/worker.yaml)
-MUSTGATHER_PULLSPEC=$(awk -F: -v REPO=$MUST_GATHER_REPO '{print REPO"@sha256:"$2;exit}'  bundle-hack/must-gather.yaml)
+MUST_GATHER_PULLSPEC=$(awk -F: -v REPO=$MUST_GATHER_REPO '{print REPO"@sha256:"$2;exit}'  bundle-hack/must-gather.yaml)
 SIGNING_PULLSPEC=$(awk -F: -v REPO=$SIGNING_REPO '{print REPO"@sha256:"$2;exit}'  bundle-hack/signing.yaml)
 
 WEBHOOK_PULLSPEC=$(awk -F: -v REPO=$WEBHOOK_REPO '{print REPO"@sha256:"$2;exit}'  bundle-hack/webhook.yaml)
@@ -28,7 +28,7 @@ OPERATOR_PULLSPEC=$(awk -F: -v REPO=$OPERATOR_REPO '{print REPO"@sha256:"$2;exit
 HUB_OPERATOR_PULLSPEC=$(awk -F: -v REPO=$HUB_OPERATOR_REP '{print REPO"@sha256:"$2;exit}'  bundle-hack/hub-operator.yaml)
 
 echo WORKER_PULLSPEC=$WORKER_PULLSPEC
-echo MUSTGATHER_PULLSPEC=$MUSTGATHER_PULLSPEC
+echo MUST_GATHER_PULLSPEC=$MUST_GATHER_PULLSPEC
 echo SIGNING_PULLSPEC=$SIGNING_PULLSPEC
 
 echo WEBHOOK_PULLSPEC=$WEBHOOK_PULLSPEC
