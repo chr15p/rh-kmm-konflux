@@ -11,11 +11,15 @@ RELEASEPLAN=kmm-releaseplan-${MAJOR}-${MINOR}
 RELVER="kmm-${KMMVER}-r"
 
 if [ -z "$1" ]; then
-    echo "USAGE: $0 [PIPELINE]"
+    echo -e "USAGE: $0 -p [PIPELINE]\n\t$0 -s [SNAPSHOT]"
     exit 0
     #    SNAPSHOT=$(kubectl get snapshot  --sort-by='{.metadata.creationTimestamp}' | tail -n 1 | cut -d" " -f 1)
 else
-    SNAPSHOT=$(oc get pipelinerun -o yaml $1 | yq '.metadata.ownerReferences[].name')
+    if [ "$1" == "-s" ]; then
+        SNAPSHOT=$2
+    elif [ "$1" == "-p" ]; then
+        SNAPSHOT=$(oc get pipelinerun -o yaml $1 | yq '.metadata.ownerReferences[].name')
+    fi
 fi
 
 RELNUM=$(kubectl get release --sort-by='{.metadata.creationTimestamp}' | tail -n 1 | awk -vx=$RELVER '/^kmm/{gsub(x, "",$1); print $1+1}')
