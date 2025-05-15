@@ -1608,7 +1608,7 @@
     "schema": "olm.bundle",
     "name": "kernel-module-management.v2.4.0",
     "package": "kernel-module-management",
-    "image": "quay.io/redhat-user-workloads/rh-kmm-tenant/kmm-2-4/operator-bundle-2-4@sha256:6f54ab188b2fc1430dd837f61cf3c6571cf499168c0f85b598c1dd314a535cdd",
+    "image": "registry.stage.redhat.io/kmm/kernel-module-management-operator-bundle:6f54ab188b2fc1430dd837f61cf3c6571cf499168c0f85b598c1dd314a535cdd",
     "properties": [
         {
             "type": "olm.gvk",
@@ -1780,10 +1780,6 @@
     ],
     "relatedImages": [
         {
-            "name": "",
-            "image": "quay.io/redhat-user-workloads/rh-kmm-tenant/kmm-2-4/operator-bundle-2-4@sha256:6f54ab188b2fc1430dd837f61cf3c6571cf499168c0f85b598c1dd314a535cdd"
-        },
-        {
             "name": "must-gather",
             "image": "registry.redhat.io/kmm/kernel-module-management-must-gather-rhel9@sha256:c3a9a8ba2b3821d3e48c3537194ba258df4be077508d8d7fa6ff4bdbd9094ecd"
         },
@@ -1802,6 +1798,10 @@
         {
             "name": "worker",
             "image": "registry.redhat.io/kmm/kernel-module-management-worker-rhel9@sha256:ddb59fc6fdcb8e0d9d8f5584ed1793c1cc2217a34d4bea0cd7625d642438f793"
+        },
+        {
+            "name": "",
+            "image": "registry.stage.redhat.io/kmm/kernel-module-management-operator-bundle:6f54ab188b2fc1430dd837f61cf3c6571cf499168c0f85b598c1dd314a535cdd"
         }
     ]
 }
