@@ -250,6 +250,180 @@
 }
 {
     "schema": "olm.bundle",
+    "name": "kernel-module-management.v2.0.0",
+    "package": "kernel-module-management",
+    "image": "registry.redhat.io/kmm/kernel-module-management-operator-bundle@sha256:69b16d605af30119072ad3ab8594693ac6d7cbeb040ef26046286e71ceb6b92e",
+    "properties": [
+        {
+            "type": "olm.gvk",
+            "value": {
+                "group": "kmm.sigs.x-k8s.io",
+                "kind": "Module",
+                "version": "v1beta1"
+            }
+        },
+        {
+            "type": "olm.gvk",
+            "value": {
+                "group": "kmm.sigs.x-k8s.io",
+                "kind": "NodeModulesConfig",
+                "version": "v1beta1"
+            }
+        },
+        {
+            "type": "olm.gvk",
+            "value": {
+                "group": "kmm.sigs.x-k8s.io",
+                "kind": "PreflightValidation",
+                "version": "v1beta1"
+            }
+        },
+        {
+            "type": "olm.gvk",
+            "value": {
+                "group": "kmm.sigs.x-k8s.io",
+                "kind": "PreflightValidationOCP",
+                "version": "v1beta1"
+            }
+        },
+        {
+            "type": "olm.package",
+            "value": {
+                "packageName": "kernel-module-management",
+                "version": "2.0.0"
+            }
+        },
+        {
+            "type": "olm.csv.metadata",
+            "value": {
+                "annotations": {
+                    "alm-examples": "[\n  {\n    \"apiVersion\": \"kmm.sigs.x-k8s.io/v1beta1\",\n    \"kind\": \"Module\",\n    \"metadata\": {\n      \"name\": \"module-sample\"\n    },\n    \"spec\": {\n      \"moduleLoader\": {\n        \"container\": {\n          \"kernelMappings\": [],\n          \"modprobe\": {\n            \"moduleName\": \"sample\"\n          }\n        }\n      },\n      \"selector\": {\n        \"node-role.kubernetes.io/worker\": \"\"\n      }\n    }\n  },\n  {\n    \"apiVersion\": \"kmm.sigs.x-k8s.io/v1beta1\",\n    \"kind\": \"PreflightValidation\",\n    \"metadata\": {\n      \"name\": \"preflightvalidation-sample\"\n    },\n    \"spec\": {\n      \"kernelVersion\": \"4.18.0-372.32.1.el8_6.x86_64\",\n      \"pushBuiltImage\": true\n    }\n  },\n  {\n    \"apiVersion\": \"kmm.sigs.x-k8s.io/v1beta1\",\n    \"kind\": \"PreflightValidationOCP\",\n    \"metadata\": {\n      \"name\": \"preflightvalidationocp-sample\"\n    },\n    \"spec\": {\n      \"pushBuiltImage\": true,\n      \"releaseImage\": \"ocp-release-image\"\n    }\n  }\n]",
+                    "capabilities": "Basic Install",
+                    "certified": "true",
+                    "containerImage": "registry.redhat.io/kmm/kernel-module-management-rhel9-operator@sha256:6dbd524edc1007846946044cd8b87dedc25bfe4cc4189cd2423a6b1c15f931dc",
+                    "features.operators.openshift.io/cnf": "false",
+                    "features.operators.openshift.io/cni": "false",
+                    "features.operators.openshift.io/csi": "false",
+                    "features.operators.openshift.io/disconnected": "true",
+                    "features.operators.openshift.io/fips-compliant": "true",
+                    "features.operators.openshift.io/proxy-aware": "false",
+                    "features.operators.openshift.io/tls-profiles": "false",
+                    "features.operators.openshift.io/token-auth-aws": "false",
+                    "features.operators.openshift.io/token-auth-azure": "false",
+                    "features.operators.openshift.io/token-auth-gcp": "false",
+                    "olm.skipRange": ">=0.0.0 <2.0.0",
+                    "operatorframework.io/suggested-namespace": "openshift-kmm",
+                    "operators.openshift.io/valid-subscription": "[\"OpenShift Kubernetes Engine\", \"OpenShift Container Platform\", \"OpenShift Platform Plus\"]",
+                    "operators.operatorframework.io/builder": "operator-sdk-v1.25.2",
+                    "operators.operatorframework.io/project_layout": "go.kubebuilder.io/v3",
+                    "repository": "https://github.com/rh-ecosystem-edge/kernel-module-management",
+                    "support": "Red Hat"
+                },
+                "apiServiceDefinitions": {},
+                "crdDescriptions": {
+                    "owned": [
+                        {
+                            "name": "modules.kmm.sigs.x-k8s.io",
+                            "version": "v1beta1",
+                            "kind": "Module",
+                            "displayName": "Module",
+                            "description": "Module describes how to load a module on different kernel versions"
+                        },
+                        {
+                            "name": "nodemodulesconfigs.kmm.sigs.x-k8s.io",
+                            "version": "v1beta1",
+                            "kind": "NodeModulesConfig"
+                        },
+                        {
+                            "name": "preflightvalidations.kmm.sigs.x-k8s.io",
+                            "version": "v1beta1",
+                            "kind": "PreflightValidation",
+                            "displayName": "Preflight Validation",
+                            "description": "PreflightValidation initiates a preflight validations for all Modules on the current Kubernetes cluster."
+                        },
+                        {
+                            "name": "preflightvalidationsocp.kmm.sigs.x-k8s.io",
+                            "version": "v1beta1",
+                            "kind": "PreflightValidationOCP",
+                            "displayName": "Preflight Validation OCP",
+                            "description": "PreflightValidationOCP initiates a preflight validations for all Modules on the current OCP cluster."
+                        }
+                    ]
+                },
+                "description": "Kubernetes operator managing out of tree kernel modules",
+                "displayName": "Kernel Module Management",
+                "installModes": [
+                    {
+                        "type": "OwnNamespace",
+                        "supported": false
+                    },
+                    {
+                        "type": "SingleNamespace",
+                        "supported": false
+                    },
+                    {
+                        "type": "MultiNamespace",
+                        "supported": false
+                    },
+                    {
+                        "type": "AllNamespaces",
+                        "supported": true
+                    }
+                ],
+                "keywords": [
+                    "kernel-module-management",
+                    "out-of-tree",
+                    "kernel",
+                    "module",
+                    "modules"
+                ],
+                "labels": {
+                    "operatorframework.io/arch.amd64": "supported",
+                    "operatorframework.io/arch.arm64": "supported",
+                    "operatorframework.io/arch.ppc64le": "supported",
+                    "operatorframework.io/os.linux": "supported"
+                },
+                "links": [
+                    {
+                        "name": "kernel module management",
+                        "url": "https://github.com/rh-ecosystem-edge/kernel-module-management"
+                    }
+                ],
+                "maintainers": [
+                    {
+                        "name": "Red Hat Ecosystem - Partner Accelerators Team",
+                        "email": "edge-kmm@redhat.com"
+                    }
+                ],
+                "maturity": "alpha",
+                "provider": {
+                    "name": "Red Hat",
+                    "url": "https://www.redhat.com"
+                }
+            }
+        }
+    ],
+    "relatedImages": [
+        {
+            "name": "",
+            "image": "registry.redhat.io/kmm/kernel-module-management-operator-bundle@sha256:69b16d605af30119072ad3ab8594693ac6d7cbeb040ef26046286e71ceb6b92e"
+        },
+        {
+            "name": "kernel-module-management-rhel9-operator-6dbd524edc1007846946044cd8b87dedc25bfe4cc4189cd2423a6b1c15f931dc-annotation",
+            "image": "registry.redhat.io/kmm/kernel-module-management-rhel9-operator@sha256:6dbd524edc1007846946044cd8b87dedc25bfe4cc4189cd2423a6b1c15f931dc"
+        },
+        {
+            "name": "manager",
+            "image": "registry.redhat.io/kmm/kernel-module-management-rhel9-operator@sha256:6dbd524edc1007846946044cd8b87dedc25bfe4cc4189cd2423a6b1c15f931dc"
+        },
+        {
+            "name": "kube-rbac-proxy",
+            "image": "registry.redhat.io/openshift4/ose-kube-rbac-proxy@sha256:97cade2c1ee468261aec5400728c8d44de387b459134aec7a4c3b5ec5a335d2c"
+        }
+    ]
+}
+{
+    "schema": "olm.bundle",
     "name": "kernel-module-management.v2.0.1",
     "package": "kernel-module-management",
     "image": "registry.redhat.io/kmm/kernel-module-management-operator-bundle@sha256:c7522c7778ace3b9bde3a1f06fe64c6d237237bf6d632df461ca5dbe1cb15d56",
