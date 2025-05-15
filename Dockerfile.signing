@@ -1,4 +1,4 @@
-FROM registry.redhat.io/ubi9/ubi:9.5 as builder
+FROM registry.redhat.io/ubi9/ubi:9.6 as builder
 
 # install the package that will contain the sign utilities
 RUN dnf download kernel-devel && rpm -i --nodeps ./kernel-devel-*.rpm
