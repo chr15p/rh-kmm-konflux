@@ -1,6 +1,6 @@
 FROM registry.redhat.io/openshift4/ose-cli-rhel9 as builder
 
-FROM registry.redhat.io/ubi9/ubi-minimal:9.5
+FROM registry.redhat.io/ubi9/ubi-minimal:9.6
 
 RUN microdnf update -y \
     && microdnf install -y tar rsync findutils gzip iproute util-linux \
