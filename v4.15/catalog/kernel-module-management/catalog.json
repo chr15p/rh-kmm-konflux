@@ -1608,7 +1608,7 @@
     "schema": "olm.bundle",
     "name": "kernel-module-management.v2.4.0",
     "package": "kernel-module-management",
-    "image": "registry.stage.redhat.io/kmm/kernel-module-management-operator-bundle:6f54ab188b2fc1430dd837f61cf3c6571cf499168c0f85b598c1dd314a535cdd",
+    "image": "registry.stage.redhat.io/kmm/kernel-module-management-operator-bundle@sha256:6f54ab188b2fc1430dd837f61cf3c6571cf499168c0f85b598c1dd314a535cdd",
     "properties": [
         {
             "type": "olm.gvk",
@@ -1801,7 +1801,7 @@
         },
         {
             "name": "",
-            "image": "registry.stage.redhat.io/kmm/kernel-module-management-operator-bundle:6f54ab188b2fc1430dd837f61cf3c6571cf499168c0f85b598c1dd314a535cdd"
+            "image": "registry.stage.redhat.io/kmm/kernel-module-management-operator-bundle@sha256:6f54ab188b2fc1430dd837f61cf3c6571cf499168c0f85b598c1dd314a535cdd"
         }
     ]
 }
