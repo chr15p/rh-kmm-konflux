@@ -1,0 +1,14 @@
+apiVersion: config.openshift.io/v1
+kind: ImageDigestMirrorSet
+metadata:
+  name: bundle-mappings-2-4
+spec:
+  imageDigestMirrors:
+  - mirrors:
+    - quay.io/redhat-user-workloads/rh-kmm-tenant/kmm-2-4/operator-bundle-2-4
+    source: registry.stage.redhat.io/kmm/kernel-module-management-operator-bundle
+    mirrorSourcePolicy: AllowContactingSource
+  - mirrors:
+    - quay.io/redhat-user-workloads/rh-kmm-tenant/kmm-2-4/hub-operator-bundle-2-4
+    source: registry.stage.redhat.io/kmm/kernel-module-management-hub-operator-bundle
+    mirrorSourcePolicy: AllowContactingSource
