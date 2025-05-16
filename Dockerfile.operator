@@ -5,7 +5,8 @@ COPY kernel-module-management .
 
 RUN go build -ldflags="-w -s -X main.Version=${CI_VERSION} -X main.GitCommit=${CI_UPSTREAM_SHORT_COMMIT}" -o manager cmd/manager/main.go
 
-FROM registry.redhat.io/rhel9-4-els/rhel-minimal:9.4
+#FROM registry.redhat.io/rhel9-4-els/rhel-minimal:9.4
+FROM registry.redhat.io/ubi9/ubi-minimal:9.6
 
 COPY --from=builder /opt/app-root/src/manager /usr/local/bin/manager
 ENTRYPOINT ["/usr/local/bin/manager"]
