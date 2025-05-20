@@ -23,7 +23,7 @@ spec:
   - name: revision
     value: '{{revision}}'
   - name: output-image
-    value: quay.io/redhat-user-workloads/rh-kmm-tenant/fbc-op-v2-4:{{revision}}
+    value: quay.io/redhat-user-workloads/rh-kmm-tenant/fbc-op-v2-417:{{revision}}
   - name: build-platforms
     value:
     - linux/x86_64
