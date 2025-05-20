@@ -11,10 +11,10 @@ metadata:
       == "release-2.4" && "v4.15/**".pathChanged()
   creationTimestamp: null
   labels:
-    appstudio.openshift.io/application: fbc-v2-4
-    appstudio.openshift.io/component: fbc-v2-4-415
+    appstudio.openshift.io/application: fbc-op-v2-4
+    appstudio.openshift.io/component: fbc-op-v2-4-415
     pipelines.appstudio.openshift.io/type: build
-  name: fbc-v2-4-415-on-push
+  name: fbc-op-v2-4-415-on-push
   namespace: rh-kmm-tenant
 spec:
   params:
@@ -23,7 +23,7 @@ spec:
   - name: revision
     value: '{{revision}}'
   - name: output-image
-    value: quay.io/redhat-user-workloads/rh-kmm-tenant/fbc-v2-4:{{revision}}
+    value: quay.io/redhat-user-workloads/rh-kmm-tenant/fbc-op-v2-4:{{revision}}
   - name: build-platforms
     value:
     - linux/x86_64
@@ -390,7 +390,7 @@ spec:
     - name: netrc
       optional: true
   taskRunTemplate:
-    serviceAccountName: build-pipeline-fbc-v2-4-415
+    serviceAccountName: build-pipeline-fbc-op-v2-4-415
   workspaces:
   - name: git-auth
     secret:
