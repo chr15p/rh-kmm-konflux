@@ -11,7 +11,7 @@ metadata:
       == "release-2.4" && "v4.17/**".pathChanged()
   creationTimestamp: null
   labels:
-    appstudio.openshift.io/application: fbc-op-v2-4
+    appstudio.openshift.io/application: fbc-op-v2-4-417
     appstudio.openshift.io/component: fbc-op-v2-4-417
     pipelines.appstudio.openshift.io/type: build
   name: fbc-op-v2-4-417-on-push
