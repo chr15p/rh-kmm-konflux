@@ -70,19 +70,3 @@ spec:
     mirrorSourcePolicy: AllowContactingSource
     mirrors:
     - quay.io/redhat-user-workloads/rh-kmm-tenant/kmm-2-4/worker-2-4
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
