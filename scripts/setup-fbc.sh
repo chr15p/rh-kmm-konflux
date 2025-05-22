@@ -1,9 +1,18 @@
 #!/bin/bash
 
+FBC="fbc/catalog-template.json"
+
+OPERATOR_BUNDLE=$(awk -F: '{print $2}' bundle-hack/operator-bundle.yaml)
+
+sed  -i "
+    /stage/{
+        /kernel-module-management-operator-bundle/s/sha256:.*/sha256:$OPERATOR_BUNDLE\"/
+    }
+" $FBC
 
 for i in $(ls -d v4.1?); do 
 
-    cp fbc/catalog-template.json $i/
+    cp $FBC  $i/
 
     if [[ $i =~ v4.1[456] ]]; then
         echo "$i -" 
