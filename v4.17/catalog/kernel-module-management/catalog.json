@@ -1867,7 +1867,7 @@
     "schema": "olm.bundle",
     "name": "kernel-module-management.v2.4.0",
     "package": "kernel-module-management",
-    "image": "registry.stage.redhat.io/kmm/kernel-module-management-operator-bundle@sha256:82ed236ba09d0e502c6ee902fb6181c764fb4759b7b6985e6952c12f43fcbb7e",
+    "image": "registry.stage.redhat.io/kmm/kernel-module-management-operator-bundle@sha256:d8041fbd86fc935fd6b0e6fefc7a765f1463609a51ef1d038fcdb602bfba13ef",
     "properties": [
         {
             "type": "olm.gvk",
@@ -1947,7 +1947,7 @@
                     "alm-examples": "[\n  {\n    \"apiVersion\": \"kmm.sigs.x-k8s.io/v1beta1\",\n    \"kind\": \"Module\",\n    \"metadata\": {\n      \"labels\": {\n        \"app.kubernetes.io/component\": \"kmm\",\n        \"app.kubernetes.io/name\": \"kmm\",\n        \"app.kubernetes.io/part-of\": \"kmm\"\n      },\n      \"name\": \"module-sample\"\n    },\n    \"spec\": {\n      \"moduleLoader\": {\n        \"container\": {\n          \"kernelMappings\": [],\n          \"modprobe\": {\n            \"moduleName\": \"sample\"\n          }\n        }\n      },\n      \"selector\": {\n        \"node-role.kubernetes.io/worker\": \"\"\n      }\n    }\n  },\n  {\n    \"apiVersion\": \"kmm.sigs.x-k8s.io/v1beta1\",\n    \"kind\": \"PreflightValidation\",\n    \"metadata\": {\n      \"labels\": {\n        \"app.kubernetes.io/component\": \"kmm\",\n        \"app.kubernetes.io/name\": \"kmm\",\n        \"app.kubernetes.io/part-of\": \"kmm\"\n      },\n      \"name\": \"preflightvalidation-sample\"\n    },\n    \"spec\": {\n      \"kernelVersion\": \"4.18.0-372.32.1.el8_6.x86_64\",\n      \"pushBuiltImage\": true\n    }\n  },\n  {\n    \"apiVersion\": \"kmm.sigs.x-k8s.io/v1beta1\",\n    \"kind\": \"PreflightValidationOCP\",\n    \"metadata\": {\n      \"labels\": {\n        \"app.kubernetes.io/component\": \"kmm\",\n        \"app.kubernetes.io/name\": \"kmm\",\n        \"app.kubernetes.io/part-of\": \"kmm\"\n      },\n      \"name\": \"preflightvalidationocp-sample\"\n    },\n    \"spec\": {\n      \"pushBuiltImage\": true,\n      \"releaseImage\": \"ocp-release-image\"\n    }\n  }\n]",
                     "capabilities": "Basic Install",
                     "certified": "true",
-                    "containerImage": "registry.redhat.io/kmm/kernel-module-management-rhel9-operator@sha256:dab06791b327f7a61f4d5b191f024bfacbb4cfbb8945cabf03dfba4bde867e77",
+                    "containerImage": "registry.redhat.io/kmm/kernel-module-management-rhel9-operator@sha256:e5aa9a9605cc128c51f9cbd9a86b51ae4931cd4f25ab5f58b9fab105808c646e",
                     "features.operators.openshift.io/cnf": "false",
                     "features.operators.openshift.io/cni": "false",
                     "features.operators.openshift.io/csi": "false",
@@ -2066,27 +2066,27 @@
     "relatedImages": [
         {
             "name": "must-gather",
-            "image": "registry.redhat.io/kmm/kernel-module-management-must-gather-rhel9@sha256:8403c395fcdaa48c7bf23fc7bcba4cfa1a823444943d8438132ae1bd08a73c75"
+            "image": "registry.redhat.io/kmm/kernel-module-management-must-gather-rhel9@sha256:a07bf5b75d106fea719408eb28647135875c0e4af4bd0509234f6254bfe335f7"
         },
         {
             "name": "",
-            "image": "registry.redhat.io/kmm/kernel-module-management-rhel9-operator@sha256:dab06791b327f7a61f4d5b191f024bfacbb4cfbb8945cabf03dfba4bde867e77"
+            "image": "registry.redhat.io/kmm/kernel-module-management-rhel9-operator@sha256:e5aa9a9605cc128c51f9cbd9a86b51ae4931cd4f25ab5f58b9fab105808c646e"
         },
         {
             "name": "sign",
-            "image": "registry.redhat.io/kmm/kernel-module-management-signing-rhel9@sha256:102f5908cbdc00e6344d816543e29209f8c4180b885b4e8ec32a0e51277b8050"
+            "image": "registry.redhat.io/kmm/kernel-module-management-signing-rhel9@sha256:b27faa30eb5c2eed2b7eb75107741630d0c3f5e5a70ecf470add0367a16da3f4"
         },
         {
             "name": "",
-            "image": "registry.redhat.io/kmm/kernel-module-management-webhook-server-rhel9@sha256:8cb998ca1598a4ddfdc17824f7963d1f24b9683a34fac6f0ed7a8eb5f1d8b48a"
+            "image": "registry.redhat.io/kmm/kernel-module-management-webhook-server-rhel9@sha256:673a95d63a17efe40cdc21b650e30683f122a449a0ebbc8ea58406826aa36879"
         },
         {
             "name": "worker",
-            "image": "registry.redhat.io/kmm/kernel-module-management-worker-rhel9@sha256:326a2d52bee6c62d83c434025d7c0a92d9e8fc79688d9a76da2ca0b6d4152dbc"
+            "image": "registry.redhat.io/kmm/kernel-module-management-worker-rhel9@sha256:9554323085daff94944bc556b22d5cdb990f2cff9adf99a6c5b2ebe6a2671a2d"
         },
         {
             "name": "",
-            "image": "registry.stage.redhat.io/kmm/kernel-module-management-operator-bundle@sha256:82ed236ba09d0e502c6ee902fb6181c764fb4759b7b6985e6952c12f43fcbb7e"
+            "image": "registry.stage.redhat.io/kmm/kernel-module-management-operator-bundle@sha256:d8041fbd86fc935fd6b0e6fefc7a765f1463609a51ef1d038fcdb602bfba13ef"
         }
     ]
 }
