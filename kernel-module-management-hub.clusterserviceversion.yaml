@@ -112,6 +112,7 @@ spec:
           - ""
           resources:
           - configmaps
+          - pods
           verbs:
           - create
           - delete
@@ -160,6 +161,43 @@ spec:
           verbs:
           - get
           - list
+          - watch
+        - apiGroups:
+          - kmm.sigs.x-k8s.io
+          resources:
+          - modulebuildsignconfigs
+          verbs:
+          - create
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - kmm.sigs.x-k8s.io
+          resources:
+          - modulebuildsignconfigs/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - kmm.sigs.x-k8s.io
+          resources:
+          - modulebuildsignconfigs/status
+          - moduleimagesconfigs/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - kmm.sigs.x-k8s.io
+          resources:
+          - moduleimagesconfigs
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
           - watch
         - apiGroups:
           - work.open-cluster-management.io

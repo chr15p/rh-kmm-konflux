@@ -135,7 +135,7 @@ spec:
       clusterPermissions:
       - rules:
         - apiGroups:
-          - ''
+          - ""
           resources:
           - events
           verbs:
@@ -183,7 +183,7 @@ spec:
           - patch
           - update
         - apiGroups:
-          - ''
+          - ""
           resources:
           - configmaps
           - pods
@@ -195,7 +195,7 @@ spec:
           - patch
           - watch
         - apiGroups:
-          - ''
+          - ""
           resources:
           - namespaces
           - nodes
@@ -205,7 +205,7 @@ spec:
           - patch
           - watch
         - apiGroups:
-          - ''
+          - ""
           resources:
           - secrets
           - serviceaccounts
@@ -224,6 +224,35 @@ spec:
         - apiGroups:
           - kmm.sigs.x-k8s.io
           resources:
+          - modulebuildsignconfigs
+          verbs:
+          - create
+          - get
+          - list
+          - patch
+          - update
+          - watch
+        - apiGroups:
+          - kmm.sigs.x-k8s.io
+          resources:
+          - modulebuildsignconfigs/finalizers
+          - moduleimagesconfigs/finalizers
+          - modules/finalizers
+          verbs:
+          - update
+        - apiGroups:
+          - kmm.sigs.x-k8s.io
+          resources:
+          - modulebuildsignconfigs/status
+          - moduleimagesconfigs/status
+          - modules/status
+          verbs:
+          - get
+          - patch
+          - update
+        - apiGroups:
+          - kmm.sigs.x-k8s.io
+          resources:
           - moduleimagesconfigs
           - nodemodulesconfigs
           verbs:
@@ -237,31 +266,12 @@ spec:
           - kmm.sigs.x-k8s.io
           resources:
           - modules
-          - preflightvalidations/status
-          - preflightvalidationsocp
           verbs:
           - get
           - list
           - patch
           - update
           - watch
-        - apiGroups:
-          - kmm.sigs.x-k8s.io
-          resources:
-          - modules/finalizers
-          - preflightvalidations/finalizers
-          - preflightvalidationsocp/finalizers
-          verbs:
-          - update
-        - apiGroups:
-          - kmm.sigs.x-k8s.io
-          resources:
-          - modules/status
-          - preflightvalidationsocp/status
-          verbs:
-          - get
-          - patch
-          - update
         - apiGroups:
           - kmm.sigs.x-k8s.io
           resources:
@@ -275,18 +285,6 @@ spec:
           - nodemodulesconfigs/status
           verbs:
           - patch
-        - apiGroups:
-          - kmm.sigs.x-k8s.io
-          resources:
-          - preflightvalidations
-          verbs:
-          - create
-          - delete
-          - get
-          - list
-          - patch
-          - update
-          - watch
         - apiGroups:
           - authentication.k8s.io
           resources:
@@ -444,17 +442,17 @@ spec:
             spec:
               affinity:
                 nodeAffinity:
-                  requiredDuringSchedulingIgnoredDuringExecution:
-                    nodeSelectorTerms:
-                    - matchExpressions:
+                  preferredDuringSchedulingIgnoredDuringExecution:
+                  - preference:
+                      matchExpressions:
                       - key: node-role.kubernetes.io/control-plane
                         operator: Exists
-                    - matchExpressions:
+                    weight: 1
+                  - preference:
+                      matchExpressions:
                       - key: node-role.kubernetes.io/master
                         operator: Exists
-                    - matchExpressions:
-                      - key: kmm.node.kubernetes.io/control-plane
-                        operator: Exists
+                    weight: 1
               containers:
               - args:
                 - --config=controller_config.yaml
@@ -513,7 +511,7 @@ spec:
       permissions:
       - rules:
         - apiGroups:
-          - ''
+          - ""
           resources:
           - configmaps
           verbs:
@@ -613,7 +611,7 @@ spec:
     generateName: namespace-deletion.kmm.sigs.k8s.io
     rules:
     - apiGroups:
-      - ''
+      - ""
       apiVersions:
       - v1
       operations:
