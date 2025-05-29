@@ -1,28 +1,30 @@
 #!/bin/bash
 
-FBC="fbc/catalog-template.json"
+OPFBC="fbc/op-catalog-template.json"
+HUBFBC="fbc/hub-catalog-template.json"
 
 OPERATOR_BUNDLE=$(awk -F: '{print $2}' bundle-hack/operator-bundle.yaml)
+HUB_OPERATOR_BUNDLE=$(awk -F: '{print $2}' bundle-hack/hub-operator-bundle.yaml)
 
 sed  -i "
     /stage/{
         /kernel-module-management-operator-bundle/s/sha256:.*/sha256:$OPERATOR_BUNDLE\"/
     }
-" $FBC
+" $OPFBC
 
-for i in $(ls -d v4.1?); do 
+sed  -i "
+    /stage/{
+        /kernel-module-management-hub-operator-bundle/s/sha256:.*/sha256:$HUB_OPERATOR_BUNDLE\"/
+    }
+" $HUBFBC
 
-    cp $FBC  $i/
+opm alpha render-template basic fbc/op-catalog-template.json > fbc/op/kernel-module-management/catalog.json
 
-    if [[ $i =~ v4.1[456] ]]; then
-        echo "$i -" 
-        opm alpha render-template basic $i/catalog-template.json > $i/catalog/kernel-module-management/catalog.json
-    else    
-        echo "$i migrate"
-        opm alpha render-template basic $i/catalog-template.json --migrate-level=bundle-object-to-csv-metadata > $i/catalog/kernel-module-management/catalog.json
-    fi
+opm alpha render-template basic fbc/op-catalog-template.json --migrate-level=bundle-object-to-csv-metadata > fbc/op-migrated/kernel-module-management/catalog.json
+
+opm alpha render-template basic fbc/hub-catalog-template.json > fbc/hub/kernel-module-management/catalog.json
+
+opm alpha render-template basic fbc/hub-catalog-template.json --migrate-level=bundle-object-to-csv-metadata > fbc/hub-migrated/kernel-module-management/catalog.json
 
 
-done
-
-
+exit
