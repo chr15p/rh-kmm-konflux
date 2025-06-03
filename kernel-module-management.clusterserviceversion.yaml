@@ -62,7 +62,8 @@ metadata:
           }
         }
       ]
-    capabilities: Basic Install
+    capabilities: Seamless Upgrades
+    createdAt: "2025-05-29T12:08:09Z"
     operatorframework.io/suggested-namespace: openshift-kmm
     certified: "true"
     containerImage: "{{OPERATOR_IMAGE}}"
@@ -246,6 +247,7 @@ spec:
           - modulebuildsignconfigs/status
           - moduleimagesconfigs/status
           - modules/status
+          - preflightvalidations/status
           verbs:
           - get
           - patch
@@ -276,6 +278,7 @@ spec:
           - kmm.sigs.x-k8s.io
           resources:
           - nodemodulesconfigs/finalizers
+          - preflightvalidations/finalizers
           verbs:
           - patch
           - update
@@ -285,6 +288,18 @@ spec:
           - nodemodulesconfigs/status
           verbs:
           - patch
+        - apiGroups:
+          - kmm.sigs.x-k8s.io
+          resources:
+          - preflightvalidations
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - patch
+          - update
+          - watch
         - apiGroups:
           - authentication.k8s.io
           resources:
