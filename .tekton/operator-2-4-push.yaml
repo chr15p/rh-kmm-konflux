@@ -8,7 +8,7 @@ metadata:
     pipelinesascode.tekton.dev/cancel-in-progress: "false"
     pipelinesascode.tekton.dev/max-keep-runs: "3"
     pipelinesascode.tekton.dev/on-cel-expression: event == "push" && target_branch
-      == "release-2.4" && !("bundle-hack/**".pathChanged() || "v4.??/**".pathChanged())
+      == "release-2.4" && ("kernel-module-management/**".pathChanged() || "Dockerfile.operator".pathChanged())
   creationTimestamp: null
   labels:
     appstudio.openshift.io/application: kmm-2-4
