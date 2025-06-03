@@ -22,6 +22,8 @@ spec:
     value: '{{source_url}}'
   - name: revision
     value: '{{revision}}'
+  - name: target_branch
+    value: '{{target_branch}}'
   - name: output-image
     value: quay.io/redhat-user-workloads/rh-kmm-tenant/kmm-2-4/operator-2-4:{{revision}}
   - name: build-platforms
@@ -240,6 +242,8 @@ spec:
       - name: BUILD_ARGS
         value:
         - $(params.build-args[*])
+        - "CI_UPSTREAM_SHORT_COMMIT=$(tasks.clone-repository.results.commit)"
+        - "CI_VERSION=$(params.target_branch)"
       - name: BUILD_ARGS_FILE
         value: $(params.build-args-file)
       - name: PRIVILEGED_NESTED
