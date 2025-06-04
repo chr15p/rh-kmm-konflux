@@ -1,10 +1,14 @@
 #!/usr/bin/bash
 
-. scripts/functions.sh
+REPODIR=$(git rev-parse --show-toplevel)
+. ${REPODIR}/scripts/functions.sh
 
 APPLICATION=${1:-kmm-2-4}
+COMMIT=$2
 
-SNAPSHOT=$(snapshots)
+update_pullspecs
+
+SNAPSHOT=$(snapshots $COMMIT $APPLICATION)
 
 if [ -n "$(check_snapshot $SNAPSHOT)" ]; then
     echo "ERROR: snapshot $SNAPSHOT is not up to date, or pullspecs are wrong"
@@ -13,9 +17,10 @@ fi
 
 RELEASEPLAN=$(releaseplan $APPLICATION)
 
-RELEASE=$(next_release kmm)
-#| kubectl apply -f - -o yaml
+RELEASE=$(next_release kmm-2-4 $APPLICATION)
 
+
+#cat << EOF 
 cat << EOF | kubectl apply -f - -o yaml 
 apiVersion: appstudio.redhat.com/v1alpha1
 kind: Release

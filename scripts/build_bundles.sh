@@ -1,6 +1,7 @@
 #!/usr/bin/bash
 
-. functions.sh
+REPODIR=$(git rev-parse --show-toplevel)
+. ${REPODIR}/scripts/functions.sh
 
 if [ -z "$1" ]; then
     COMMIT=$(latest_commit)
