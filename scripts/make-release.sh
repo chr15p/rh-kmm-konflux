@@ -6,6 +6,11 @@ REPODIR=$(git rev-parse --show-toplevel)
 APPLICATION=${1:-kmm-2-4}
 COMMIT=$2
 
+if [ -z "$APPLICATION" -o -z "$COMMIT" ]; then
+    echo "usage: $0 APPLICATION COMMIT"
+    exit 1
+fi
+
 update_pullspecs
 
 SNAPSHOT=$(snapshots $COMMIT $APPLICATION)

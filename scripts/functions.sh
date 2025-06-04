@@ -26,9 +26,9 @@ function snapshots {
     APP=$2
 
     if [ -n "$APP" ]; then
-        oc get snapshot -o custom-columns=NAME:.metadata.name --no-headers -l pac.test.appstudio.openshift.io/sha=$COMMIT,appstudio.openshift.io/application=$APP --sort-by='{.metadata.creationTimestamp}'
+        oc get snapshot -o custom-columns=NAME:.metadata.name --no-headers -l pac.test.appstudio.openshift.io/sha=$COMMIT,appstudio.openshift.io/application=$APP --sort-by='{.metadata.creationTimestamp}' | tail -n 1
     elif [ -n "$COMMIT" ]; then
-        oc get snapshot -o custom-columns=NAME:.metadata.name --no-headers -l pac.test.appstudio.openshift.io/sha=$COMMIT --sort-by='{.metadata.creationTimestamp}'
+        oc get snapshot -o custom-columns=NAME:.metadata.name --no-headers -l pac.test.appstudio.openshift.io/sha=$COMMIT --sort-by='{.metadata.creationTimestamp}' | tail -n 1
     else
         #oc get snapshot -o custom-columns=NAME:.metadata.name --no-headers
         oc get snapshot  --sort-by='{.metadata.creationTimestamp}' --no-headers -o custom-columns=NAME:.metadata.name   | tail -n 1
