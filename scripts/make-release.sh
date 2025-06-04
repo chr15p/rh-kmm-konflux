@@ -13,7 +13,7 @@ fi
 
 update_pullspecs
 
-SNAPSHOT=$(snapshots $COMMIT $APPLICATION)
+SNAPSHOT=$(snapshots $APPLICATION $COMMIT)
 
 if [ -n "$(check_snapshot $SNAPSHOT)" ]; then
     echo "ERROR: snapshot $SNAPSHOT is not up to date, or pullspecs are wrong"
@@ -25,7 +25,6 @@ RELEASEPLAN=$(releaseplan $APPLICATION)
 RELEASE=$(next_release kmm-2-4 $APPLICATION)
 
 
-#cat << EOF 
 cat << EOF | kubectl apply -f - -o yaml 
 apiVersion: appstudio.redhat.com/v1alpha1
 kind: Release

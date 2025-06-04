@@ -22,11 +22,12 @@ function latest_kmm {
 
 
 function snapshots {
-    COMMIT=$1
-    APP=$2
+    APP=$1
+    COMMIT=$2
 
     if [ -n "$APP" ]; then
         oc get snapshot -o custom-columns=NAME:.metadata.name --no-headers -l pac.test.appstudio.openshift.io/sha=$COMMIT,appstudio.openshift.io/application=$APP --sort-by='{.metadata.creationTimestamp}' | tail -n 1
+        #oc get snapshot -o custom-columns=NAME:.metadata.name --no-headers -l pac.test.appstudio.openshift.io/sha=$COMMIT,appstudio.openshift.io/application=$APP
     elif [ -n "$COMMIT" ]; then
         oc get snapshot -o custom-columns=NAME:.metadata.name --no-headers -l pac.test.appstudio.openshift.io/sha=$COMMIT --sort-by='{.metadata.creationTimestamp}' | tail -n 1
     else
@@ -54,9 +55,9 @@ function update_pullspecs {
 function pipelineruns {
     COMMIT=$1
     if [ -n "$COMMIT" ]; then
-        oc get pipelineruns -l pipelinesascode.tekton.dev/sha=$COMMIT
+        oc get pipelineruns -l pipelinesascode.tekton.dev/sha=$COMMIT --sort-by='{.metadata.creationTimestamp}'
     else
-        oc get pipelineruns
+        oc get pipelineruns --sort-by='{.metadata.creationTimestamp}'
     fi
 }
 
