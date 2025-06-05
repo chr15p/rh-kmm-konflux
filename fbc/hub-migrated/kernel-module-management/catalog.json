@@ -1377,7 +1377,7 @@
     "schema": "olm.bundle",
     "name": "kernel-module-management-hub.v2.4.0",
     "package": "kernel-module-management-hub",
-    "image": "registry.stage.redhat.io/kmm/kernel-module-management-hub-operator-bundle@sha256:a9bf31e469530f7297a22fb93e3c84b4b3a8bb75f61829308e381f4c607fa74a",
+    "image": "registry.stage.redhat.io/kmm/kernel-module-management-hub-operator-bundle@sha256:898b502654308566725a90a9a7cbefa916f3c37bf19f7b051a38932dd7b7985c",
     "properties": [
         {
             "type": "olm.gvk",
@@ -1401,7 +1401,7 @@
                     "alm-examples": "[\n  {\n    \"apiVersion\": \"hub.kmm.sigs.x-k8s.io/v1beta1\",\n    \"kind\": \"ManagedClusterModule\",\n    \"metadata\": {\n      \"labels\": {\n        \"app.kubernetes.io/component\": \"kmm-hub\",\n        \"app.kubernetes.io/name\": \"kmm-hub\",\n        \"app.kubernetes.io/part-of\": \"kmm\"\n      },\n      \"name\": \"managedclustermodule-sample\"\n    },\n    \"spec\": {\n      \"moduleSpec\": {\n        \"moduleLoader\": {\n          \"container\": {\n            \"kernelMappings\": [],\n            \"modprobe\": {\n              \"moduleName\": \"sample\"\n            }\n          }\n        },\n        \"selector\": {\n          \"node-role.kubernetes.io/worker\": \"\"\n        }\n      },\n      \"selector\": {\n        \"cluster.open-cluster-management.io/clusterset\": \"default\"\n      },\n      \"spokeNamespace\": \"default\"\n    }\n  }\n]",
                     "capabilities": "Seamless Upgrades",
                     "certified": "true",
-                    "containerImage": "registry.redhat.io/kmm/kernel-module-management-rhel9-operator@sha256:2423f41497009a1cad9abf70002de01591032aecff80d7eb8f7156fa082c9389",
+                    "containerImage": "registry.redhat.io/kmm/kernel-module-management-rhel9-operator@sha256:db63822966b4e96ccffede1e7806796f45849387a9d2679e975184ca7d77baf0",
                     "features.operators.openshift.io/cnf": "false",
                     "features.operators.openshift.io/cni": "false",
                     "features.operators.openshift.io/csi": "false",
@@ -1489,27 +1489,27 @@
     "relatedImages": [
         {
             "name": "must-gather",
-            "image": "registry.redhat.io/kmm/kernel-module-management-must-gather-rhel9@sha256:76456576af2ecc018ef3ddbda4f521c1948929ab61163340cd987529c456e148"
+            "image": "registry.redhat.io/kmm/kernel-module-management-must-gather-rhel9@sha256:a54c3d7850e4e9c01e2c64d0bd59e06fb29ab7539394b1434aafe2f185f806a6"
         },
         {
             "name": "",
-            "image": "registry.redhat.io/kmm/kernel-module-management-rhel9-operator@sha256:2423f41497009a1cad9abf70002de01591032aecff80d7eb8f7156fa082c9389"
+            "image": "registry.redhat.io/kmm/kernel-module-management-rhel9-operator@sha256:db63822966b4e96ccffede1e7806796f45849387a9d2679e975184ca7d77baf0"
         },
         {
             "name": "sign",
-            "image": "registry.redhat.io/kmm/kernel-module-management-signing-rhel9@sha256:6083115103e70e83abf7eda4a0f4a569f62fb80abf5d2a9eb9121709187c197f"
+            "image": "registry.redhat.io/kmm/kernel-module-management-signing-rhel9@sha256:5f0f4fff60e752104cb00a380f1b38e8311fce72f1bb4cde3884865eee8f7368"
         },
         {
             "name": "",
-            "image": "registry.redhat.io/kmm/kernel-module-management-webhook-server-rhel9@sha256:11d6f30db0ab9b87f409e91e0533d5be9a14f732d7b1e00627fd7cb7d9d269aa"
+            "image": "registry.redhat.io/kmm/kernel-module-management-webhook-server-rhel9@sha256:25e95619f09542547a073cf5583fa655bb95934c80bfbe4aee9678783d5338a5"
         },
         {
             "name": "worker",
-            "image": "registry.redhat.io/kmm/kernel-module-management-worker-rhel9@sha256:647edca3219d4f45cb89abe3f32fd330e6766359799a0a8bb6dc9478201d3ef6"
+            "image": "registry.redhat.io/kmm/kernel-module-management-worker-rhel9@sha256:c67a5e95fd4610dde3df0f7435e08688f7d66e807e598fe3501e466e9c77abdf"
         },
         {
             "name": "",
-            "image": "registry.stage.redhat.io/kmm/kernel-module-management-hub-operator-bundle@sha256:a9bf31e469530f7297a22fb93e3c84b4b3a8bb75f61829308e381f4c607fa74a"
+            "image": "registry.stage.redhat.io/kmm/kernel-module-management-hub-operator-bundle@sha256:898b502654308566725a90a9a7cbefa916f3c37bf19f7b051a38932dd7b7985c"
         }
     ]
 }
