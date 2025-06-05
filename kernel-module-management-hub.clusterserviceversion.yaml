@@ -2,69 +2,51 @@ apiVersion: operators.coreos.com/v1alpha1
 kind: ClusterServiceVersion
 metadata:
   annotations:
-    alm-examples: |-
-      [
-        {
-          "apiVersion": "hub.kmm.sigs.x-k8s.io/v1beta1",
-          "kind": "ManagedClusterModule",
-          "metadata": {
-            "labels": {
-              "app.kubernetes.io/component": "kmm-hub",
-              "app.kubernetes.io/name": "kmm-hub",
-              "app.kubernetes.io/part-of": "kmm"
-            },
-            "name": "managedclustermodule-sample"
-          },
-          "spec": {
-            "moduleSpec": {
-              "moduleLoader": {
-                "container": {
-                  "kernelMappings": [],
-                  "modprobe": {
-                    "moduleName": "sample"
-                  }
-                }
-              },
-              "selector": {
-                "node-role.kubernetes.io/worker": ""
-              }
-            },
-            "selector": {
-              "cluster.open-cluster-management.io/clusterset": "default"
-            },
-            "spokeNamespace": "default"
-          }
-        }
-      ]
+    alm-examples: "[\n  {\n    \"apiVersion\": \"hub.kmm.sigs.x-k8s.io/v1beta1\",\n\
+      \    \"kind\": \"ManagedClusterModule\",\n    \"metadata\": {\n      \"labels\"\
+      : {\n        \"app.kubernetes.io/component\": \"kmm-hub\",\n        \"app.kubernetes.io/name\"\
+      : \"kmm-hub\",\n        \"app.kubernetes.io/part-of\": \"kmm\"\n      },\n \
+      \     \"name\": \"managedclustermodule-sample\"\n    },\n    \"spec\": {\n \
+      \     \"moduleSpec\": {\n        \"moduleLoader\": {\n          \"container\"\
+      : {\n            \"kernelMappings\": [],\n            \"modprobe\": {\n    \
+      \          \"moduleName\": \"sample\"\n            }\n          }\n        },\n\
+      \        \"selector\": {\n          \"node-role.kubernetes.io/worker\": \"\"\
+      \n        }\n      },\n      \"selector\": {\n        \"cluster.open-cluster-management.io/clusterset\"\
+      : \"default\"\n      },\n      \"spokeNamespace\": \"default\"\n    }\n  }\n\
+      ]"
     capabilities: Seamless Upgrades
+    certified: 'true'
+    containerImage: registry.redhat.io/kmm/kernel-module-management-rhel9-operator
+    createdAt: '2025-06-05T10:08:33Z'
+    features.operators.openshift.io/cnf: 'false'
+    features.operators.openshift.io/cni: 'false'
+    features.operators.openshift.io/csi: 'false'
+    features.operators.openshift.io/disconnected: 'true'
+    features.operators.openshift.io/fips-compliant: 'true'
+    features.operators.openshift.io/proxy-aware: 'false'
+    features.operators.openshift.io/tls-profiles: 'false'
+    features.operators.openshift.io/token-auth-aws: 'false'
+    features.operators.openshift.io/token-auth-azure: 'false'
+    features.operators.openshift.io/token-auth-gcp: 'false'
+    olm.skipRange: '>=0.0.0 <2.4.0'
     operatorframework.io/suggested-namespace: openshift-kmm-hub
-    certified: "true"
-    containerImage: "{{OPERATOR_IMAGE}}"
-    olm.skipRange: '>=0.0.0 <{{RELEASE_VERSION}}'
-    operators.openshift.io/valid-subscription: '["OpenShift Kubernetes Engine", "OpenShift Container Platform", "OpenShift Platform Plus"]'
+    operators.openshift.io/valid-subscription: '''["OpenShift Kubernetes Engine",
+      "OpenShift Container Platform", "OpenShift Platform Plus"]'''
     operators.operatorframework.io/builder: operator-sdk-v1.32.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v3
-    features.operators.openshift.io/disconnected: "true"
-    features.operators.openshift.io/fips-compliant: "true"
-    features.operators.openshift.io/proxy-aware: "false"
-    features.operators.openshift.io/cnf: "false"
-    features.operators.openshift.io/cni: "false"
-    features.operators.openshift.io/csi: "false"
-    features.operators.openshift.io/tls-profiles: "false"
-    features.operators.openshift.io/token-auth-aws: "false"
-    features.operators.openshift.io/token-auth-azure: "false"
-    features.operators.openshift.io/token-auth-gcp: "false"
     repository: https://github.com/rh-ecosystem-edge/kernel-module-management
   labels:
+    app.kubernetes.io/component: kmm-hub
+    app.kubernetes.io/name: kmm-hub
+    app.kubernetes.io/part-of: kmm
     operatorframework.io/arch.amd64: supported
     operatorframework.io/arch.arm64: supported
     operatorframework.io/arch.ppc64le: supported
     operatorframework.io/os.linux: supported
-  name: kernel-module-management-hub.v{{RELEASE_VERSION}}
+  name: kernel-module-management-hub.v2.4.0
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
-  replaces: kernel-module-management-hub.v{{REPLACE_VERSION}}
   customresourcedefinitions:
     owned:
     - description: ManagedClusterModule describes how to load a kernel module on managed
@@ -83,7 +65,7 @@ spec:
       clusterPermissions:
       - rules:
         - apiGroups:
-          - ""
+          - ''
           resources:
           - events
           verbs:
@@ -109,7 +91,7 @@ spec:
           - list
           - watch
         - apiGroups:
-          - ""
+          - ''
           resources:
           - configmaps
           - pods
@@ -121,7 +103,7 @@ spec:
           - patch
           - watch
         - apiGroups:
-          - ""
+          - ''
           resources:
           - nodes
           - secrets
@@ -250,25 +232,32 @@ spec:
                 app.kubernetes.io/part-of: kmm
                 control-plane: controller
             spec:
+              affinity:
+                nodeAffinity:
+                  preferredDuringSchedulingIgnoredDuringExecution:
+                  - preference:
+                      matchExpressions:
+                      - key: node-role.kubernetes.io/control-plane
+                        operator: Exists
+                    weight: 1
+                  - preference:
+                      matchExpressions:
+                      - key: node-role.kubernetes.io/master
+                        operator: Exists
+                    weight: 1
               containers:
               - args:
-                - --config=controller_config.yaml
-                command:
-                - /usr/local/bin/manager
+                - --config=kmm-operator-hub-manager-config
                 env:
-                - name: RELATED_IMAGE_WORKER
-                  value: {{WORKER_IMAGE}}
-                - name: SSL_CERT_DIR
-                  value: /etc/pki/ca-trust/extracted/pem
                 - name: OPERATOR_NAMESPACE
                   valueFrom:
                     fieldRef:
                       fieldPath: metadata.namespace
                 - name: RELATED_IMAGE_MUST_GATHER
-                  value: {{MUST_GATHER_IMAGE}}
+                  value: '{{MUST_GATHER_IMAGE}}'
                 - name: RELATED_IMAGE_SIGN
-                  value: {{SIGNING_IMAGE}}
-                image: {{OPERATOR_IMAGE}}
+                  value: '{{SIGNING_IMAGE}}'
+                image: '{{HUB_OPERATOR_IMAGE}}'
                 livenessProbe:
                   httpGet:
                     path: /healthz
@@ -295,52 +284,17 @@ spec:
                     memory: 64Mi
                 securityContext:
                   allowPrivilegeEscalation: false
-                  capabilities:
-                    drop:
-                    - ALL
-                volumeMounts:
-                - mountPath: /etc/pki/ca-trust/extracted/pem
-                  name: trusted-ca
-                  readOnly: true
-                - mountPath: /certs
-                  name: metrics-tls
-                  readOnly: true
-                - mountPath: /controller_config.yaml
-                  name: manager-config
-                  subPath: controller_config.yaml
-              nodeSelector:
-                node-role.kubernetes.io/master: ""
               securityContext:
                 runAsNonRoot: true
-                seccompProfile:
-                  type: RuntimeDefault
               serviceAccountName: kmm-operator-hub-controller
               terminationGracePeriodSeconds: 10
               tolerations:
               - effect: NoSchedule
                 key: node-role.kubernetes.io/master
                 operator: Equal
-              volumes:
-              - name: trusted-ca
-                projected:
-                  sources:
-                  - configMap:
-                      items:
-                      - key: ca-bundle.crt
-                        path: tls-ca-bundle.pem
-                      name: kmm-operator-hub-cluster-ca
-                  - configMap:
-                      items:
-                      - key: service-ca.crt
-                        path: ocp-service-ca-bundle.pem
-                      name: kmm-operator-hub-service-ca
-              - name: metrics-tls
-                secret:
-                  defaultMode: 420
-                  secretName: metrics-service-cert
-              - configMap:
-                  name: kmm-operator-hub-manager-config
-                name: manager-config
+              - effect: NoSchedule
+                key: node-role.kubernetes.io/control-plane
+                operator: Equal
       - label:
           app.kubernetes.io/component: kmm-hub
           app.kubernetes.io/name: kmm-hub
@@ -368,22 +322,27 @@ spec:
             spec:
               affinity:
                 nodeAffinity:
-                  requiredDuringSchedulingIgnoredDuringExecution:
-                    nodeSelectorTerms:
-                    - matchExpressions:
+                  preferredDuringSchedulingIgnoredDuringExecution:
+                  - preference:
+                      matchExpressions:
                       - key: node-role.kubernetes.io/control-plane
                         operator: Exists
-                    - matchExpressions:
+                    weight: 1
+                  - preference:
+                      matchExpressions:
                       - key: node-role.kubernetes.io/master
                         operator: Exists
-                    - matchExpressions:
-                      - key: kmm.node.kubernetes.io/control-plane
-                        operator: Exists
+                    weight: 1
               containers:
               - args:
-                - --config=controller_config.yaml
+                - --config=kmm-operator-manager-config
                 - --enable-managedclustermodule
-                image: {{WEBHOOK_IMAGE}}
+                env:
+                - name: OPERATOR_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                image: '{{WEBHOOK_IMAGE}}'
                 livenessProbe:
                   httpGet:
                     path: /healthz
@@ -413,10 +372,6 @@ spec:
                   capabilities:
                     drop:
                     - ALL
-                volumeMounts:
-                - mountPath: /controller_config.yaml
-                  name: manager-config
-                  subPath: controller_config.yaml
               securityContext:
                 runAsNonRoot: true
               serviceAccountName: kmm-operator-hub-controller
@@ -428,14 +383,10 @@ spec:
               - effect: NoSchedule
                 key: node-role.kubernetes.io/control-plane
                 operator: Equal
-              volumes:
-              - configMap:
-                  name: kmm-operator-hub-manager-config
-                name: manager-config
       permissions:
       - rules:
         - apiGroups:
-          - ""
+          - ''
           resources:
           - configmaps
           verbs:
@@ -478,9 +429,6 @@ spec:
   - modules
   - oot
   - out-of-tree
-  links:
-  - name: Kernel Module Management Hub
-    url: https://github.com/rh-ecosystem-edge/kernel-module-management
   maintainers:
   - email: edge-kmm@redhat.com
     name: Red Hat Ecosystem - Partner Accelerators Team
@@ -488,13 +436,14 @@ spec:
     name: Red Hat
     url: https://www.redhat.com
   relatedImages:
-  - image: {{MUST_GATHER_IMAGE}}
-    name: must-gather
-  - image: {{SIGNING_IMAGE}}
-    name: sign
-  - image: {{WORKER_IMAGE}}
+  - image: '{{WORKER_IMAGE}}'
     name: worker
-  version: {{RELEASE_VERSION}}
+  - image: '{{MUST_GATHER_IMAGE}}'
+    name: must-gather
+  - image: '{{SIGNING_IMAGE}}'
+    name: sign
+  replaces: kernel-module-management-hub.v2.3.0
+  version: 2.4.0
   webhookdefinitions:
   - admissionReviewVersions:
     - v1

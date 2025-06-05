@@ -49,6 +49,11 @@ spec = {
     "version": "${RELEASE_VERSION}",
     "provider": {"name": "Red Hat" , "url": "https://www.redhat.com"},
     "replaces": "${NAME}.v${REPLACE_VERSION}",
+    "relatedImages": [
+            {"name": "worker", "image": "{{WORKER_IMAGE}}" },
+            {"name": "must-gather", "image": "{{MUST_GATHER_IMAGE}}" },
+            {"name": "sign", "image": "{{SIGNING_IMAGE}}" },
+            ],
 }
 
 labels_delete = {
@@ -61,11 +66,23 @@ spec_delete = {
     "maturity",
 }
 
+replacements = {
+    "quay.io/edge-infrastructure/kernel-module-management-worker:latest": "\"{{WORKER_IMAGE}}\"",
+    "quay.io/edge-infrastructure/kernel-module-management-signimage:latest": "\"{{SIGNING_IMAGE}}\"",
+    "quay.io/edge-infrastructure/kernel-module-management-operator:latest": "\"{{OPERATOR_IMAGE}}\"",
+    "quay.io/edge-infrastructure/kernel-module-management-must-gather:latest": "\"{{MUST_GATHER_IMAGE}}\"",
+    "quay.io/edge-infrastructure/kernel-module-management-webhook-server:latest": "\"{{WEBHOOK_IMAGE}}\"",
+    "quay.io/edge-infrastructure/kernel-module-management-operator-hub:latest": "\"{{HUB_OPERATOR_IMAGE}}\"",
+}
+
 
 with open(CSV, 'r') as file:
     data = file.read()
 
 #data = data.replace("quay.io/edge-infrastructure/kernel-module-management-webhook-server:latest", "\"{{WEBHOOK_IMAGE}}\"")
+
+for k, v in replacements.items():
+    data = data.replace(k, v)
 
 
 #with open(CSV) as stream:
@@ -95,7 +112,6 @@ for k,v in spec.items():
 
 for i in spec_delete:
     del template['spec'][i]
-
 
 s = Template(yaml.dump(template))
 

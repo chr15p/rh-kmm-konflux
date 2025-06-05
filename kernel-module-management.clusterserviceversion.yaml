@@ -2,80 +2,54 @@ apiVersion: operators.coreos.com/v1alpha1
 kind: ClusterServiceVersion
 metadata:
   annotations:
-    alm-examples: |-
-      [
-        {
-          "apiVersion": "kmm.sigs.x-k8s.io/v1beta1",
-          "kind": "Module",
-          "metadata": {
-            "labels": {
-              "app.kubernetes.io/component": "kmm",
-              "app.kubernetes.io/name": "kmm",
-              "app.kubernetes.io/part-of": "kmm"
-            },
-            "name": "module-sample"
-          },
-          "spec": {
-            "moduleLoader": {
-              "container": {
-                "kernelMappings": [],
-                "modprobe": {
-                  "moduleName": "sample"
-                }
-              }
-            },
-            "selector": {
-              "node-role.kubernetes.io/worker": ""
-            }
-          }
-        },
-        {
-          "apiVersion": "kmm.sigs.x-k8s.io/v1beta1",
-          "kind": "PreflightValidation",
-          "metadata": {
-            "labels": {
-              "app.kubernetes.io/component": "kmm",
-              "app.kubernetes.io/name": "kmm",
-              "app.kubernetes.io/part-of": "kmm"
-            },
-            "name": "preflightvalidation-sample"
-          },
-          "spec": {
-            "kernelVersion": "4.18.0-372.32.1.el8_6.x86_64",
-            "pushBuiltImage": true
-          }
-        }
-      ]
+    alm-examples: "[\n  {\n    \"apiVersion\": \"kmm.sigs.x-k8s.io/v1beta1\",\n  \
+      \  \"kind\": \"Module\",\n    \"metadata\": {\n      \"labels\": {\n       \
+      \ \"app.kubernetes.io/component\": \"kmm\",\n        \"app.kubernetes.io/name\"\
+      : \"kmm\",\n        \"app.kubernetes.io/part-of\": \"kmm\"\n      },\n     \
+      \ \"name\": \"module-sample\"\n    },\n    \"spec\": {\n      \"moduleLoader\"\
+      : {\n        \"container\": {\n          \"kernelMappings\": [],\n         \
+      \ \"modprobe\": {\n            \"moduleName\": \"sample\"\n          }\n   \
+      \     }\n      },\n      \"selector\": {\n        \"node-role.kubernetes.io/worker\"\
+      : \"\"\n      }\n    }\n  },\n  {\n    \"apiVersion\": \"kmm.sigs.x-k8s.io/v1beta1\"\
+      ,\n    \"kind\": \"PreflightValidation\",\n    \"metadata\": {\n      \"labels\"\
+      : {\n        \"app.kubernetes.io/component\": \"kmm\",\n        \"app.kubernetes.io/name\"\
+      : \"kmm\",\n        \"app.kubernetes.io/part-of\": \"kmm\"\n      },\n     \
+      \ \"name\": \"preflightvalidation-sample\"\n    },\n    \"spec\": {\n      \"\
+      kernelVersion\": \"4.18.0-372.32.1.el8_6.x86_64\",\n      \"pushBuiltImage\"\
+      : true\n    }\n  }\n]"
     capabilities: Seamless Upgrades
-    createdAt: "2025-05-29T12:08:09Z"
+    certified: 'true'
+    containerImage: registry.redhat.io/kmm/kernel-module-management-rhel9-operator
+    createdAt: '2025-06-05T10:08:31Z'
+    features.operators.openshift.io/cnf: 'false'
+    features.operators.openshift.io/cni: 'false'
+    features.operators.openshift.io/csi: 'false'
+    features.operators.openshift.io/disconnected: 'true'
+    features.operators.openshift.io/fips-compliant: 'true'
+    features.operators.openshift.io/proxy-aware: 'false'
+    features.operators.openshift.io/tls-profiles: 'false'
+    features.operators.openshift.io/token-auth-aws: 'false'
+    features.operators.openshift.io/token-auth-azure: 'false'
+    features.operators.openshift.io/token-auth-gcp: 'false'
+    olm.skipRange: '>=0.0.0 <2.4.0'
     operatorframework.io/suggested-namespace: openshift-kmm
-    certified: "true"
-    containerImage: "{{OPERATOR_IMAGE}}"
-    olm.skipRange: '>=0.0.0 <{{RELEASE_VERSION}}'
-    operators.openshift.io/valid-subscription: '["OpenShift Kubernetes Engine", "OpenShift Container Platform", "OpenShift Platform Plus"]'
+    operators.openshift.io/valid-subscription: '''["OpenShift Kubernetes Engine",
+      "OpenShift Container Platform", "OpenShift Platform Plus"]'''
     operators.operatorframework.io/builder: operator-sdk-v1.32.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v3
-    features.operators.openshift.io/disconnected: "true"
-    features.operators.openshift.io/fips-compliant: "true"
-    features.operators.openshift.io/proxy-aware: "false"
-    features.operators.openshift.io/cnf: "false"
-    features.operators.openshift.io/cni: "false"
-    features.operators.openshift.io/csi: "false"
-    features.operators.openshift.io/tls-profiles: "false"
-    features.operators.openshift.io/token-auth-aws: "false"
-    features.operators.openshift.io/token-auth-azure: "false"
-    features.operators.openshift.io/token-auth-gcp: "false"
     repository: https://github.com/rh-ecosystem-edge/kernel-module-management
   labels:
+    app.kubernetes.io/component: kmm
+    app.kubernetes.io/name: kmm
+    app.kubernetes.io/part-of: kmm
     operatorframework.io/arch.amd64: supported
     operatorframework.io/arch.arm64: supported
     operatorframework.io/arch.ppc64le: supported
     operatorframework.io/os.linux: supported
-  name: kernel-module-management.v{{RELEASE_VERSION}}
+  name: kernel-module-management.v2.4.0
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
-  replaces: kernel-module-management.v{{REPLACE_VERSION}}
   customresourcedefinitions:
     owned:
     - kind: ModuleBuildSignConfig
@@ -111,7 +85,7 @@ spec:
       clusterPermissions:
       - rules:
         - apiGroups:
-          - ""
+          - ''
           resources:
           - events
           verbs:
@@ -159,7 +133,7 @@ spec:
           - patch
           - update
         - apiGroups:
-          - ""
+          - ''
           resources:
           - configmaps
           verbs:
@@ -168,7 +142,7 @@ spec:
           - list
           - watch
         - apiGroups:
-          - ""
+          - ''
           resources:
           - namespaces
           - nodes
@@ -178,7 +152,7 @@ spec:
           - patch
           - watch
         - apiGroups:
-          - ""
+          - ''
           resources:
           - pods
           verbs:
@@ -189,7 +163,7 @@ spec:
           - patch
           - watch
         - apiGroups:
-          - ""
+          - ''
           resources:
           - secrets
           - serviceaccounts
@@ -337,19 +311,19 @@ spec:
                     weight: 1
               containers:
               - args:
-                - --config=controller_config.yaml
+                - --config=kmm-operator-manager-config
                 env:
                 - name: RELATED_IMAGE_WORKER
-                  value: {{WORKER_IMAGE}}
+                  value: '{{WORKER_IMAGE}}'
                 - name: OPERATOR_NAMESPACE
                   valueFrom:
                     fieldRef:
                       fieldPath: metadata.namespace
                 - name: RELATED_IMAGE_MUST_GATHER
-                  value: {{MUST_GATHER_IMAGE}}
+                  value: '{{MUST_GATHER_IMAGE}}'
                 - name: RELATED_IMAGE_SIGN
-                  value: {{SIGNING_IMAGE}}
-                image: {{OPERATOR_IMAGE}}
+                  value: '{{SIGNING_IMAGE}}'
+                image: '{{OPERATOR_IMAGE}}'
                 livenessProbe:
                   httpGet:
                     path: /healthz
@@ -427,7 +401,7 @@ spec:
                     weight: 1
               containers:
               - args:
-                - --config=controller_config.yaml
+                - --config=kmm-operator-manager-config
                 - --enable-module
                 - --enable-namespace
                 - --enable-preflightvalidation
@@ -436,7 +410,7 @@ spec:
                   valueFrom:
                     fieldRef:
                       fieldPath: metadata.namespace
-                image: {{WEBHOOK_IMAGE}}
+                image: '{{WEBHOOK_IMAGE}}'
                 livenessProbe:
                   httpGet:
                     path: /healthz
@@ -480,7 +454,7 @@ spec:
       permissions:
       - rules:
         - apiGroups:
-          - ""
+          - ''
           resources:
           - configmaps
           verbs:
@@ -547,17 +521,15 @@ spec:
   provider:
     name: Red Hat
     url: https://www.redhat.com
-  provider:
-    name: Red Hat
-    url: https://www.redhat.com
   relatedImages:
-  - image: {{WORKER_IMAGE}}
+  - image: '{{WORKER_IMAGE}}'
     name: worker
-  - image: {{MUST_GATHER_IMAGE}}
+  - image: '{{MUST_GATHER_IMAGE}}'
     name: must-gather
-  - image: {{SIGNING_IMAGE}}
+  - image: '{{SIGNING_IMAGE}}'
     name: sign
-  version: {{RELEASE_VERSION}}
+  replaces: kernel-module-management.v2.3.0
+  version: 2.4.0
   webhookdefinitions:
   - admissionReviewVersions:
     - v1beta2
@@ -579,7 +551,7 @@ spec:
     generateName: namespace-deletion.kmm.sigs.k8s.io
     rules:
     - apiGroups:
-      - ""
+      - ''
       apiVersions:
       - v1
       operations:
