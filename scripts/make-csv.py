@@ -113,7 +113,7 @@ for k,v in spec.items():
 for i in spec_delete:
     del template['spec'][i]
 
-s = Template(yaml.dump(template))
+s = Template(yaml.dump(template, width=1000))
 
 subs = {
     "NAME": name,
