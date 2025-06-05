@@ -44,22 +44,6 @@ metadata:
             "kernelVersion": "4.18.0-372.32.1.el8_6.x86_64",
             "pushBuiltImage": true
           }
-        },
-        {
-          "apiVersion": "kmm.sigs.x-k8s.io/v1beta1",
-          "kind": "PreflightValidationOCP",
-          "metadata": {
-            "labels": {
-              "app.kubernetes.io/component": "kmm",
-              "app.kubernetes.io/name": "kmm",
-              "app.kubernetes.io/part-of": "kmm"
-            },
-            "name": "preflightvalidationocp-sample"
-          },
-          "spec": {
-            "pushBuiltImage": true,
-            "releaseImage": "ocp-release-image"
-          }
         }
       ]
     capabilities: Seamless Upgrades
@@ -116,15 +100,6 @@ spec:
       version: v1beta1
     - kind: PreflightValidation
       name: preflightvalidations.kmm.sigs.x-k8s.io
-      version: v1beta2
-    - description: PreflightValidationOCP initiates a preflight validations for all
-        Modules on the current OCP cluster.
-      displayName: Preflight Validation OCP
-      kind: PreflightValidationOCP
-      name: preflightvalidationsocp.kmm.sigs.x-k8s.io
-      version: v1beta1
-    - kind: PreflightValidationOCP
-      name: preflightvalidationsocp.kmm.sigs.x-k8s.io
       version: v1beta2
   description: Kubernetes operator managing out of tree kernel modules
   displayName: Kernel Module Management
@@ -187,13 +162,10 @@ spec:
           - ""
           resources:
           - configmaps
-          - pods
           verbs:
-          - create
           - delete
           - get
           - list
-          - patch
           - watch
         - apiGroups:
           - ""
@@ -201,6 +173,17 @@ spec:
           - namespaces
           - nodes
           verbs:
+          - get
+          - list
+          - patch
+          - watch
+        - apiGroups:
+          - ""
+          resources:
+          - pods
+          verbs:
+          - create
+          - delete
           - get
           - list
           - patch
@@ -339,16 +322,25 @@ spec:
                 app.kubernetes.io/part-of: kmm
                 control-plane: controller
             spec:
+              affinity:
+                nodeAffinity:
+                  preferredDuringSchedulingIgnoredDuringExecution:
+                  - preference:
+                      matchExpressions:
+                      - key: node-role.kubernetes.io/control-plane
+                        operator: Exists
+                    weight: 1
+                  - preference:
+                      matchExpressions:
+                      - key: node-role.kubernetes.io/master
+                        operator: Exists
+                    weight: 1
               containers:
               - args:
                 - --config=controller_config.yaml
-                command:
-                - /usr/local/bin/manager
                 env:
                 - name: RELATED_IMAGE_WORKER
                   value: {{WORKER_IMAGE}}
-                - name: SSL_CERT_DIR
-                  value: /etc/pki/ca-trust/extracted/pem
                 - name: OPERATOR_NAMESPACE
                   valueFrom:
                     fieldRef:
@@ -384,52 +376,17 @@ spec:
                     memory: 64Mi
                 securityContext:
                   allowPrivilegeEscalation: false
-                  capabilities:
-                    drop:
-                    - ALL
-                volumeMounts:
-                - mountPath: /etc/pki/ca-trust/extracted/pem
-                  name: trusted-ca
-                  readOnly: true
-                - mountPath: /certs
-                  name: metrics-tls
-                  readOnly: true
-                - mountPath: /controller_config.yaml
-                  name: manager-config
-                  subPath: controller_config.yaml
-              nodeSelector:
-                node-role.kubernetes.io/master: ""
               securityContext:
                 runAsNonRoot: true
-                seccompProfile:
-                  type: RuntimeDefault
               serviceAccountName: kmm-operator-controller
               terminationGracePeriodSeconds: 10
               tolerations:
               - effect: NoSchedule
                 key: node-role.kubernetes.io/master
                 operator: Equal
-              volumes:
-              - name: trusted-ca
-                projected:
-                  sources:
-                  - configMap:
-                      items:
-                      - key: ca-bundle.crt
-                        path: tls-ca-bundle.pem
-                      name: kmm-operator-cluster-ca
-                  - configMap:
-                      items:
-                      - key: service-ca.crt
-                        path: ocp-service-ca-bundle.pem
-                      name: kmm-operator-service-ca
-              - name: metrics-tls
-                secret:
-                  defaultMode: 420
-                  secretName: metrics-service-cert
-              - configMap:
-                  name: kmm-operator-manager-config
-                name: manager-config
+              - effect: NoSchedule
+                key: node-role.kubernetes.io/control-plane
+                operator: Equal
       - label:
           app.kubernetes.io/component: kmm
           app.kubernetes.io/name: kmm
@@ -474,7 +431,12 @@ spec:
                 - --enable-module
                 - --enable-namespace
                 - --enable-preflightvalidation
-                image: {{WEBHOOK_IMAGE}}
+                env:
+                - name: OPERATOR_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                image: quay.io/edge-infrastructure/kernel-module-management-webhook-server:latest
                 livenessProbe:
                   httpGet:
                     path: /healthz
@@ -504,10 +466,6 @@ spec:
                   capabilities:
                     drop:
                     - ALL
-                volumeMounts:
-                - mountPath: /controller_config.yaml
-                  name: manager-config
-                  subPath: controller_config.yaml
               securityContext:
                 runAsNonRoot: true
               serviceAccountName: kmm-operator-controller
@@ -519,10 +477,6 @@ spec:
               - effect: NoSchedule
                 key: node-role.kubernetes.io/control-plane
                 operator: Equal
-              volumes:
-              - configMap:
-                  name: kmm-operator-manager-config
-                name: manager-config
       permissions:
       - rules:
         - apiGroups:
@@ -597,12 +551,12 @@ spec:
     name: Red Hat
     url: https://www.redhat.com
   relatedImages:
+  - image: {{WORKER_IMAGE}}
+    name: worker
   - image: {{MUST_GATHER_IMAGE}}
     name: must-gather
   - image: {{SIGNING_IMAGE}}
     name: sign
-  - image: {{WORKER_IMAGE}}
-    name: worker
   version: {{RELEASE_VERSION}}
   webhookdefinitions:
   - admissionReviewVersions:
@@ -611,9 +565,8 @@ spec:
     containerPort: 443
     conversionCRDs:
     - preflightvalidations.kmm.sigs.x-k8s.io
-    - preflightvalidationsocp.kmm.sigs.x-k8s.io
     deploymentName: kmm-operator-webhook
-    generateName: cpreflightvalidationspreflightvalidationsocp.kb.io
+    generateName: cpreflightvalidations.kb.io
     sideEffects: None
     targetPort: 9443
     type: ConversionWebhook
