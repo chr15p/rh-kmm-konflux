@@ -20,7 +20,7 @@ annotations={
     "certified": "true",
     "containerImage": "${OPERATOR_IMAGE}",
     "olm.skipRange": '>=0.0.0 <${RELEASE_VERSION}',
-    "operators.openshift.io/valid-subscription": "\'[\"OpenShift Kubernetes Engine\", \"OpenShift Container Platform\", \"OpenShift Platform Plus\"]\'",
+    "operators.openshift.io/valid-subscription": """["OpenShift Kubernetes Engine", "OpenShift Container Platform", "OpenShift Platform Plus"]""",
     "features.operators.openshift.io/disconnected": "true",
     "features.operators.openshift.io/fips-compliant": "true",
     "features.operators.openshift.io/proxy-aware": "false",
