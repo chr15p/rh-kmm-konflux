@@ -25,10 +25,10 @@ echo opm alpha render-template basic fbc/op-catalog-template.json --migrate-leve
 opm alpha render-template basic fbc/op-catalog-template.json --migrate-level=bundle-object-to-csv-metadata > fbc/op-migrated/kernel-module-management/catalog.json
 
 echo opm alpha render-template basic fbc/hub-catalog-template.json
-opm alpha render-template basic fbc/hub-catalog-template.json > fbc/hub/kernel-module-management/catalog.json
+opm alpha render-template basic fbc/hub-catalog-template.json > fbc/hub/kernel-module-management-hub/catalog.json
 
 echo opm alpha render-template basic fbc/hub-catalog-template.json --migrate-level=bundle-object-to-csv-metadata
-opm alpha render-template basic fbc/hub-catalog-template.json --migrate-level=bundle-object-to-csv-metadata > fbc/hub-migrated/kernel-module-management/catalog.json
+opm alpha render-template basic fbc/hub-catalog-template.json --migrate-level=bundle-object-to-csv-metadata > fbc/hub-migrated/kernel-module-management-hub/catalog.json
 
 
 exit

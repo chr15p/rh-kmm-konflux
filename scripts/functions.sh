@@ -109,3 +109,28 @@ function releaseplan {
     oc get releaseplan | awk -v app=$APPLICATION '$2==app{print $1}'
 
 }
+
+
+function latest_releases {
+    local RELEASE=$1  #e.g r30
+
+    oc get release  | awk -v v=$RELEASE ' 
+            $1~".*"v {
+                status[$1]=$4;
+                match($1,"(.*" v ")-([0-9]+)", parts);
+                if(length(parts) ==0){
+                    parts[1]=$1; 
+                    parts[2]=""
+                };
+                if(parts[2] > arr[parts[1]]){
+                    arr[parts[1]]=parts[2]} 
+                }
+                END{ 
+                    for(i in arr){
+                        if(arr[i]==""){
+                            print i " " status[i]
+                        }else{
+                            print i"-"arr[i]" " status[i"-"arr[i]]
+                        }
+                    }}' | sort
+}
