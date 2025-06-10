@@ -5,6 +5,7 @@ REPODIR=$(git rev-parse --show-toplevel)
 
 APPLICATION=${1:-kmm-2-4}
 COMMIT=$2
+SNAPSHOT=$3
 
 if [ -z "$APPLICATION" -o -z "$COMMIT" ]; then
     echo "usage: $0 APPLICATION COMMIT"
@@ -13,7 +14,9 @@ fi
 
 update_pullspecs
 
-SNAPSHOT=$(snapshots $APPLICATION $COMMIT)
+if [ -z "$SNAPSHOT" ]; then
+    SNAPSHOT=$(snapshots $APPLICATION $COMMIT)
+fi
 
 if [ -n "$(check_snapshot $SNAPSHOT)" ]; then
     echo "ERROR: snapshot $SNAPSHOT is not up to date, or pullspecs are wrong"
