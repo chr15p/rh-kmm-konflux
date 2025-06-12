@@ -23,7 +23,8 @@ function latest_commit {
 }
 
 function latest_kmm {
-    git submodule status | awk '/kernel-module-management/{print substr($1,0,7)}'
+    MODULE=${1:-kernel-module-management}
+    git submodule status | awk -v module=$MODULE '$2==module{print substr($1,0,7)}'
 }
 
 

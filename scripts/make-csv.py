@@ -99,19 +99,25 @@ except yaml.YAMLError as exc:
 name=template['metadata']['name'].split(".",1)[0]
 
 for k,v in annotations.items():
+    print(f"add/update metadata.annotations.{k}")
     template['metadata']['annotations'][k]=v
 
 for k,v in labels.items():
+    print(f"add/update metadata.labels.{k}")
     template['metadata']['labels'][k]=v
 
 for k,v in metadata.items():
+    print(f"add/update metadata.{k}")
     template['metadata'][k]=v
 
 for k,v in spec.items():
+    print(f"add/update spec.{k}")
     template['spec'][k]=v
 
 for i in spec_delete:
-    del template['spec'][i]
+    print(f"delete spec.{i}")
+    if template['spec'].get(i):
+        del template['spec'][i]
 
 s = Template(yaml.dump(template, width=1000))
 
