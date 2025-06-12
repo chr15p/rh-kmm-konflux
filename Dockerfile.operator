@@ -6,8 +6,9 @@ ARG CI_VERSION CI_UPSTREAM_SHORT_COMMIT
 
 WORKDIR /opt/app-root/src
 COPY kernel-module-management .
-
-RUN go build -ldflags="-w -s -X main.Version=${CI_VERSION} -X main.GitCommit=${CI_UPSTREAM_SHORT_COMMIT}" -o manager cmd/manager/main.go
+COPY .git/modules/kernel-module-management/HEAD .
+COPY .gitmodules .
+RUN go build -ldflags="-w -s -X main.Version=$(cat .gitmodules | awk '/branch/{print $3}') -X main.GitCommit=$(cat HEAD)" -o manager cmd/manager/main.go
 
 #FROM registry.redhat.io/rhel9-4-els/rhel-minimal:9.4
 FROM registry.redhat.io/ubi9/ubi-minimal:9.6
