@@ -1867,7 +1867,7 @@
     "schema": "olm.bundle",
     "name": "kernel-module-management.v2.4.0",
     "package": "kernel-module-management",
-    "image": "registry.stage.redhat.io/kmm/kernel-module-management-operator-bundle@sha256:21f539dc7bc037425f53a69af4af37541ded4bbd0b4c753f2bfc2215cae3c386",
+    "image": "registry.stage.redhat.io/kmm/kernel-module-management-operator-bundle@sha256:747330713cf51032ad7fd709bd9505f19fee41434005ac00dc56972069bbc78f",
     "properties": [
         {
             "type": "olm.gvk",
@@ -1932,7 +1932,7 @@
                     "capabilities": "Seamless Upgrades",
                     "certified": "true",
                     "containerImage": "registry.redhat.io/kmm/kernel-module-management-rhel9-operator",
-                    "createdAt": "2025-06-05T10:08:31Z",
+                    "createdAt": "2025-06-12T13:41:06Z",
                     "features.operators.openshift.io/cnf": "false",
                     "features.operators.openshift.io/cni": "false",
                     "features.operators.openshift.io/csi": "false",
@@ -1945,6 +1945,7 @@
                     "features.operators.openshift.io/token-auth-gcp": "false",
                     "olm.skipRange": ">=0.0.0 <2.4.0",
                     "operatorframework.io/suggested-namespace": "openshift-kmm",
+                    "operators.openshift.io/must-gather-image": "\"registry.redhat.io/kmm/kernel-module-management-must-gather-rhel9@sha256:e02ff31e684ca249cd994a6fbc2a2e150d7ddb2e8fcac6fc4c6d4374714a6f8c\"",
                     "operators.openshift.io/valid-subscription": "[\"OpenShift Kubernetes Engine\", \"OpenShift Container Platform\", \"OpenShift Platform Plus\"]",
                     "operators.operatorframework.io/builder": "operator-sdk-v1.32.0",
                     "operators.operatorframework.io/project_layout": "go.kubebuilder.io/v3",
@@ -2042,27 +2043,27 @@
     "relatedImages": [
         {
             "name": "must-gather",
-            "image": "registry.redhat.io/kmm/kernel-module-management-must-gather-rhel9@sha256:26e3027bcea667986df0526f533fcb6d0c04ce159e8d8d30c0a9de8317498302"
+            "image": "registry.redhat.io/kmm/kernel-module-management-must-gather-rhel9@sha256:e02ff31e684ca249cd994a6fbc2a2e150d7ddb2e8fcac6fc4c6d4374714a6f8c"
         },
         {
             "name": "",
-            "image": "registry.redhat.io/kmm/kernel-module-management-rhel9-operator@sha256:211759140790ba91884f02e81d682493216e86d01e4ad2d8d4061de973eb97f0"
+            "image": "registry.redhat.io/kmm/kernel-module-management-rhel9-operator@sha256:739198346117e924fe39be007fb4d2030c6a2876ba0e6b7c58be31b72c842757"
         },
         {
             "name": "sign",
-            "image": "registry.redhat.io/kmm/kernel-module-management-signing-rhel9@sha256:bf44b136478912c7bb3a5227947902f7f95494b9d7521c06ea0fd88db23133fb"
+            "image": "registry.redhat.io/kmm/kernel-module-management-signing-rhel9@sha256:f23477b608cbd2afa37a8b5097dafc27790c313c9160bc26bff3e2eea94f2642"
         },
         {
             "name": "",
-            "image": "registry.redhat.io/kmm/kernel-module-management-webhook-server-rhel9@sha256:edf9f82ada4deaab88b09ce21df6b43faa4d8d074c7000e4e916f226bb0a64d2"
+            "image": "registry.redhat.io/kmm/kernel-module-management-webhook-server-rhel9@sha256:a81e32f68a8f2c06e7867eb486228eef8b03fcc9c0ecbfc870c4a42c4abbb409"
         },
         {
             "name": "worker",
-            "image": "registry.redhat.io/kmm/kernel-module-management-worker-rhel9@sha256:0d60fbb1a5f0b5a8b0ac417a864a9f8aeeff0730d5fa15bb72482219953701dd"
+            "image": "registry.redhat.io/kmm/kernel-module-management-worker-rhel9@sha256:59c5308576165880214716b78188b68451ba6cfe19a915512f6448348631d0dd"
         },
         {
             "name": "",
-            "image": "registry.stage.redhat.io/kmm/kernel-module-management-operator-bundle@sha256:21f539dc7bc037425f53a69af4af37541ded4bbd0b4c753f2bfc2215cae3c386"
+            "image": "registry.stage.redhat.io/kmm/kernel-module-management-operator-bundle@sha256:747330713cf51032ad7fd709bd9505f19fee41434005ac00dc56972069bbc78f"
         }
     ]
 }
