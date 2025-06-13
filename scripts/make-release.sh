@@ -18,7 +18,7 @@ if [ -z "$SNAPSHOT" ]; then
     SNAPSHOT=$(snapshots $APPLICATION $COMMIT)
 fi
 
-if [ -n "$(check_snapshot $SNAPSHOT)" ]; then
+if [ -z "$SNAPSHOT" -o  -n "$(check_snapshot $SNAPSHOT)" ]; then
     echo "ERROR: snapshot $SNAPSHOT is not up to date, or pullspecs are wrong"
     exit 1
 fi

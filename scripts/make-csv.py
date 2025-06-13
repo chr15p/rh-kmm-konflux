@@ -32,6 +32,7 @@ annotations={
 
     "features.operators.openshift.io/token-auth-azure": "false",
     "features.operators.openshift.io/token-auth-gcp": "false",
+    "operators.openshift.io/must-gather-image": "\"{{MUST_GATHER_IMAGE}}\"",
 }
 
 metadata ={

@@ -6,7 +6,7 @@ metadata:
     capabilities: Seamless Upgrades
     certified: 'true'
     containerImage: registry.redhat.io/kmm/kernel-module-management-rhel9-operator
-    createdAt: '2025-06-05T10:08:33Z'
+    createdAt: '2025-06-12T13:41:07Z'
     features.operators.openshift.io/cnf: 'false'
     features.operators.openshift.io/cni: 'false'
     features.operators.openshift.io/csi: 'false'
@@ -19,6 +19,7 @@ metadata:
     features.operators.openshift.io/token-auth-gcp: 'false'
     olm.skipRange: '>=0.0.0 <2.4.0'
     operatorframework.io/suggested-namespace: openshift-kmm-hub
+    operators.openshift.io/must-gather-image: '"{{MUST_GATHER_IMAGE}}"'
     operators.openshift.io/valid-subscription: '["OpenShift Kubernetes Engine", "OpenShift Container Platform", "OpenShift Platform Plus"]'
     operators.operatorframework.io/builder: operator-sdk-v1.32.0
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v3
@@ -41,6 +42,12 @@ spec:
       displayName: Managed Cluster Module
       kind: ManagedClusterModule
       name: managedclustermodules.hub.kmm.sigs.x-k8s.io
+      version: v1beta1
+    - kind: ModuleBuildSignConfig
+      name: modulebuildsignconfigs.kmm.sigs.x-k8s.io
+      version: v1beta1
+    - kind: ModuleImagesConfig
+      name: moduleimagesconfigs.kmm.sigs.x-k8s.io
       version: v1beta1
   description: Hub component for Kernel Module Management
   displayName: Kernel Module Management (Hub)
