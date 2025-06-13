@@ -107,7 +107,13 @@ function next_release {
 
 function releaseplan {
     local APPLICATION=$1
-    oc get releaseplan | awk -v app=$APPLICATION '$2==app{print $1}'
+    local ENVIRO=${2:-stage}
+
+    if [ "$ENVIRO" != "prod" ]; then
+        oc get releaseplan | awk -v app=$APPLICATION '$1~/prod/{next}  $2==app{print $1}'
+    else
+        oc get releaseplan | awk -v app=$APPLICATION '$1!~/prod/{next}  $2==app{print $1}'
+    fi
 
 }
 
