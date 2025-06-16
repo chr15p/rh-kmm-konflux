@@ -285,7 +285,7 @@
         },
         {
             "schema": "olm.bundle",
-            "image": "registry.stage.redhat.io/kmm/kernel-module-management-hub-operator-bundle@sha256:d11635bb1582013ef063ac0c1cc827e47ce2109b7eda6d2938afdcbe2a24218b"
+            "image": "registry.stage.redhat.io/kmm/kernel-module-management-hub-operator-bundle@sha256:42bfe21e7d3debac05c7b1dad264268c8350575bd969205c6834593e41582f8c"
         }
     ]
 }
