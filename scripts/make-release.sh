@@ -3,9 +3,13 @@
 REPODIR=$(git rev-parse --show-toplevel)
 . ${REPODIR}/scripts/functions.sh
 
-APPLICATION=${1:-kmm-2-4}
+APPLICATION=$1
 COMMIT=$2
 SNAPSHOT=$3
+
+if [ -z "$COMMIT" ]; then
+    COMMIT=$(latest_commit)
+fi
 
 if [ -z "$APPLICATION" -o -z "$COMMIT" ]; then
     echo "usage: $0 APPLICATION COMMIT"
