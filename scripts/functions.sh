@@ -24,7 +24,7 @@ function latest_commit {
 
 function latest_kmm {
     MODULE=${1:-kernel-module-management}
-    git submodule status | awk -v module=$MODULE '$2==module{gsub("[+-U]","",$1);print substr($1,0,7)}'
+    git submodule status | awk -v module=$MODULE '$2==module{print substr($1,0,7)}'
 }
 
 
@@ -61,6 +61,13 @@ function update_pullspecs {
 
 function pipelineruns {
     local COMMIT=$1
+
+    if [ "$COMMIT" == "--all" ]; then
+        COMMIT=""
+    elif [ -z "$COMMIT" ]; then
+        COMMIT=$(latest_commit)
+    fi
+
     if [ -n "$COMMIT" ]; then
         oc get pipelineruns -l pipelinesascode.tekton.dev/sha=$COMMIT --sort-by='{.metadata.creationTimestamp}'
         ## enterprise-contracts use as different label grrr
