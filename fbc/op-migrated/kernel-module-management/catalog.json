@@ -1867,7 +1867,7 @@
     "schema": "olm.bundle",
     "name": "kernel-module-management.v2.4.0",
     "package": "kernel-module-management",
-    "image": "registry.stage.redhat.io/kmm/kernel-module-management-operator-bundle@sha256:027347daf87a3c04d44860043a7a7524af4c78f36cef0e2d36487a4aabf2a4b9",
+    "image": "registry.stage.redhat.io/kmm/kernel-module-management-operator-bundle@sha256:172d6db68159938b388d6a48af67f40c11a145adca13a486135e60833110958a",
     "properties": [
         {
             "type": "olm.gvk",
@@ -1948,7 +1948,7 @@
                     "capabilities": "Seamless Upgrades",
                     "certified": "true",
                     "containerImage": "registry.redhat.io/kmm/kernel-module-management-rhel9-operator",
-                    "createdAt": "2025-06-19T07:54:06Z",
+                    "createdAt": "2025-06-19T20:27:41Z",
                     "features.operators.openshift.io/cnf": "false",
                     "features.operators.openshift.io/cni": "false",
                     "features.operators.openshift.io/csi": "false",
@@ -1961,7 +1961,7 @@
                     "features.operators.openshift.io/token-auth-gcp": "false",
                     "olm.skipRange": ">=0.0.0 <2.4.0",
                     "operatorframework.io/suggested-namespace": "openshift-kmm",
-                    "operators.openshift.io/must-gather-image": "\"registry.redhat.io/kmm/kernel-module-management-must-gather-rhel9@sha256:300d8929cce68bd5cf1c60ecaa8ed50f3ceae2fe7fb2fea16cdeb3ffdd644b58\"",
+                    "operators.openshift.io/must-gather-image": "\"registry.redhat.io/kmm/kernel-module-management-must-gather-rhel9@sha256:a1062af0a018fc96cec81b57d419252efb566f80628c783d2750419d3cf375b9\"",
                     "operators.openshift.io/valid-subscription": "[\"OpenShift Kubernetes Engine\", \"OpenShift Container Platform\", \"OpenShift Platform Plus\"]",
                     "operators.operatorframework.io/builder": "operator-sdk-v1.32.0",
                     "operators.operatorframework.io/project_layout": "go.kubebuilder.io/v3",
@@ -2071,27 +2071,27 @@
     "relatedImages": [
         {
             "name": "must-gather",
-            "image": "registry.redhat.io/kmm/kernel-module-management-must-gather-rhel9@sha256:300d8929cce68bd5cf1c60ecaa8ed50f3ceae2fe7fb2fea16cdeb3ffdd644b58"
+            "image": "registry.redhat.io/kmm/kernel-module-management-must-gather-rhel9@sha256:a1062af0a018fc96cec81b57d419252efb566f80628c783d2750419d3cf375b9"
         },
         {
             "name": "",
-            "image": "registry.redhat.io/kmm/kernel-module-management-rhel9-operator@sha256:221c88d36fa992416ddde3e047cbbb4d9413b4ae4639fe7c1f09bccd78c52805"
+            "image": "registry.redhat.io/kmm/kernel-module-management-rhel9-operator@sha256:1fa8b699a2f05801fc9a00f1155a4f329b9e98ced4017e5b3e6d25fe7f576499"
         },
         {
             "name": "sign",
-            "image": "registry.redhat.io/kmm/kernel-module-management-signing-rhel9@sha256:a3d66344fcc8470010069f8b9418560d793a05c8a6c53bbaeb2f0bb19bb367fe"
+            "image": "registry.redhat.io/kmm/kernel-module-management-signing-rhel9@sha256:9ca63420bbd37eb48ba0d9c788df49b2ddd97f1351db56269227332665fa4b56"
         },
         {
             "name": "",
-            "image": "registry.redhat.io/kmm/kernel-module-management-webhook-server-rhel9@sha256:f041f332310db09f5878ed32539cdf305ad959fd6dcea6aaf4312d2c96c53c49"
+            "image": "registry.redhat.io/kmm/kernel-module-management-webhook-server-rhel9@sha256:664d9ae1167c3ffd6c00ef456fe4e84069256dd2f073648a893aed47c4daea09"
         },
         {
             "name": "worker",
-            "image": "registry.redhat.io/kmm/kernel-module-management-worker-rhel9@sha256:25e24b0c12fd7beee293b685136fd06cac533880917b987908ad1cef2c1d3be5"
+            "image": "registry.redhat.io/kmm/kernel-module-management-worker-rhel9@sha256:faec04a90a3c944d7b1db84e0fb512180c9ad52a213b8f6617d5aa8e63d1d624"
         },
         {
             "name": "",
-            "image": "registry.stage.redhat.io/kmm/kernel-module-management-operator-bundle@sha256:027347daf87a3c04d44860043a7a7524af4c78f36cef0e2d36487a4aabf2a4b9"
+            "image": "registry.stage.redhat.io/kmm/kernel-module-management-operator-bundle@sha256:172d6db68159938b388d6a48af67f40c11a145adca13a486135e60833110958a"
         }
     ]
 }
