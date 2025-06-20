@@ -6,7 +6,7 @@ metadata:
     capabilities: Seamless Upgrades
     certified: 'true'
     containerImage: registry.redhat.io/kmm/kernel-module-management-rhel9-operator
-    createdAt: '2025-06-19T07:54:15Z'
+    createdAt: '2025-06-19T20:27:42Z'
     features.operators.openshift.io/cnf: 'false'
     features.operators.openshift.io/cni: 'false'
     features.operators.openshift.io/csi: 'false'

@@ -7,7 +7,7 @@ metadata:
     capabilities: Seamless Upgrades
     certified: 'true'
     containerImage: registry.redhat.io/kmm/kernel-module-management-rhel9-operator
-    createdAt: '2025-06-19T07:54:06Z'
+    createdAt: '2025-06-19T20:27:41Z'
     features.operators.openshift.io/cnf: 'false'
     features.operators.openshift.io/cni: 'false'
     features.operators.openshift.io/csi: 'false'
@@ -579,3 +579,23 @@ spec:
     targetPort: 9443
     type: ValidatingAdmissionWebhook
     webhookPath: /validate-kmm-sigs-x-k8s-io-v1beta1-module
+  - admissionReviewVersions:
+    - v1
+    containerPort: 443
+    deploymentName: kmm-operator-webhook
+    failurePolicy: Fail
+    generateName: vpreflightvalidationocp.kb.io
+    rules:
+    - apiGroups:
+      - kmm.sigs.x-k8s.io
+      apiVersions:
+      - v1beta2
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - preflightvalidationsocp
+    sideEffects: None
+    targetPort: 9443
+    type: ValidatingAdmissionWebhook
+    webhookPath: /validate-kmm-sigs-x-k8s-io-v1beta2-preflightvalidationocp
