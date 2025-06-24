@@ -40,7 +40,7 @@ LABEL com.redhat.delivery.backport=false
 ## (e.g. once 2.0 is in stable CVE releases like 1.1.z should go into "release-1.1" and NOT into stable 
 ## customers who want to stay on 1.x need to change channels, customers who are happy with the latests dont)
 LABEL operators.operatorframework.io.bundle.channel.default.v1=stable
-LABEL operators.operatorframework.io.bundle.channels.v1=stable,release-2.3
+LABEL operators.operatorframework.io.bundle.channels.v1=stable,release-2.4
 LABEL operators.operatorframework.io.bundle.manifests.v1=manifests/
 LABEL operators.operatorframework.io.bundle.mediatype.v1=registry+v1
 LABEL operators.operatorframework.io.bundle.metadata.v1=metadata/
