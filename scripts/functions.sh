@@ -134,6 +134,7 @@ function latest_releases {
     oc get release  | awk -v v=$RELEASE ' 
             $1~".*"v {
                 status[$1]=$4;
+                time[$1]=$5;
                 match($1,"(.*" v ")-([0-9]+)", parts);
                 if(length(parts) ==0){
                     parts[1]=$1; 
@@ -145,9 +146,50 @@ function latest_releases {
                 END{ 
                     for(i in arr){
                         if(arr[i]==""){
-                            print i " " status[i]
+                            s=i
+                            h=""
                         }else{
-                            print i"-"arr[i]" " status[i"-"arr[i]]
+                            s=i"-"arr[i]
+                            h="-"
+                        }
+                        if(status[s] == "Progressing"){
+                            print i h arr[i]" " status[s] " " time[s]
+                        }else{
+                            print i h arr[i]" " status[s]
                         }
                     }}' | sort
 }
+
+
+function watch_pipelines {
+    local COMMIT=$1
+    while true; do
+            pipelineruns $COMMIT | awk '
+                NF==1{next}
+                $3~/Running/{ results[$3] = results[$3]+1}
+                $3~/Failed/{ results[$3] = results[$3]+1}
+                $3~/Cancelled/{ results[$3] = results[$3]+1}
+                $3~/Succeeded/ || $3~/Completed/{ results["Succeeded"] = results["Succeeded"]+1}
+                END{
+                    for(i in results) {
+                        printf(results[i] " " i " ")
+                    }
+                    print ""
+                    if((results["Failed"] != 0) || (results["Cancelled"] != 0)) {
+                        exit(128)
+                    }
+                    exit(results["Running"])
+                }'
+            if [ $? -eq 0 ]; then
+                echo "completed"
+                return 0
+            elif [ $? -eq 128 ]; then
+                echo "failures encountered"
+                return 128
+            fi
+
+            sleep 60
+
+        done
+}
+
