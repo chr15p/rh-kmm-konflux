@@ -41,6 +41,10 @@ spec:
     value: "true"
   - name: build-index-image
     value: "false"
+    params:
+  - name: build-args-file
+    type: string
+    default: build_settings
   pipelineSpec:
     description: |
       This pipeline is ideal for building container images from a Containerfile while maintaining trust after pipeline customization.

@@ -1,8 +1,0 @@
-apiVersion: appstudio.redhat.com/v1alpha1
-kind: Application
-metadata:
-  name: kmm-24
-  namespace: rh-kmm-tenant
-spec:
-  description: kmm-2.4
-  displayName: kmm-24
