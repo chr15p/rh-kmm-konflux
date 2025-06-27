@@ -1,16 +1,24 @@
 #!/usr/bin/env bash
-VERSION=2.4
-ZVERSION=0
-REPLACE_VERSION=2.3.0
+#VERSION=2.4
+#ZVERSION=0
+#REPLACE_VERSION=2.3.0
 REPOSITORY="registry.redhat.io/kmm"
 
-RELEASE_VERSION=${VERSION}.${ZVERSION}
+#RELEASE_VERSION=${VERSION}.${ZVERSION}
 
 CSV_FILE=${1:-"kernel-module-management/bundle/manifests/kernel-module-management.clusterserviceversion.yaml"}
 ANNOTATION_FILE=${2:-"kernel-module-management/bundle/metadata/annotations.yaml"}
 OUTPUT_FILE=${3:-"kernel-module-management/bundle/manifests/kernel-module-management.RELEASE_VERSION.clusterserviceversion.yaml"}
+VERSION=${4:-2.4}
+RELEASE_VERSION=${5:-2.4.0}
+REPLACE_VERSION=${6:-2.3.0}
+
+
 
 OUTPUT_FILE_REL=$(echo $OUTPUT_FILE |sed "s/RELEASE_VERSION/$VERSION/")
+echo $OUTPUT_FILE
+echo $OUTPUT_FILE_REL
+echo $@
 
 OPERATOR_REPO="$REPOSITORY/kernel-module-management-rhel9-operator"
 HUB_OPERATOR_REPO="$REPOSITORY/kernel-module-management-hub-rhel9-operator"
