@@ -1,9 +1,9 @@
 # Based on ./gatekeeper-operator/bundle.Dockerfile
 FROM registry.access.redhat.com/ubi9/ubi-minimal:latest as builder
 
-ARG VERSION=2.4
-ARG RELEASE=2.4.0
-ARG OLD_VERSION=2.3.0
+ARG VERSION
+ARG RELEASE
+ARG OLD_VERSION
 
 COPY bundle-hack /bundle-hack
 COPY kernel-module-management/bundle-hub/manifests /manifests/
@@ -18,9 +18,9 @@ RUN /bundle-hack/update_bundle.sh \
     ${VERSION} ${RELEASE} ${OLD_VERSION}
 
 FROM scratch
-ARG VERSION=2.4
-ARG RELEASE=2.4.0
-ARG OLD_VERSION=2.3.0
+ARG VERSION
+ARG RELEASE
+ARG OLD_VERSION
 
 # These are three labels needed to control how the pipeline should handle this container image
 
