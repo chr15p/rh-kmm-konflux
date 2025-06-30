@@ -9,6 +9,13 @@ get_logfile () {
     fi
 }
 
+get_podname () {
+    local LOG=$1
+    
+    PODNAME=$(echo $LOG| sed 's/-verify$//' | sed 's/-verify-pod$//')
+    echo ${PODNAME}-verify-pod
+}
+
 
 METHOD="s"
 LEVEL=2
@@ -38,6 +45,12 @@ case "$1" in
     KEEP=1
     shift
     ;;
+*) 
+    echo "usage: $0 [-s [[LOGFILE | POD] ...] | [-vw [LOGFILE | POD] IMAGE] | -r [POD]"
+    echo -e "\t -s  show summary for LOGFILE (pulling logs for POD if necasary)"
+    echo -e "\t -w  show warnings in LOGFILE for IMAGE"
+    echo -e "\t -v  show violations in LOGFILE for IMAGE"
+    echo -e "\t -r  show raw logs for a pod"
 esac
 
 
@@ -45,10 +58,11 @@ esac
 if [ "$METHOD" == "s" ]; then
     for LOG in $@; do 
         if [ ! -e "$LOG" ]; then
-            #oc logs fbc-v2-4-enterprise-contract-t82sq-verify-pod -c step-validate
-            oc logs ${LOG}-verify-pod -c step-validate > ${LOG}.log
+            PODNAME=$(get_podname ${LOG})
+            #oc logs ${LOG}-verify-pod -c step-validate > ${LOG}.log
+            oc logs ${PODNAME} -c step-validate > ${LOG}.log
             LOG=${LOG}.log     
-            TMPFILE=$LOG
+            #TMPFILE=$LOG
         fi
 
         echo -e "\n=== Summary for $LOG ==="
@@ -70,9 +84,11 @@ elif [ "$METHOD" == "d" ]; then
     LOG=$1
     shift
     if [ ! -e "$LOG" ]; then
-        oc logs ${LOG}-verify-pod -c step-validate > ${LOG}.log
+        PODNAME=$(get_podname ${LOG})
+        #oc logs ${LOG}-verify-pod -c step-validate > ${LOG}.log
+        oc logs ${PODNAME} -c step-validate > ${LOG}.log
         LOG=${LOG}.log     
-        TMPFILE=$LOG
+        #TMPFILE=$LOG
     fi
     for IMAGE in $@; do 
             echo -e "\n=== Details for $IMAGE ==="
@@ -95,6 +111,7 @@ elif [ "$METHOD" == "d" ]; then
     done
 elif [ "$METHOD" == "r" ]; then
     JOB=$1
+    
     oc logs ${JOB}-verify-pod -c step-validate
 fi
 
