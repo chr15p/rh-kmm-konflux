@@ -2,19 +2,38 @@
 import yaml
 import argparse
 from string import Template
+import os
 
-REPLACE_VERSION="2.3.0"
-RELEASE_VERSION="2.4.0"
+def read_key_value_file(filename="config.conf"):
+    data = {}
+    with open(filename, "r") as file:
+        for line in file:
+            line = line.strip()
+            if line and "=" in line:
+                key, value = line.split("=", 1)
+                data[key.strip()] = value.strip()
+    return data
+
+
+#REPLACE_VERSION="2.4.0"
+#RELEASE_VERSION="2.4.1"
 
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--csv', action='store', default="kernel-module-management/bundle/manifests/kernel-module-management.clusterserviceversion.yaml", help='csv template')
 parser.add_argument('--out', action='store', default="kernel-module-management.clusterserviceversion.yaml", help='csv ouput')
+parser.add_argument('--args', action='store', default="build_settings.conf", help='file containing version numbers')
 
 opt = parser.parse_args()
 
 CSV=opt.csv
 outputfile=opt.out
+config=read_key_value_file(opt.args)
+
+
+REPLACE_VERSION=config.get('OLD_VERSION',"2.4.0")
+RELEASE_VERSION=config.get('RELEASE',"2.4.1")
+
 
 annotations={
     "certified": "true",
@@ -32,7 +51,7 @@ annotations={
 
     "features.operators.openshift.io/token-auth-azure": "false",
     "features.operators.openshift.io/token-auth-gcp": "false",
-    "operators.openshift.io/must-gather-image": "\"{{MUST_GATHER_IMAGE}}\"",
+    "operators.openshift.io/must-gather-image": "{{MUST_GATHER_IMAGE}}",
 }
 
 metadata ={
