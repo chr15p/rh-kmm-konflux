@@ -1,9 +1,9 @@
 # Based on ./gatekeeper-operator/bundle.Dockerfile
-
 FROM registry.access.redhat.com/ubi9/ubi-minimal:latest as builder
 
-# Use a new stage to enable caching of the package installations for local development
-#FROM builder-runner as builder
+ARG VERSION
+ARG RELEASE
+ARG OLD_VERSION
 
 COPY bundle-hack /bundle-hack
 COPY kernel-module-management/bundle/manifests /manifests/
@@ -11,21 +11,19 @@ COPY kernel-module-management/bundle/metadata /metadata/
 COPY kernel-module-management/bundle/tests /tests/
 COPY kernel-module-management.clusterserviceversion.yaml /manifests/
 
-#RUN /bundle-hack/update_bundle.sh \
-#    kernel-module-management/bundle/manifests/kernel-module-management.clusterserviceversion.yaml \
-#    kernel-module-management/bundle/metadata/annotations.yaml \
-#    /manifests/kernel-module-management.RELEASE_VERSION.clusterserviceversion.yaml \
-#    /metadata/annotations.yaml
-
 RUN /bundle-hack/update_bundle.sh \
     /manifests/kernel-module-management.clusterserviceversion.yaml \
     /metadata/annotations.yaml \
-    /manifests/kernel-module-management.RELEASE_VERSION.clusterserviceversion.yaml 
+    /manifests/kernel-module-management.${VERSION}.clusterserviceversion.yaml \
+    ${VERSION} ${RELEASE} ${OLD_VERSION}
 
 #####################
 #####################
 #####################
 FROM scratch
+ARG VERSION
+ARG RELEASE
+ARG OLD_VERSION
 
 # These are three labels needed to control how the pipeline should handle this container image
 
@@ -49,7 +47,7 @@ LABEL operators.operatorframework.io.bundle.mediatype.v1=registry+v1
 LABEL operators.operatorframework.io.bundle.manifests.v1=manifests/
 LABEL operators.operatorframework.io.bundle.metadata.v1=metadata/
 LABEL operators.operatorframework.io.bundle.package.v1=kernel-module-management
-LABEL operators.operatorframework.io.bundle.channels.v1=stable,release-2.4
+LABEL operators.operatorframework.io.bundle.channels.v1=stable,release-${VERSION}
 LABEL operators.operatorframework.io.bundle.channel.default.v1=stable
 
 # Labels for metrics
@@ -64,8 +62,8 @@ LABEL operators.operatorframework.io.test.config.v1=tests/scorecard/
 # Main labels
 LABEL \
         com.redhat.component="kernel-module-management-operator-bundle-container" \
-        version="v2.4.0" \
-        release="v2.4.0" \
+        version="v${RELEASE}" \
+        release="v${RELEASE}" \
         url="https://github.com/rh-ecosystem-edge/kernel-module-management" \
         vendor="Red Hat, Inc." \
         distribution-scope="" \
