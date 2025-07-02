@@ -193,7 +193,12 @@
                 {
                     "name": "kernel-module-management.v2.4.0",
                     "replaces": "kernel-module-management.v2.3.0",
-                    "skipRange": ">=0.0.0 <2.3.0"
+                    "skipRange": ">=0.0.0 <2.4.0"
+                },
+                {
+                    "name": "kernel-module-management.v2.4.1",
+                    "replaces": "kernel-module-management.v2.4.0",
+                    "skipRange": ">=0.0.0 <2.4.1"
                 }
             ],
             "name": "stable",
@@ -244,7 +249,12 @@
                 {
                     "name": "kernel-module-management.v2.4.0",
                     "replaces": "kernel-module-management.v2.3.0",
-                    "skipRange": ">=0.0.0 <2.3.0"
+                    "skipRange": ">=0.0.0 <2.4.0"
+                },
+                {
+                    "name": "kernel-module-management.v2.4.1",
+                    "replaces": "kernel-module-management.v2.4.0",
+                    "skipRange": ">=0.0.0 <2.4.1"
                 }
             ],
             "name": "release-2.4",
@@ -286,6 +296,10 @@
         {
             "schema": "olm.bundle",
             "image": "registry.redhat.io/kmm/kernel-module-management-operator-bundle@sha256:172d6db68159938b388d6a48af67f40c11a145adca13a486135e60833110958a"
+        },
+        {
+            "schema": "olm.bundle",
+            "image": "registry.stage.redhat.io/kmm/kernel-module-management-operator-bundle@sha256:a95e8f4158d765765afd3969b79e718cf320c7fda198a4d0b9fe82934ffaed14"
         }
     ]
 }
