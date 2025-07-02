@@ -29,6 +29,16 @@ def build_version(commit):
     except IndexError:
         return "unknown"
 
+def read_key_value_file(filename="build_settings.conf"):
+    data = {}
+    with open(filename, "r") as file:
+        for line in file:
+            line = line.strip()
+            if line and "=" in line:
+                key, value = line.split("=", 1)
+                data[key.strip()] = value.strip()
+    return data
+
 
 
 parser = argparse.ArgumentParser()
@@ -39,6 +49,9 @@ parser.add_argument('--output', default=None, help='file to write output to')
 opt = parser.parse_args()
 
 outputfile = opt.output
+
+build_settings = read_key_value_file()
+
 
 k8s_client = config.new_client_from_config(config_file=os.getenv("KUBECONFIG"))
 dyn_client = DynamicClient(k8s_client)
@@ -64,7 +77,7 @@ else:
 
 kmm = submodule_version()
 build = build_version(opt.commit)
-output = {"release": relnum, "build_commit": build, "kmm_commit": kmm,  "kmm": {}, "kmmhub": {}}
+output = {"version": build_settings.get("RELEASE", "unknown"), "release": relnum, "build_commit": build, "kmm_commit": kmm,  "kmm": {}, "kmmhub": {}}
 fbc={}
 for rel in releaseList['items']:
     regexp = f"fbc-([a-z]+)-v2-4-([0-9]+)-{relnum}-([0-9]+)"
