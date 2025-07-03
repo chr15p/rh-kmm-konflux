@@ -23,7 +23,7 @@ def build_version(commit):
     p = subprocess.Popen(params, stdout=subprocess.PIPE)
 
     output = p.stdout.read().decode("utf-8")
-    print(output)
+    #print(output)
     try:
         return output[:7]
     except IndexError:
@@ -83,20 +83,23 @@ for rel in releaseList['items']:
     regexp = f"fbc-([a-z]+)-v2-4-([0-9]+)-{relnum}-([0-9]+)"
     match = re.match(f"(fbc-([a-z]+)-v2-4-([0-9]+)-{relnum})-([0-9]+)", rel.metadata.name) 
     if match:
+        if match.group(2) == "op":
+            operator = 'kmm'
+        elif match.group(2) == "hub":
+            operator = 'kmmhub'
+        else:
+            print("ERROR parsing rel.metadata.name!")
+
         if int(match.group(4)) > fbc.get(match.group(1),0):
             fbc[match.group(1)]= int(match.group(4))  # fbc[fbc-op-v2-4-418-r31] = retry 3
-        
-            if match.group(2) == "op":
-                operator = 'kmm'
-            elif match.group(2) == "hub":
-                operator = 'kmmhub'
-            else:
-                print("ERROR parsing rel.metadata.name!")
 
-            try: 
+            if output[operator].get(f"ocp{match.group(3)}") == None:
+                output[operator][f"ocp{match.group(3)}"] = ""
+
+            try:
                 output[operator][f"ocp{match.group(3)}"] = rel.status.artifacts.index_image.index_image
             except AttributeError:
-                output[operator][f"ocp{match.group(3)}"] = "" 
+                pass
 
 
 if outputfile:
