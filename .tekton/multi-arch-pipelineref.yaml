@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1
 kind: Pipeline
 metadata:
-  name: kmm-2-4-multi-arch-pipeline
+  name: kmm-multi-arch-pipeline
 spec:
     finally:
     - name: show-sbom

@@ -45,7 +45,7 @@ spec:
   - name: build-source-image
     value: 'true'
   pipelineRef:
-    name: kmm-2-4-multi-arch-pipeline
+    name: kmm-multi-arch-pipeline
   taskRunTemplate:
     serviceAccountName: build-pipeline-hub-operator-2-4
   workspaces:
