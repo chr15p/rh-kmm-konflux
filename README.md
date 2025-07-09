@@ -26,8 +26,8 @@ The manual steps to build and release a version of KMM are:
 
 # 3. Release the operands and bundles:
   1. create a release object with the latest snapshot and apply it to konflux
-> scripts/make-release.sh kmm-2.4 $BUNDLE_COMMIT
-  2. Find the release number that has just been created (this should look like r[0-9][0-9]  e.g. r41 r45 etc)
+> scripts/make-release.sh kmm-2-4 $BUNDLE_COMMIT
+  2. Find the release number that has just been created (this should look like r[0-9][0-9]  e.g. r41 r45 etc)  
   3. this will trigger the release pipeline which you can watch
 > latest_releases $RELEASE
 
@@ -36,8 +36,11 @@ The manual steps to build and release a version of KMM are:
 > update_pullspecs
   2. update the FBC catalogue fragments and generate the full catalogues:
 > scripts/setup-fbc.sh
-  3. push the new FBC files into the repo
-> git commit
+
+     if this gives error messages (`401 Unauthorized`) you probably need to log in to registry.redhat.io AND (probably) registry.stage.redhat.io 
+
+  3. push the new FBC files into the repo 
+> git push
   4. watch the fbc build pipelines run to their end
 > pipelineruns $FBC_COMMIT
 

@@ -3,7 +3,7 @@ ARG OCP=4.16
 ARG VERSION=2.4
 ARG PACKAGE=kernel-module-management
 
-FROM registry.redhat.io/openshift4/ose-operator-registry:v${OCP}
+FROM registry.redhat.io/openshift4/ose-operator-registry-rhel9:v${OCP}
 ARG OCP VERSION PACKAGE
 
 ENTRYPOINT ["/bin/opm"]
