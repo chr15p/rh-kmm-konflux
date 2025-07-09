@@ -39,6 +39,8 @@ spec:
     value: '{"type": "rpm", "path": "."}'
   - name: build-source-image
     value: 'true'
+  - name: build-args-file
+    value: "build_settings.conf"
   pipelineRef:
     name: kmm-multi-arch-pipeline
   taskRunTemplate:
