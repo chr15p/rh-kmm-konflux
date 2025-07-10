@@ -58,14 +58,16 @@ LABEL operators.operatorframework.io.metrics.mediatype.v1=metrics+v1
 LABEL operators.operatorframework.io.metrics.project_layout=go.kubebuilder.io/v3
 LABEL operators.operatorframework.io.test.config.v1=tests/scorecard/
 LABEL operators.operatorframework.io.test.mediatype.v1=scorecard+v1
+# labels for konflux 
+LABEL konflux.additional-tags="${RELEASE} ${VERSION}"
+
 # Main labels
 LABEL \
         com.redhat.component="kernel-module-management-hub-operator-bundle-container" \
-        version="v${RELEASE}" \
+        version="v${VERSION}" \
         release="v${RELEASE}" \
         url="https://github.com/rh-ecosystem-edge/kernel-module-management" \
         vendor="Red Hat, Inc." \
-        url="https://github.com/rh-ecosystem-edge/kernel-module-management" \
         distribution-scope="" \
         name="kmm/kernel-module-management-hub-operator-bundle-rhel9" \
         License="Apache License 2.0" \
