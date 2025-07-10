@@ -1,0 +1,12 @@
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Release
+metadata:
+  name: fbc-hub-v2-4-417-r49-2-prod
+  namespace: rh-kmm-tenant
+  labels:
+    appstudio.openshift.io/application: fbc-hub-v2-4-417
+spec:
+  releasePlan: fbc-hub-v2-4-417-release-prod
+  snapshot: fbc-hub-v2-4-417-h7d8v
+

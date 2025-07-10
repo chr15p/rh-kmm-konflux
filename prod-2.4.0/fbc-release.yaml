@@ -1,0 +1,144 @@
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Release
+metadata:
+  name: fbc-hub-v2-4-414-r49-2-prod
+  namespace: rh-kmm-tenant
+  labels:
+    appstudio.openshift.io/application: fbc-hub-v2-4-414
+spec:
+  releasePlan: fbc-hub-v2-4-414-release-prod
+  snapshot: fbc-hub-v2-4-414-ntxrd
+
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Release
+metadata:
+  name: fbc-hub-v2-4-415-r49-4-prod
+  namespace: rh-kmm-tenant
+  labels:
+    appstudio.openshift.io/application: fbc-hub-v2-4-415
+spec:
+  releasePlan: fbc-hub-v2-4-415-release-prod
+  snapshot: fbc-hub-v2-4-415-p428n
+
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Release
+metadata:
+  name: fbc-hub-v2-4-416-r49-2-prod
+  namespace: rh-kmm-tenant
+  labels:
+    appstudio.openshift.io/application: fbc-hub-v2-4-416
+spec:
+  releasePlan: fbc-hub-v2-4-416-release-prod
+  snapshot: fbc-hub-v2-4-416-wknz4
+
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Release
+metadata:
+  name: fbc-hub-v2-4-417-r49-2-prod
+  namespace: rh-kmm-tenant
+  labels:
+    appstudio.openshift.io/application: fbc-hub-v2-4-417
+spec:
+  releasePlan: fbc-hub-v2-4-417-release-prod
+  snapshot: fbc-hub-v2-4-417-h7d8v
+
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Release
+metadata:
+  name: fbc-hub-v2-4-418-r49-2-prod
+  namespace: rh-kmm-tenant
+  labels:
+    appstudio.openshift.io/application: fbc-hub-v2-4-418
+spec:
+  releasePlan: fbc-hub-v2-4-418-release-prod
+  snapshot: fbc-hub-v2-4-418-b42xz
+
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Release
+metadata:
+  name: fbc-hub-v2-4-419-r49-6-prod
+  namespace: rh-kmm-tenant
+  labels:
+    appstudio.openshift.io/application: fbc-hub-v2-4-419
+spec:
+  releasePlan: fbc-hub-v2-4-419-release-prod
+  snapshot: fbc-hub-v2-4-419-tmrx4
+
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Release
+metadata:
+  name: fbc-op-v2-4-414-r49-6-prod
+  namespace: rh-kmm-tenant
+  labels:
+    appstudio.openshift.io/application: fbc-op-v2-4-414
+spec:
+  releasePlan: fbc-op-v2-4-414-release-prod
+  snapshot: fbc-op-v2-4-414-kcw9q
+
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Release
+metadata:
+  name: fbc-op-v2-4-415-r49-2-prod
+  namespace: rh-kmm-tenant
+  labels:
+    appstudio.openshift.io/application: fbc-op-v2-4-415
+spec:
+  releasePlan: fbc-op-v2-4-415-release-prod
+  snapshot: fbc-op-v2-4-415-5hh6r
+
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Release
+metadata:
+  name: fbc-op-v2-4-416-r49-5-prod
+  namespace: rh-kmm-tenant
+  labels:
+    appstudio.openshift.io/application: fbc-op-v2-4-416
+spec:
+  releasePlan: fbc-op-v2-4-416-release-prod
+  snapshot: fbc-op-v2-4-416-72nhb
+
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Release
+metadata:
+  name: fbc-op-v2-4-417-r49-6-prod
+  namespace: rh-kmm-tenant
+  labels:
+    appstudio.openshift.io/application: fbc-op-v2-4-417
+spec:
+  releasePlan: fbc-op-v2-4-417-release-prod
+  snapshot: fbc-op-v2-4-417-dgnjp
+
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Release
+metadata:
+  name: fbc-op-v2-4-418-r49-5-prod
+  namespace: rh-kmm-tenant
+  labels:
+    appstudio.openshift.io/application: fbc-op-v2-4-418
+spec:
+  releasePlan: fbc-op-v2-4-418-release-prod
+  snapshot: fbc-op-v2-4-418-kwp5x
+
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Release
+metadata:
+  name: fbc-op-v2-4-419-r49-3-prod
+  namespace: rh-kmm-tenant
+  labels:
+    appstudio.openshift.io/application: fbc-op-v2-4-419
+spec:
+  releasePlan: fbc-op-v2-4-419-release-prod
+  snapshot: fbc-op-v2-4-419-xg54x
+

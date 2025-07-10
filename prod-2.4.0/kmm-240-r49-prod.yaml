@@ -1,0 +1,11 @@
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Release
+metadata:
+  name: kmm-240-r49-prod
+  namespace: rh-kmm-tenant
+  labels:
+    appstudio.openshift.io/application: kmm-2-4
+spec:
+  releasePlan: kmm-releaseplan-prod-2-4
+  snapshot: kmm-2-4-jm5c7

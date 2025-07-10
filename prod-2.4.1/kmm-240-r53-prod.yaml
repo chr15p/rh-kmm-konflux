@@ -1,0 +1,21 @@
+---
+apiVersion: appstudio.redhat.com/v1alpha1
+kind: Release
+metadata:
+  name: kmm-240-r53-prod
+  namespace: rh-kmm-tenant
+  labels:
+    appstudio.openshift.io/application: kmm-2-4
+spec:
+  releasePlan: kmm-releaseplan-prod-2-4
+  snapshot: kmm-2-4-9dpxl
+  data:
+    releaseNotes:
+      type: RHBA
+      issues:
+        fixed:
+          - id: OCPBUGS-57268
+            source: issues.redhat.com
+          - id: MGMT-20989
+            source: issues.redhat.com
+
