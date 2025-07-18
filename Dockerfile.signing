@@ -19,8 +19,8 @@ ENTRYPOINT ["/usr/local/bin/sign-file"]
 LABEL konflux.additional-tags="${RELEASE} ${VERSION}"
 LABEL \
     com.redhat.component="kernel-module-management-signing-container" \
-    version="$VERSION" \
-    release="$RELEASE" \
+    version="${VERSION}" \
+    release="${RELEASE}" \
     name="kernel-module-management/kernel-module-management-signing-rhel9" \
     License="Apache License 2.0" \
     io.k8s.display-name="Kernel Module Management - Module Signing" \

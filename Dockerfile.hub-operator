@@ -22,8 +22,8 @@ ENTRYPOINT ["/usr/local/bin/manager"]
 LABEL konflux.additional-tags="${RELEASE} ${VERSION}"
 LABEL \
     com.redhat.component="kernel-module-management-hub-operator-container" \
-    version="$VERSION" \
-    release="$RELEASE" \
+    version="${VERSION}" \
+    release="${RELEASE}" \
     git.commit="$CI_UPSTREAM_SHORT_COMMIT" \
     name="kernel-module-management/kernel-module-management-hub-rhel9-operator" \
     License="Apache License 2.0" \
