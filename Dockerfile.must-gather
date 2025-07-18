@@ -1,6 +1,11 @@
+ARG VERSION
+ARG RELEASE
+
 FROM registry.redhat.io/openshift4/ose-cli-rhel9 as builder
+ARG VERSION RELEASE
 
 FROM registry.redhat.io/ubi9/ubi-minimal:9.6
+ARG VERSION RELEASE
 
 RUN microdnf update -y \
     && microdnf install -y tar rsync findutils gzip iproute util-linux \
@@ -12,9 +17,12 @@ COPY kernel-module-management/must-gather/* /usr/bin/
 
 CMD "/usr/bin/gather"
 
+LABEL konflux.additional-tags="${RELEASE} ${VERSION}"
 LABEL \
-    com.redhat.component="kernel-module-management-must-gather-container" \
-    name="kernel-module-management/kernel-module-management-must-gather-rhel9" \
+    com.redhat.component="kernel-module-management-operator-container" \
+    version="${VERSION}" \
+    release="${RELEASE}" \
+    name="kernel-module-management/kernel-module-management-rhel9-operator" \
     License="Apache License 2.0" \
     io.k8s.display-name="Kernel Module Management - Must-Gather" \
     io.openshift.tags="Operating System" \

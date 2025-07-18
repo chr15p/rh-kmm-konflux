@@ -1,4 +1,8 @@
+ARG VERSION
+ARG RELEASE
+
 FROM registry.access.redhat.com/ubi9/go-toolset:9.6-1752083840 as builder
+ARG VERSION RELEASE
 
 WORKDIR /opt/app-root/src
 COPY kernel-module-management .
@@ -11,10 +15,11 @@ COPY --from=builder /opt/app-root/src/webhook-server /usr/local/bin/webhook-serv
 
 ENTRYPOINT ["/usr/local/bin/webhook-server"]
 
+LABEL konflux.additional-tags="${RELEASE} ${VERSION}"
 LABEL \
     com.redhat.component="kernel-module-management-webhook-server-container" \
-    version="$CI_VERSION" \
-    git.commit="$CI_UPSTREAM_SHORT_COMMIT" \
+    version="${VERSION}" \
+    release="${RELEASE}" \
     name="kernel-module-management/kernel-module-management-webhook-server-rhel9" \
     License="Apache License 2.0" \
     io.k8s.display-name="Kernel Module Management - Webhook Server" \
