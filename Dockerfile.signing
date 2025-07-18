@@ -1,7 +1,7 @@
 ARG VERSION
 ARG RELEASE
 
-FROM registry.access.redhat.com/ubi9/go-toolset:9.6-1751538372 as builder
+FROM registry.redhat.io/ubi9/ubi:9.6 as builder
 ARG VERSION RELEASE
 
 # install the package that will contain the sign utilities
@@ -19,7 +19,8 @@ ENTRYPOINT ["/usr/local/bin/sign-file"]
 LABEL konflux.additional-tags="${RELEASE} ${VERSION}"
 LABEL \
     com.redhat.component="kernel-module-management-signing-container" \
-    version="$CI_VERSION" \
+    version="$VERSION" \
+    release="$RELEASE" \
     name="kernel-module-management/kernel-module-management-signing-rhel9" \
     License="Apache License 2.0" \
     io.k8s.display-name="Kernel Module Management - Module Signing" \
