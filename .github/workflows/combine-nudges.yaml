@@ -9,7 +9,7 @@ permissions:
 jobs:
   dependabot:
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'red-hat-konflux[bot]' }}
+    #if: ${{ github.actor == 'red-hat-konflux[bot]' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
