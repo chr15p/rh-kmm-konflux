@@ -65,8 +65,8 @@ to_merge = []
 curr_id = 0
 for pr in pr_list:
     print(pr)
-    if len(pr['files']) != 1 :
-        continue
+    #if len(pr['files']) != 1 :
+    #    continue
 
     print(f"check {pr['headRefName']} == {curr_branch}")
     if pr["headRefName"] == curr_branch:
