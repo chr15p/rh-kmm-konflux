@@ -59,15 +59,16 @@ raw_prs = call_gh("pr","list","--json","number,headRefName,baseRefName,title,fil
 
 pr_list = json.loads(raw_prs)
 
-print(pr_list)
 
 
 to_merge = []
 curr_id = 0
 for pr in pr_list:
+    print(pr)
     if len(pr['files']) != 1 :
         continue
 
+    print(f"check {pr['headRefName']} == {curr_branch}")
     if pr["headRefName"] == curr_branch:
         print(f"setting curr_branch={curr_branch}")
         curr_id = pr["number"] 
