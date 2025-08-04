@@ -90,7 +90,7 @@ if len(to_merge) == 5:
     print("call_git", "push")
     call_git("push")
     print("call_gh", "pr", "edit", curr_id, "--add-label", "ok-to-build")
-    call_gh("pr", "edit", curr_id, "--add-label", "ok-to-build")
+    call_gh("pr", "edit", str(curr_id), "--add-label", "ok-to-build")
 
     #print(f"git merge origin/{pr['headRefName']} -m \"merge {pr['headRefName']}\"")
     #print("call_git", "merge",f"origin/{pr['headRefName']}", "-m", f"\"merge {pr['headRefName']}\"")
