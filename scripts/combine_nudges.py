@@ -90,10 +90,11 @@ if len(to_merge) == 5:
         out=call_git( "merge",branch, "-m", f"\"merge {branch}\"")
         print(out)
 
+    call_git("fetch")
     call_git("config", "--global", "user.name", "autoupdate")
     call_git("config", "--global", "user.email", "github-actions[bot]@users.noreply.github.com")
-    out=call_git("log")
-    print(out)
+    #out=call_git("log")
+    #print(out)
 
     print("call_git", "push")
     out=call_git("push", "origin", curr_branch)
