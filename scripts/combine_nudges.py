@@ -87,10 +87,13 @@ if curr_id == 0:
 if len(to_merge) == 5:
     for branch in to_merge:
         print("call_git", "merge",branch, "-m", f"\"merge {branch}\"")
-        call_git( "merge",branch, "-m", f"\"merge {branch}\"")
+        out=call_git( "merge",branch, "-m", f"\"merge {branch}\"")
+        print(out)
 
     call_git("config", "--global", "user.name", "autoupdate")
     call_git("config", "--global", "user.email", "github-actions[bot]@users.noreply.github.com")
+    out=call_git("log")
+    print(out)
 
     print("call_git", "push")
     out=call_git("push", "origin", curr_branch)
