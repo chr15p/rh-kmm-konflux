@@ -59,15 +59,18 @@ raw_prs = call_gh("pr","list","--json","number,headRefName,baseRefName,title,fil
 
 pr_list = json.loads(raw_prs)
 
-#print(pr_list)
+
 
 to_merge = []
 curr_id = 0
 for pr in pr_list:
-    if len(pr['files']) != 1 :
-        continue
+    print(pr)
+    #if len(pr['files']) != 1 :
+    #    continue
 
+    print(f"check {pr['headRefName']} == {curr_branch}")
     if pr["headRefName"] == curr_branch:
+        print(f"setting curr_branch={curr_branch}")
         curr_id = pr["number"] 
         continue
 
@@ -77,9 +80,9 @@ for pr in pr_list:
 
     to_merge.append(pr['headRefName'])    
 
-#if curr_id == 0:
-#    print("not found this PR!")
-#    exit(1)
+if curr_id == 0:
+    print(f"not found this PR! ({curr_branch})")
+    exit(1)
 
 if len(to_merge) == 5:
     for branch in to_merge:
@@ -90,7 +93,7 @@ if len(to_merge) == 5:
     print("call_git", "push")
     call_git("push")
     print("call_gh", "pr", "edit", curr_id, "--add-label", "ok-to-build")
-    call_gh("pr", "edit", curr_id, "--add-label", "ok-to-build")
+    call_gh("pr", "edit", str(curr_id), "--add-label", "ok-to-build")
 
     #print(f"git merge origin/{pr['headRefName']} -m \"merge {pr['headRefName']}\"")
     #print("call_git", "merge",f"origin/{pr['headRefName']}", "-m", f"\"merge {pr['headRefName']}\"")
