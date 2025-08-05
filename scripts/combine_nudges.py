@@ -15,9 +15,6 @@ def call_git(*args, **kwargs):
         else:
             params.append(i)
 
-    #if DEBUG:
-    #    print(' '.join(params))
-
     #subprocess.run(params, check=True)
     p = subprocess.Popen(params,
                      stdout=subprocess.PIPE,
@@ -54,62 +51,44 @@ opt = parser.parse_args()
 curr_branch = opt.branch
 
 
-raw_prs = call_gh("pr","list","--json","number,headRefName,baseRefName,title,files", "--search", "label:konflux-nudge")
-#print(raw_prs)
+#raw_prs = call_gh("pr","list","--json","number,headRefName,baseRefName,title,files", "--search", "label:konflux-nudge")
+raw_prs = call_gh("pr","list","--json","number,headRefName", "--search", "label:konflux-nudge")
 
 pr_list = json.loads(raw_prs)
-
-
 
 to_merge = []
 curr_id = 0
 for pr in pr_list:
     print(pr)
-    #if len(pr['files']) != 1 :
-    #    continue
 
     print(f"check {pr['headRefName']} == {curr_branch}")
     if pr["headRefName"] == curr_branch:
         print(f"setting curr_branch={curr_branch}")
-        curr_id = pr["number"] 
+        curr_id = str(pr["number"])
         continue
 
     if not pr["headRefName"].startswith("konflux/component-updates/component-update-"):
         continue
 
-
-    to_merge.append(pr['headRefName'])    
+    to_merge.append(str(pr['number']))
 
 if curr_id == 0:
     print(f"not found this PR! ({curr_branch})")
     exit(1)
 
 if len(to_merge) == 5:
-    for branch in to_merge:
-        print("call_git", "merge",branch, "-m", f"\"merge {branch}\"")
-        out=call_git( "merge",branch, "-m", f"\"merge {branch}\"")
+    for pr_number in to_merge:
+        print("call_gh", "pr", "edit", pr_number, "--base", curr_branch)
+        out=call_gh("pr", "edit", pr_number, "--base", curr_branch)
         print(out)
 
-    call_git("fetch")
-    call_git("config", "--global", "user.name", "autoupdate")
-    call_git("config", "--global", "user.email", "github-actions[bot]@users.noreply.github.com")
-    #out=call_git("log")
-    #print(out)
+        print("call_gh", "pr", "merge", pr_number, "--merge")
+        call_gh("pr", "merge", pr_number, "--merge")
 
-    print("call_git", "push")
-    out=call_git("push", "origin", curr_branch)
-    print(out)
     print("call_gh", "pr", "edit", curr_id, "--add-label", "ok-to-build")
     call_gh("pr", "edit", str(curr_id), "--add-label", "ok-to-build")
 
-    #print(f"git merge origin/{pr['headRefName']} -m \"merge {pr['headRefName']}\"")
-    #print("call_git", "merge",f"origin/{pr['headRefName']}", "-m", f"\"merge {pr['headRefName']}\"")
-    #out=call_git("merge",f"origin/{pr['headRefName']}", "-m", f"\"merge {pr['headRefName']}\"")
-    #print(out)
-    #call_git("push")
 
-
-#gh pr edit 657 --add-label ok-to-build
 #
 #"""
 #  {
