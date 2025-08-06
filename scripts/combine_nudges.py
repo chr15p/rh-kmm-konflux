@@ -2,6 +2,7 @@
 import json
 import subprocess
 import argparse
+import time
 
 def call_git(*args, **kwargs):
     """
@@ -42,6 +43,7 @@ def call_gh(*args, **kwargs):
     return p.stdout.read()
 
 
+MASTER_COMPONENT="operator"
 
 parser = argparse.ArgumentParser()
 
@@ -50,16 +52,35 @@ parser.add_argument('--branch', action='store', required=True, default=None, hel
 opt = parser.parse_args()
 curr_branch = opt.branch
 
+if not curr_branch.startswith(f"konflux/component-updates/component-update-{ MASTER_COMPONENT}-"):
+    print(f"not the master component ({ MASTER_COMPONENT})")
+    exit(0)
 
-#raw_prs = call_gh("pr","list","--json","number,headRefName,baseRefName,title,files", "--search", "label:konflux-nudge")
-raw_prs = call_gh("pr","list","--json","number,headRefName", "--search", "label:konflux-nudge")
-
-pr_list = json.loads(raw_prs)
-
+pr_list={}
 to_merge = []
 curr_id = 0
+retries=0
+interval=60
+
+while len(pr_list) != 6:
+    time.sleep(interval)
+
+    retries += 1
+    if retries >= 60:
+        print(f"script timed out after {retries*interval} seconds")
+        exit(1)
+
+    raw_prs = call_gh("pr","list","--json","number,headRefName", "--search", "label:konflux-nudge")
+    pr_list = json.loads(raw_prs)
+    print(f"{retries} found {len(pr_list)} nudges")
+    
+
 for pr in pr_list:
     print(pr)
+
+    ## ignore any non-nudge PRs that might have snuck in
+    if not pr["headRefName"].startswith("konflux/component-updates/component-update-"):
+        continue
 
     print(f"check {pr['headRefName']} == {curr_branch}")
     if pr["headRefName"] == curr_branch:
@@ -67,8 +88,6 @@ for pr in pr_list:
         curr_id = str(pr["number"])
         continue
 
-    if not pr["headRefName"].startswith("konflux/component-updates/component-update-"):
-        continue
 
     to_merge.append(str(pr['number']))
 
@@ -83,11 +102,13 @@ if len(to_merge) == 5:
         print(out)
 
         print("call_gh", "pr", "merge", pr_number, "--merge")
-        call_gh("pr", "merge", pr_number, "--merge")
+        out=call_gh("pr", "merge", pr_number, "--merge")
+        print(out)
 
     print("call_gh", "pr", "edit", curr_id, "--add-label", "ok-to-build")
     call_gh("pr", "edit", str(curr_id), "--add-label", "ok-to-build")
-
+else:
+    print(f"wrong number of PRs to merge found! ERROR: {to_merge}")
 
 #
 #"""
