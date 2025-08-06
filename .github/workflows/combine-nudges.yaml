@@ -7,7 +7,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  dependabot:
+  combine-nudges:
     runs-on: ubuntu-latest
     #if: ${{ github.actor == 'red-hat-konflux[bot]' }}
     steps:
