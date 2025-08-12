@@ -29,7 +29,7 @@ spec:
     - linux/arm64
     - linux/ppc64le
   - name: dockerfile
-    value: /fbc/Containerfile.catalogue.hub-legacy
+    value: /fbc/Containerfile.catalogue.hub-v414
   - name: build-args
     value: 
     - OCP=4.14
