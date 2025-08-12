@@ -32,7 +32,12 @@ spec:
     - linux/arm64
     - linux/ppc64le
   - name: dockerfile
-    value: /fbc/Containerfile.catalogue.op-v415
+    value: /fbc/Containerfile.catalogue.op-legacy
+  - name: build-args
+    value: 
+    - OCP=4.15 
+    - PACKAGE=kernel-module-management 
+    - VERSION=2.4
   pipelineRef:
     name: catalogue-pipeline
   taskRunTemplate:

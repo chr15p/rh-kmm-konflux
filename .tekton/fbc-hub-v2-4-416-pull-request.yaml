@@ -32,7 +32,12 @@ spec:
     - linux/arm64
     - linux/ppc64le
   - name: dockerfile
-    value: /fbc/Containerfile.catalogue.hub-v416
+    value: /fbc/Containerfile.catalogue.hub-legacy
+  - name: build-args
+    value: 
+    - OCP=4.16
+    - PACKAGE=kernel-module-management-hub
+    - VERSION=2.4
   pipelineRef:
     name: catalogue-pipeline
   taskRunTemplate:
