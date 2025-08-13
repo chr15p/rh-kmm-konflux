@@ -3,6 +3,7 @@ import json
 import subprocess
 import argparse
 import time
+import re
 
 def call_git(*args, **kwargs):
     """
@@ -52,7 +53,8 @@ parser.add_argument('--branch', action='store', required=True, default=None, hel
 opt = parser.parse_args()
 curr_branch = opt.branch
 
-if not curr_branch.startswith(f"konflux/component-updates/component-update-{ MASTER_COMPONENT}-"):
+#if not curr_branch.startswith(f"konflux/component-updates/component-update-{ MASTER_COMPONENT}-"):
+if re.match(r"^konflux/component-updates/component-update-" + MASTER_COMPONENT +"-[0-9]-[0-9]", curr_branch) is None:
     print(f"not the master component ({ MASTER_COMPONENT})")
     exit(0)
 
