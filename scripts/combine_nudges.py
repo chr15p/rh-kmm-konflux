@@ -43,88 +43,90 @@ def call_gh(*args, **kwargs):
 
     return p.stdout.read()
 
+def get_component(branch: str):
+    matches = re.match(r"konflux/component-updates/component-update-([a-z-]+)-[0-9]-[0-9]", branch)
+    if matches is None:
+        return None
+    return matches.group(1)
 
-MASTER_COMPONENT="operator"
+
+MASTER_COMPONENTS = {"operator": ["worker", "must-gather", "hub-operator", "signing", "webhook"]}
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('--branch', action='store', required=True, default=None, help='csv template')
+parser.add_argument('-b', '--branch', action='store', required=True, default=None, help='csv template')
+parser.add_argument('-i', '--interval', action='store', type=int, default=60, help='interval between checks')
+parser.add_argument('-r', '--retries', action='store', type=int, default=60, help='total retries')
 
 opt = parser.parse_args()
 curr_branch = opt.branch
+interval = opt.interval
+total_retries = opt.retries
 
 #if not curr_branch.startswith(f"konflux/component-updates/component-update-{ MASTER_COMPONENT}-"):
-if re.match(r"^konflux/component-updates/component-update-" + MASTER_COMPONENT +"-[0-9]-[0-9]", curr_branch) is None:
-    print(f"not the master component ({ MASTER_COMPONENT})")
+#konflux/component-updates/component-update-operator-2-4
+
+
+master = get_component(curr_branch)
+if master is None or MASTER_COMPONENTS.get(master) is None:
+    print(f"{curr_branch} not in watched master components: { ','.join(MASTER_COMPONENTS.keys()) }")
     exit(0)
 
 pr_list={}
-to_merge = []
+merge_id = {}
 curr_id = 0
 retries=0
-interval=60
 
-while len(pr_list) != 6:
+
+while retries < total_retries:
     time.sleep(interval)
 
     retries += 1
-    if retries >= 60:
-        print(f"script timed out after {retries*interval} seconds")
-        exit(1)
+    print(f"try {retries}")
 
     raw_prs = call_gh("pr","list","--json","number,headRefName", "--search", "label:konflux-nudge")
     pr_list = json.loads(raw_prs)
-    print(f"{retries} found {len(pr_list)} nudges")
+
+    for pr in pr_list:
+
+        component = get_component(pr["headRefName"])
+        #print(f"component={component}")
+        if component is None or component not in MASTER_COMPONENTS[master]:
+            continue
     
+        if component == master:
+            print(f"setting curr_branch={curr_branch}")
+            curr_pr_id = str(pr["number"])
+            continue
 
-for pr in pr_list:
-    print(pr)
-
-    ## ignore any non-nudge PRs that might have snuck in
-    if not pr["headRefName"].startswith("konflux/component-updates/component-update-"):
-        continue
-
-    print(f"check {pr['headRefName']} == {curr_branch}")
-    if pr["headRefName"] == curr_branch:
-        print(f"setting curr_branch={curr_branch}")
-        curr_id = str(pr["number"])
-        continue
+        if component in MASTER_COMPONENTS[master]:
+            merge_id[component] = str(pr["number"])
 
 
-    to_merge.append(str(pr['number']))
+    not_found = list(set(MASTER_COMPONENTS[master]).difference(merge_id.keys()))
 
-if curr_id == 0:
-    print(f"not found this PR! ({curr_branch})")
-    exit(1)
+    if not_found :
+        print(f"not found components { ','.join(not_found)}")
+    else:
+        retries = total_retries + 1
 
-if len(to_merge) == 5:
-    for pr_number in to_merge:
-        print("call_gh", "pr", "edit", pr_number, "--base", curr_branch)
-        out=call_gh("pr", "edit", pr_number, "--base", curr_branch)
-        print(out)
+if not_found:
+   print(f"timeout, not found components { ','.join(not_found)}")
+   exit(1) 
 
-        print("call_gh", "pr", "merge", pr_number, "--merge")
-        out=call_gh("pr", "merge", pr_number, "--merge")
-        print(out)
+print(merge_id)
 
-    print("call_gh", "pr", "edit", curr_id, "--add-label", "ok-to-build")
-    call_gh("pr", "edit", str(curr_id), "--add-label", "ok-to-build")
-else:
-    print(f"wrong number of PRs to merge found! ERROR: {to_merge}")
+for pr_number in merge_id.items():
+    print("call_gh", "pr", "edit", pr_number, "--base", curr_branch)
+    out=call_gh("pr", "edit", pr_number, "--base", curr_branch)
+    print(out)
 
-#
-#"""
-#  {
-#    "baseRefName": "release-2.4",
-#    "files": [
-#      {
-#        "path": "bundle-hack/operator.yaml",
-#        "additions": 1,
-#        "deletions": 1
-#      }
-#    ],
-#    "headRefName": "konflux/component-updates/component-update-operator-2-4",
-#    "number": 648,
-#    "title": "Update operator-2-4 to 72ac364"
-#  },
-#"""
+    print("call_gh", "pr", "merge", pr_number, "--merge")
+    out=call_gh("pr", "merge", pr_number, "--merge")
+    print(out)
+
+print("call_gh", "pr", "edit", curr_id, "--add-label", "ok-to-build")
+call_gh("pr", "edit", str(curr_id), "--add-label", "ok-to-build")
+
+ 
+exit(0)
