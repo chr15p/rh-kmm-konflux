@@ -63,10 +63,6 @@ curr_branch = opt.branch
 interval = opt.interval
 total_retries = opt.retries
 
-#if not curr_branch.startswith(f"konflux/component-updates/component-update-{ MASTER_COMPONENT}-"):
-#konflux/component-updates/component-update-operator-2-4
-
-
 master = get_component(curr_branch)
 if master is None or MASTER_COMPONENTS.get(master) is None:
     print(f"{curr_branch} not in watched master components: { ','.join(MASTER_COMPONENTS.keys()) }")
@@ -74,7 +70,7 @@ if master is None or MASTER_COMPONENTS.get(master) is None:
 
 pr_list={}
 merge_id = {}
-curr_id = 0
+curr_pr_id = 0
 retries=0
 
 
@@ -90,13 +86,13 @@ while retries < total_retries:
     for pr in pr_list:
 
         component = get_component(pr["headRefName"])
-        #print(f"component={component}")
-        if component is None or component not in MASTER_COMPONENTS[master]:
-            continue
     
         if component == master:
             print(f"setting curr_branch={curr_branch}")
             curr_pr_id = str(pr["number"])
+            continue
+
+        if component is None or component not in MASTER_COMPONENTS[master]:
             continue
 
         if component in MASTER_COMPONENTS[master]:
@@ -116,7 +112,7 @@ if not_found:
 
 print(merge_id)
 
-for pr_number in merge_id.items():
+for pr_number in merge_id.values():
     print("call_gh", "pr", "edit", pr_number, "--base", curr_branch)
     out=call_gh("pr", "edit", pr_number, "--base", curr_branch)
     print(out)
@@ -125,8 +121,8 @@ for pr_number in merge_id.items():
     out=call_gh("pr", "merge", pr_number, "--merge")
     print(out)
 
-print("call_gh", "pr", "edit", curr_id, "--add-label", "ok-to-build")
-call_gh("pr", "edit", str(curr_id), "--add-label", "ok-to-build")
+print("call_gh", "pr", "edit", curr_pr_id, "--add-label", "ok-to-build")
+call_gh("pr", "edit", str(curr_pr_id), "--add-label", "ok-to-build")
 
  
 exit(0)
