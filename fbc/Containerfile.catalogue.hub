@@ -6,7 +6,7 @@ ARG PACKAGE=kernel-module-management-hub
 FROM registry.redhat.io/ubi9/ubi-minimal:9.6 as builder
 
 COPY . .
-RUN ./scripts/update_fbc.sh bundle-hack/hub-operator-bundle.yaml fbc/hub-migrated/kernel-module-management/catalog.json 
+RUN ./scripts/update_fbc.sh bundle-hack/hub-operator-bundle.yaml fbc/hub-migrated/kernel-module-management-hub/catalog.json
 
 FROM registry.redhat.io/openshift4/ose-operator-registry-rhel9:v${OCP}
 ARG OCP VERSION PACKAGE
