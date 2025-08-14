@@ -5,7 +5,7 @@ import argparse
 import time
 import re
 
-def call_git(*args, **kwargs):
+def call_git(test_mode, *args, **kwargs):
     """
         wrapper for calls to git
         *args: one or more strings to be arguements to the git command
@@ -17,6 +17,9 @@ def call_git(*args, **kwargs):
         else:
             params.append(i)
 
+    if test_mode:
+        print(" ".join(params))
+        return ""
     #subprocess.run(params, check=True)
     p = subprocess.Popen(params,
                      stdout=subprocess.PIPE,
@@ -24,7 +27,7 @@ def call_git(*args, **kwargs):
     return p.stdout.read()
 
 
-def call_gh(*args, **kwargs):
+def call_gh(test_mode, *args, **kwargs):
     """
         wrapper for calls to git
         *args: one or more strings to be arguements to the git command
@@ -36,7 +39,9 @@ def call_gh(*args, **kwargs):
         else:
             params.append(i)
 
-    #subprocess.run(params, check=True)
+    print(f"run {' '.join(params)}")
+    if test_mode:
+        return ""
     p = subprocess.Popen(params,
                      stdout=subprocess.PIPE,
                      stderr=subprocess.STDOUT)
@@ -50,17 +55,23 @@ def get_component(branch: str):
     return matches.group(1)
 
 
-MASTER_COMPONENTS = {"operator": ["worker", "must-gather", "hub-operator", "signing", "webhook"]}
+MASTER_COMPONENTS = {
+    "operator": ["worker", "must-gather", "hub-operator", "signing", "webhook"],
+    "operator-bundle": [],
+    "hub-operator-bundle": [],
+    }
 
 parser = argparse.ArgumentParser()
 
 parser.add_argument('-b', '--branch', action='store', required=True, default=None, help='csv template')
 parser.add_argument('-i', '--interval', action='store', type=int, default=60, help='interval between checks')
 parser.add_argument('-r', '--retries', action='store', type=int, default=60, help='total retries')
+parser.add_argument('--test', action='store_true')
 
 opt = parser.parse_args()
 curr_branch = opt.branch
 interval = opt.interval
+test_mode = opt.test
 total_retries = opt.retries
 
 master = get_component(curr_branch)
@@ -80,7 +91,7 @@ while retries < total_retries:
     retries += 1
     print(f"try {retries}")
 
-    raw_prs = call_gh("pr","list","--json","number,headRefName", "--search", "label:konflux-nudge")
+    raw_prs = call_gh(False, "pr","list","--json","number,headRefName", "--search", "label:konflux-nudge")
     pr_list = json.loads(raw_prs)
 
     for pr in pr_list:
@@ -114,15 +125,16 @@ print(merge_id)
 
 for pr_number in merge_id.values():
     print("call_gh", "pr", "edit", pr_number, "--base", curr_branch)
-    out=call_gh("pr", "edit", pr_number, "--base", curr_branch)
+    out=call_gh(test_mode, "pr", "edit", pr_number, "--base", curr_branch)
     print(out)
 
     print("call_gh", "pr", "merge", pr_number, "--merge")
-    out=call_gh("pr", "merge", pr_number, "--merge")
+    out=call_gh(test_mode, "pr", "merge", pr_number, "--merge")
     print(out)
 
-print("call_gh", "pr", "edit", curr_pr_id, "--add-label", "ok-to-build")
-call_gh("pr", "edit", str(curr_pr_id), "--add-label", "ok-to-build")
+print("call_gh", "pr", "edit", curr_pr_id, "--add-label", "ok-to-merge")
+
+call_gh(test_mode, "pr", "edit", str(curr_pr_id), "--add-label", "ok-to-merge")
 
  
 exit(0)
