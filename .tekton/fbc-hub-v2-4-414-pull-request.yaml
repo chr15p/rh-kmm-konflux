@@ -32,7 +32,7 @@ spec:
     - linux/arm64
     - linux/ppc64le
   - name: dockerfile
-    value: /fbc/Containerfile.catalogue.op
+    value: /fbc/Containerfile.catalogue.hub-v414
   - name: build-args-file
     value: "build_settings.conf"
   - name: build-args
