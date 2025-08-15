@@ -1,15 +1,17 @@
 # The base image is expected to contain /bin/opm (with a serve subcommand) and /bin/grpc_health_probe
-ARG OCP=4.14
-ARG VERSION=2.4
 ARG PACKAGE=kernel-module-management
+ARG OCP=4.19
+ARG VERSION
+ARG RELEASE
 
 FROM registry.redhat.io/ubi9/ubi-minimal:9.6 as builder
+ARG PACKAGE OCP VERSION RELEASE
 
 COPY . .
-RUN ./scripts/update_fbc.sh bundle-hack/operator-bundle.yaml fbc/op/kernel-module-management/catalog.json
+RUN ./scripts/update_fbc.sh ${PACKAGE} ${RELEASE} bundle-hack/operator-bundle.yaml fbc/op/kernel-module-management/catalog.json
 
 FROM registry.redhat.io/openshift4/ose-operator-registry:v${OCP}
-ARG OCP VERSION PACKAGE
+ARG PACKAGE OCP VERSION RELEASE
 
 ENTRYPOINT ["/bin/opm"]
 CMD ["serve", "/configs", "--cache-dir=/tmp/cache"]
