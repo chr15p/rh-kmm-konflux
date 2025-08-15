@@ -1,0 +1,22 @@
+name: Combine nudge PRs into one
+
+on: pull_request
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  setup-fbc:
+    runs-on: ubuntu-latest
+    #if: ${{ github.actor == 'red-hat-konflux[bot]' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          ref: ${{ github.head_ref }}
+      - name: setup fbc
+        run: scripts/setup-fbc.sh
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
