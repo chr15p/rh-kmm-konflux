@@ -8,7 +8,7 @@ FROM registry.redhat.io/ubi9/ubi-minimal:9.6 as builder
 ARG PACKAGE OCP VERSION RELEASE
 
 COPY . .
-RUN ./scripts/update_fbc.sh bundle-hack/operator-bundle.yaml fbc/op/kernel-module-management/catalog.json
+RUN ./scripts/update_fbc.sh ${PACKAGE} ${RELEASE} bundle-hack/operator-bundle.yaml fbc/op/kernel-module-management/catalog.json
 
 FROM registry.redhat.io/openshift4/ose-operator-registry-rhel9:v${OCP}
 ARG PACKAGE OCP VERSION RELEASE
