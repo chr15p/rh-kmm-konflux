@@ -3,20 +3,24 @@ ARG PACKAGE=kernel-module-management
 ARG OCP=4.19
 ARG VERSION
 ARG RELEASE
+ARG FBC_CONFIG=fbc/op/
 
-FROM registry.redhat.io/ubi9/ubi-minimal:9.6 as builder
-ARG PACKAGE OCP VERSION RELEASE
+FROM registry.redhat.io/openshift4/ose-operator-registry-rhel9:v${OCP} as builder
+#FROM quay.io/operator-framework/opm:latest as builder
+ARG PACKAGE OCP VERSION RELEASE FBC_CONFIG
 
-COPY . .
-RUN ./scripts/update_fbc.sh ${PACKAGE} ${RELEASE} bundle-hack/operator-bundle.yaml fbc/op-migrated/${PACKAGE}/catalog.json
+USER root
+COPY . /configs/
+RUN opm alpha render-template basic /configs/fbc/op-catalog-template.json > /configs/fbc/op/kernel-module-management/catalog.json
+
 
 FROM registry.redhat.io/openshift4/ose-operator-registry-rhel9:v${OCP}
-ARG PACKAGE OCP VERSION RELEASE
+ARG PACKAGE OCP VERSION RELEASE FBC_CONFIG
 
 ENTRYPOINT ["/bin/opm"]
 CMD ["serve", "/configs", "--cache-dir=/tmp/cache"]
 
-COPY --from=builder fbc/op-migrated/ /configs/
+COPY --from=builder /configs/fbc/op/  /configs/
 
 RUN ["/bin/opm", "serve", "/configs", "--cache-dir=/tmp/cache", "--cache-only"]
 
