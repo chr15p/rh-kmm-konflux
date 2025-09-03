@@ -11,7 +11,8 @@ ARG PACKAGE OCP VERSION RELEASE FBC_CONFIG
 
 USER root
 COPY . /configs/
-RUN opm alpha render-template basic /configs/fbc/op-catalog-template.json > /configs/fbc/op/kernel-module-management/catalog.json
+#RUN opm alpha render-template basic /configs/fbc/op-catalog-template.json > /configs/fbc/op/kernel-module-management/catalog.json
+RUN  --mount=type=secret,id=kmm-konflux-fbc/.dockerconfigjson  export REGISTRY_AUTH_FILE=/kmm-konflux-fbc/.dockerconfigjson && opm alpha render-template basic /configs/fbc/op-catalog-template.json > /tmp/catalog.json
 
 
 FROM registry.redhat.io/openshift4/ose-operator-registry-rhel9:v${OCP}
@@ -20,7 +21,9 @@ ARG PACKAGE OCP VERSION RELEASE FBC_CONFIG
 ENTRYPOINT ["/bin/opm"]
 CMD ["serve", "/configs", "--cache-dir=/tmp/cache"]
 
-COPY --from=builder /configs/fbc/op/  /configs/
+#COPY --from=builder /configs/fbc/op/  /configs/
+RUN mkdir -p /configs/$PACKAGE
+COPY --from=builder /tmp/catalog.json /configs/$PACKAGE
 
 RUN ["/bin/opm", "serve", "/configs", "--cache-dir=/tmp/cache", "--cache-only"]
 
