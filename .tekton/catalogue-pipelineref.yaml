@@ -44,7 +44,7 @@ spec:
       description: Skip checks against built image
       name: skip-checks
       type: string
-    - default: 'true'
+    - default: 'false'
       description: Execute the build with network isolation
       name: hermetic
       type: string
@@ -196,6 +196,8 @@ spec:
         value: $(tasks.prefetch-dependencies.results.CACHI2_ARTIFACT)
       - name: IMAGE_APPEND_PLATFORM
         value: 'true'
+      - name: ADDITIONAL_SECRET
+        value: kmm-konflux-fbc
       runAfter:
       - clone-repository
       taskRef:
