@@ -4,11 +4,6 @@ ARG OCP=4.19
 ARG VERSION
 ARG RELEASE
 
-FROM registry.redhat.io/ubi9/ubi-minimal:9.6 as builder
-ARG PACKAGE OCP VERSION RELEASE
-
-COPY . .
-RUN ./scripts/update_fbc.sh ${PACKAGE} ${RELEASE} bundle-hack/operator-bundle.yaml fbc/op-migrated/${PACKAGE}/catalog.json
 
 FROM registry.redhat.io/openshift4/ose-operator-registry-rhel9:v${OCP}
 ARG PACKAGE OCP VERSION RELEASE
@@ -16,7 +11,7 @@ ARG PACKAGE OCP VERSION RELEASE
 ENTRYPOINT ["/bin/opm"]
 CMD ["serve", "/configs", "--cache-dir=/tmp/cache"]
 
-COPY --from=builder fbc/op-migrated/ /configs/
+COPY fbc/op-migrated/ /configs/
 
 RUN ["/bin/opm", "serve", "/configs", "--cache-dir=/tmp/cache", "--cache-only"]
 
