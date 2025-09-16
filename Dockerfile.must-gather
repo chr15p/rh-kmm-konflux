@@ -2,7 +2,7 @@ FROM quay.io/openshift/origin-cli:4.21 as builder
 #FROM registry-proxy.engineering.redhat.com/rh-osbs/openshift-ose-cli:v4.16.0-202405020546.p0.g51e5705.assembly.stream.el8 AS builder
 
 #@follow_tag(registry.redhat.io/rhel9-4-els/rhel-minimal:9.4)
-FROM registry.redhat.io/ubi9/ubi-minimal:9.5
+FROM registry.redhat.io/ubi9/ubi-minimal:9.6
 
 RUN microdnf update -y \
     && microdnf install -y tar rsync findutils gzip iproute util-linux \
